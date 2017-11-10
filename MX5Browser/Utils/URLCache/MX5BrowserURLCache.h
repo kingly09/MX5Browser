@@ -31,8 +31,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MX5BrowserUtil : NSObject
-
+/**
+ sha1 加密算法
+ @param str 需要加密的字符串
+ @return 返回加密字符串
+ */
 + (NSString *)sha1:(NSString *)str;
+
+/**
+ MD5Hash加密算法
+ 
+ @param str 需要加密的字符串
+ @return 加密字符串
+ */
 + (NSString *)md5Hash:(NSString *)str;
 
 @end
@@ -46,10 +57,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, retain) NSString *diskPath;   //磁盘地址
 @property(nonatomic, retain) NSMutableDictionary *responseDictionary;
 
-//设置URLCache
+
+/**
+ 设置网页缓存
+
+ @param memoryCapacity 分配的内存空间大小 例如 20m （20 * 1024 * 1024）
+ @param diskCapacity  分配磁盘空间大小 例如 200m （ 200 * 1024 * 1024）
+ @param path 设置磁盘路径地址，如果没有设置为NSCachesDirectory路径
+ @param cacheTime 缓存网页的时间
+ @return 返回带有缓存的网页
+ */
 - (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(NSString *)path cacheTime:(NSInteger)cacheTime;
 
-
+/**
+ 清理缓存的方法，这个方法会清除缓存类型为HTML类型的文件
+ */
 - (void)clearHtmlCache;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER (MX5BrowserURLCache)
