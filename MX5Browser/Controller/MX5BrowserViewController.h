@@ -29,6 +29,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 整个浏览器的主框架
+ */
 @interface MX5BrowserViewController : UIViewController
 
 NS_ASSUME_NONNULL_END

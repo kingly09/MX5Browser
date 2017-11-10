@@ -29,6 +29,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 浏览器底部菜单栏
+ */
 @interface MX5BottomToolBar : UIToolbar
 
 

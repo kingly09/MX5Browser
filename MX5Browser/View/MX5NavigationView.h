@@ -29,6 +29,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 浏览器导航条
+ */
 @interface MX5NavigationView : UIView
 
 NS_ASSUME_NONNULL_END
