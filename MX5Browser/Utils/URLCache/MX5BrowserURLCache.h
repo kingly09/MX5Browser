@@ -26,6 +26,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MX5Browser.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,6 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 //设置URLCache
 - (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(NSString *)path cacheTime:(NSInteger)cacheTime;
 
+
+- (void)clearHtmlCache;
+
+SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER (MX5BrowserURLCache)
+
 NS_ASSUME_NONNULL_END
+
 
 @end
