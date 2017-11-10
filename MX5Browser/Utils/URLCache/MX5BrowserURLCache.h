@@ -27,6 +27,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MX5BrowserUtil : NSObject
 
 + (NSString *)sha1:(NSString *)str;
@@ -46,5 +48,6 @@
 //设置URLCache
 - (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(NSString *)path cacheTime:(NSInteger)cacheTime;
 
+NS_ASSUME_NONNULL_END
 
 @end

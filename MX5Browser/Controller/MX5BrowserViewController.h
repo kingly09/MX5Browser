@@ -27,6 +27,10 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MX5BrowserViewController : UIViewController
+
+NS_ASSUME_NONNULL_END
 
 @end
