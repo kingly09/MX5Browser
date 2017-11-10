@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AE992655056F3C3BA5B3B4E /* Pods_MX5BrowserOCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B10F7643F7246A22BF81A51 /* Pods_MX5BrowserOCUITests.framework */; };
+		4138D1B6213AE69EEEA6D491 /* Pods_MX5BrowserOCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716FD57A49FD2772BFB3FE57 /* Pods_MX5BrowserOCTests.framework */; };
+		5D72B0EBA82B926EDCB91CC7 /* Pods_MX5BrowserOC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C15B1CAFEFD6E0F81255361 /* Pods_MX5BrowserOC.framework */; };
 		BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A021FB546CC00179FAE /* AppDelegate.m */; };
 		BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A051FB546CC00179FAE /* ViewController.m */; };
 		BC1D8A091FB546CC00179FAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1D8A071FB546CC00179FAE /* Main.storyboard */; };
@@ -19,7 +22,6 @@
 		BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */; };
 		BC1D8A3F1FB55B6200179FAE /* MX5NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */; };
 		BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */; };
-		BC1D8A5D1FB585A200179FAE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A5B1FB585A200179FAE /* Reachability.m */; };
 		BC1D8A601FB5861500179FAE /* MX5BrowserURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A5F1FB5861500179FAE /* MX5BrowserURLCache.m */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040E11C691A1AA1B182465FC /* Pods-MX5BrowserOC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC.debug.xcconfig"; sourceTree = "<group>"; };
+		171659BF127B7C97FD2B73B4 /* Pods-MX5BrowserOCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCTests/Pods-MX5BrowserOCTests.debug.xcconfig"; sourceTree = "<group>"; };
+		25609E58F4FA33C036A19675 /* Pods-MX5BrowserOCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3E80C0CC781C166C56FB4B13 /* Pods-MX5BrowserOC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOC.release.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC.release.xcconfig"; sourceTree = "<group>"; };
+		6B10F7643F7246A22BF81A51 /* Pods_MX5BrowserOCUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MX5BrowserOCUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C15B1CAFEFD6E0F81255361 /* Pods_MX5BrowserOC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MX5BrowserOC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		716FD57A49FD2772BFB3FE57 /* Pods_MX5BrowserOCTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MX5BrowserOCTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A84990F66682BE2BE369CFA /* Pods-MX5BrowserOCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCTests/Pods-MX5BrowserOCTests.release.xcconfig"; sourceTree = "<group>"; };
 		BC1D89FE1FB546CC00179FAE /* MX5BrowserOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MX5BrowserOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D8A011FB546CC00179FAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC1D8A021FB546CC00179FAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -66,10 +76,9 @@
 		BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5NavigationView.m; sourceTree = "<group>"; };
 		BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BottomToolBar.h; sourceTree = "<group>"; };
 		BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BottomToolBar.m; sourceTree = "<group>"; };
-		BC1D8A5A1FB585A200179FAE /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		BC1D8A5B1FB585A200179FAE /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		BC1D8A5E1FB5861500179FAE /* MX5BrowserURLCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserURLCache.h; sourceTree = "<group>"; };
 		BC1D8A5F1FB5861500179FAE /* MX5BrowserURLCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserURLCache.m; sourceTree = "<group>"; };
+		D1103513EC1D434B66BCA0CB /* Pods-MX5BrowserOCUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D72B0EBA82B926EDCB91CC7 /* Pods_MX5BrowserOC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4138D1B6213AE69EEEA6D491 /* Pods_MX5BrowserOCTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,12 +102,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AE992655056F3C3BA5B3B4E /* Pods_MX5BrowserOCUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0674AF02AD4E5E98249B3386 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C15B1CAFEFD6E0F81255361 /* Pods_MX5BrowserOC.framework */,
+				716FD57A49FD2772BFB3FE57 /* Pods_MX5BrowserOCTests.framework */,
+				6B10F7643F7246A22BF81A51 /* Pods_MX5BrowserOCUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76DA439544C3F449C86A9333 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				040E11C691A1AA1B182465FC /* Pods-MX5BrowserOC.debug.xcconfig */,
+				3E80C0CC781C166C56FB4B13 /* Pods-MX5BrowserOC.release.xcconfig */,
+				171659BF127B7C97FD2B73B4 /* Pods-MX5BrowserOCTests.debug.xcconfig */,
+				7A84990F66682BE2BE369CFA /* Pods-MX5BrowserOCTests.release.xcconfig */,
+				D1103513EC1D434B66BCA0CB /* Pods-MX5BrowserOCUITests.debug.xcconfig */,
+				25609E58F4FA33C036A19675 /* Pods-MX5BrowserOCUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BC1D89F51FB546CC00179FAE = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +139,8 @@
 				BC1D8A191FB546CC00179FAE /* MX5BrowserOCTests */,
 				BC1D8A241FB546CC00179FAE /* MX5BrowserOCUITests */,
 				BC1D89FF1FB546CC00179FAE /* Products */,
+				76DA439544C3F449C86A9333 /* Pods */,
+				0674AF02AD4E5E98249B3386 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -197,8 +234,6 @@
 		BC1D8A571FB585A200179FAE /* URLCache */ = {
 			isa = PBXGroup;
 			children = (
-				BC1D8A5A1FB585A200179FAE /* Reachability.h */,
-				BC1D8A5B1FB585A200179FAE /* Reachability.m */,
 				BC1D8A5E1FB5861500179FAE /* MX5BrowserURLCache.h */,
 				BC1D8A5F1FB5861500179FAE /* MX5BrowserURLCache.m */,
 			);
@@ -212,9 +247,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC1D8A2A1FB546CC00179FAE /* Build configuration list for PBXNativeTarget "MX5BrowserOC" */;
 			buildPhases = (
+				D2F46282CD8155122FD3C3AA /* [CP] Check Pods Manifest.lock */,
 				BC1D89FA1FB546CC00179FAE /* Sources */,
 				BC1D89FB1FB546CC00179FAE /* Frameworks */,
 				BC1D89FC1FB546CC00179FAE /* Resources */,
+				B3ABA547950EBF7C3E4ECB21 /* [CP] Embed Pods Frameworks */,
+				E413598A47C17C56572B2BED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -229,9 +267,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC1D8A2D1FB546CC00179FAE /* Build configuration list for PBXNativeTarget "MX5BrowserOCTests" */;
 			buildPhases = (
+				A36064599D05CF3F562F31B7 /* [CP] Check Pods Manifest.lock */,
 				BC1D8A121FB546CC00179FAE /* Sources */,
 				BC1D8A131FB546CC00179FAE /* Frameworks */,
 				BC1D8A141FB546CC00179FAE /* Resources */,
+				32B76D131E80492BFF724312 /* [CP] Embed Pods Frameworks */,
+				557316EC086DDAEA8F486902 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -247,9 +288,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC1D8A301FB546CC00179FAE /* Build configuration list for PBXNativeTarget "MX5BrowserOCUITests" */;
 			buildPhases = (
+				C2FA3549046E92761DE5327B /* [CP] Check Pods Manifest.lock */,
 				BC1D8A1D1FB546CC00179FAE /* Sources */,
 				BC1D8A1E1FB546CC00179FAE /* Frameworks */,
 				BC1D8A1F1FB546CC00179FAE /* Resources */,
+				39E2274033620182BB496353 /* [CP] Embed Pods Frameworks */,
+				EEFD38BF5C0479FBCD4A1678 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -334,6 +378,158 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		32B76D131E80492BFF724312 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOCTests/Pods-MX5BrowserOCTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39E2274033620182BB496353 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		557316EC086DDAEA8F486902 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOCTests/Pods-MX5BrowserOCTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A36064599D05CF3F562F31B7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MX5BrowserOCTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3ABA547950EBF7C3E4ECB21 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2FA3549046E92761DE5327B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MX5BrowserOCUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2F46282CD8155122FD3C3AA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MX5BrowserOC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E413598A47C17C56572B2BED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEFD38BF5C0479FBCD4A1678 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BC1D89FA1FB546CC00179FAE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -346,7 +542,6 @@
 				BC1D8A3F1FB55B6200179FAE /* MX5NavigationView.m in Sources */,
 				BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */,
 				BC1D8A601FB5861500179FAE /* MX5BrowserURLCache.m in Sources */,
-				BC1D8A5D1FB585A200179FAE /* Reachability.m in Sources */,
 				BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,6 +703,7 @@
 		};
 		BC1D8A2B1FB546CC00179FAE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 040E11C691A1AA1B182465FC /* Pods-MX5BrowserOC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -523,6 +719,7 @@
 		};
 		BC1D8A2C1FB546CC00179FAE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E80C0CC781C166C56FB4B13 /* Pods-MX5BrowserOC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -538,6 +735,7 @@
 		};
 		BC1D8A2E1FB546CC00179FAE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 171659BF127B7C97FD2B73B4 /* Pods-MX5BrowserOCTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -553,6 +751,7 @@
 		};
 		BC1D8A2F1FB546CC00179FAE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A84990F66682BE2BE369CFA /* Pods-MX5BrowserOCTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -568,6 +767,7 @@
 		};
 		BC1D8A311FB546CC00179FAE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1103513EC1D434B66BCA0CB /* Pods-MX5BrowserOCUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KE5MJRYE2S;
@@ -582,6 +782,7 @@
 		};
 		BC1D8A321FB546CC00179FAE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25609E58F4FA33C036A19675 /* Pods-MX5BrowserOCUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KE5MJRYE2S;

@@ -26,8 +26,9 @@
 //
 
 #import "MX5BrowserURLCache.h"
-#import "Reachability.h"
+#import <Reachability/Reachability.h>
 #import <CommonCrypto/CommonDigest.h>
+#import "MX5Browser.h"
 
 @implementation MX5BrowserUtil
 
@@ -179,7 +180,7 @@
         }
         
         if (expire == false) {
-            NSLog(@"data from cache ...");
+            DDLogDebug(@"data from cache ...");
             
             NSData *data = [NSData dataWithContentsOfFile:filePath];
             NSURLResponse *response = [[NSURLResponse alloc] initWithURL:request.URL
@@ -189,13 +190,13 @@
             NSCachedURLResponse *cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:data];
             return cachedResponse;
         } else {
-            NSLog(@"cache expire ... ");
+            DDLogDebug(@"cache expire ... ");
             
             [fileManager removeItemAtPath:filePath error:nil];
             [fileManager removeItemAtPath:otherInfoPath error:nil];
         }
     }
-    if (![Reachability networkAvailable]) {
+    if (![self networkAvailable]) {
         return nil;
     }
     __block NSCachedURLResponse *cachedResponse = nil;
@@ -211,12 +212,12 @@
                  [self.responseDictionary removeObjectForKey:url];
                  
                  if (error) {
-                     NSLog(@"error : %@", error);
-                     NSLog(@"not cached: %@", request.URL.absoluteString);
+                     DDLogDebug(@"error : %@", error);
+                     DDLogDebug(@"not cached: %@", request.URL.absoluteString);
                      cachedResponse = nil;
                  }
                  
-                 NSLog(@"cache url --- %@ ",url);
+                 DDLogDebug(@"cache url --- %@ ",url);
                  
                  //save to cache
                  NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", [date timeIntervalSince1970]], @"time",
@@ -231,10 +232,23 @@
          }];
         
         return cachedResponse;
-        //NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     }
     return nil;
 }
 
+
+/**
+ * 检查当前网络连接
+ */
+- (BOOL)networkAvailable
+{
+    if ([[Reachability reachabilityForLocalWiFi] currentReachabilityStatus] != NotReachable) {
+        return YES;
+    }
+    if ([[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable) {
+        return YES;
+    }
+    return NO;
+}
 
 @end

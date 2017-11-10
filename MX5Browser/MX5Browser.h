@@ -28,11 +28,21 @@
 #ifndef MX5Browser_h
 #define MX5Browser_h
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#if DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelError;
+#endif
+
+
 #import "MX5WebView.h"
 #import "MX5NavigationView.h"
 #import "MX5BrowserURLCache.h"
 #import "MX5BottomToolBar.h"
 #import "MX5BrowserViewController.h"
+
+
 
 #pragma mark - WEAK、STRONG
 

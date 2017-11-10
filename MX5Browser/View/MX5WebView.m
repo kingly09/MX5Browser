@@ -57,14 +57,42 @@
 
 @end
 
+@interface MX5WebView()
+
+
+@end
+
 @implementation MX5WebView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self initWKWebView];
+    }
+    return self;
 }
-*/
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self){
+        [self initWKWebView];
+    }
+    return self;
+}
+
+/**
+ 初始化WKWebView视图
+ */
+-(void)initWKWebView {
+    
+    [self setFrame:self.bounds];
+    [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    
+}
+
+-(void)dealloc {
+    
+    
+}
 
 @end
