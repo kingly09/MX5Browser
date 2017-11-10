@@ -15,6 +15,11 @@
 		BC1D8A111FB546CC00179FAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A101FB546CC00179FAE /* main.m */; };
 		BC1D8A1B1FB546CC00179FAE /* MX5BrowserOCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A1A1FB546CC00179FAE /* MX5BrowserOCTests.m */; };
 		BC1D8A261FB546CC00179FAE /* MX5BrowserOCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A251FB546CC00179FAE /* MX5BrowserOCUITests.m */; };
+		BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A381FB5553700179FAE /* MX5WebView.m */; };
+		BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */; };
+		BC1D8A3F1FB55B6200179FAE /* MX5NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */; };
+		BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */; };
+		BC1D8A4F1FB56BA300179FAE /* MX5BrowserURLCahe.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A4E1FB56BA300179FAE /* MX5BrowserURLCahe.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,17 @@
 		BC1D8A211FB546CC00179FAE /* MX5BrowserOCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MX5BrowserOCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D8A251FB546CC00179FAE /* MX5BrowserOCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserOCUITests.m; sourceTree = "<group>"; };
 		BC1D8A271FB546CC00179FAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC1D8A361FB549CD00179FAE /* MX5Browser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5Browser.h; sourceTree = "<group>"; };
+		BC1D8A371FB5553700179FAE /* MX5WebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5WebView.h; sourceTree = "<group>"; };
+		BC1D8A381FB5553700179FAE /* MX5WebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5WebView.m; sourceTree = "<group>"; };
+		BC1D8A3A1FB559F700179FAE /* MX5BrowserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserViewController.h; sourceTree = "<group>"; };
+		BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserViewController.m; sourceTree = "<group>"; };
+		BC1D8A3D1FB55B6200179FAE /* MX5NavigationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5NavigationView.h; sourceTree = "<group>"; };
+		BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5NavigationView.m; sourceTree = "<group>"; };
+		BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BottomToolBar.h; sourceTree = "<group>"; };
+		BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BottomToolBar.m; sourceTree = "<group>"; };
+		BC1D8A4D1FB56BA300179FAE /* MX5BrowserURLCahe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserURLCahe.h; sourceTree = "<group>"; };
+		BC1D8A4E1FB56BA300179FAE /* MX5BrowserURLCahe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserURLCahe.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +117,7 @@
 		BC1D8A001FB546CC00179FAE /* MX5BrowserOC */ = {
 			isa = PBXGroup;
 			children = (
+				BC1D8A331FB549B400179FAE /* MX5Browser */,
 				BC1D8A011FB546CC00179FAE /* AppDelegate.h */,
 				BC1D8A021FB546CC00179FAE /* AppDelegate.m */,
 				BC1D8A041FB546CC00179FAE /* ViewController.h */,
@@ -130,6 +147,49 @@
 				BC1D8A271FB546CC00179FAE /* Info.plist */,
 			);
 			path = MX5BrowserOCUITests;
+			sourceTree = "<group>";
+		};
+		BC1D8A331FB549B400179FAE /* MX5Browser */ = {
+			isa = PBXGroup;
+			children = (
+				BC1D8A491FB56ACF00179FAE /* Utils */,
+				BC1D8A351FB549B400179FAE /* View */,
+				BC1D8A341FB549B400179FAE /* Controller */,
+				BC1D8A361FB549CD00179FAE /* MX5Browser.h */,
+			);
+			name = MX5Browser;
+			path = ../../MX5Browser;
+			sourceTree = "<group>";
+		};
+		BC1D8A341FB549B400179FAE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BC1D8A3A1FB559F700179FAE /* MX5BrowserViewController.h */,
+				BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BC1D8A351FB549B400179FAE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC1D8A371FB5553700179FAE /* MX5WebView.h */,
+				BC1D8A381FB5553700179FAE /* MX5WebView.m */,
+				BC1D8A3D1FB55B6200179FAE /* MX5NavigationView.h */,
+				BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */,
+				BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */,
+				BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BC1D8A491FB56ACF00179FAE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BC1D8A4D1FB56BA300179FAE /* MX5BrowserURLCahe.h */,
+				BC1D8A4E1FB56BA300179FAE /* MX5BrowserURLCahe.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,8 +326,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC1D8A4F1FB56BA300179FAE /* MX5BrowserURLCahe.m in Sources */,
+				BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */,
 				BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */,
 				BC1D8A111FB546CC00179FAE /* main.m in Sources */,
+				BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */,
+				BC1D8A3F1FB55B6200179FAE /* MX5NavigationView.m in Sources */,
+				BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */,
 				BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
