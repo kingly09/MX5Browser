@@ -1,2 +1,2 @@
 # MX5Browser
-MX5Browser是一个基于WKWebView框架的定制浏览器
+MX5Browser是基于WKWebView内核的app内置web浏览器 
