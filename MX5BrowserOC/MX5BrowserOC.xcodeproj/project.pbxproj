@@ -19,7 +19,6 @@
 		BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */; };
 		BC1D8A3F1FB55B6200179FAE /* MX5NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */; };
 		BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */; };
-		BC1D8A531FB56C5D00179FAE /* MX5BrowserURLCahe.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A511FB56C5D00179FAE /* MX5BrowserURLCahe.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,8 +64,6 @@
 		BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5NavigationView.m; sourceTree = "<group>"; };
 		BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BottomToolBar.h; sourceTree = "<group>"; };
 		BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BottomToolBar.m; sourceTree = "<group>"; };
-		BC1D8A511FB56C5D00179FAE /* MX5BrowserURLCahe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserURLCahe.m; sourceTree = "<group>"; };
-		BC1D8A521FB56C5D00179FAE /* MX5BrowserURLCahe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MX5BrowserURLCahe.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,18 +183,8 @@
 		BC1D8A491FB56ACF00179FAE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				BC1D8A501FB56C2D00179FAE /* URLCahe */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		BC1D8A501FB56C2D00179FAE /* URLCahe */ = {
-			isa = PBXGroup;
-			children = (
-				BC1D8A521FB56C5D00179FAE /* MX5BrowserURLCahe.h */,
-				BC1D8A511FB56C5D00179FAE /* MX5BrowserURLCahe.m */,
-			);
-			path = URLCahe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,7 +321,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC1D8A531FB56C5D00179FAE /* MX5BrowserURLCahe.m in Sources */,
 				BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */,
 				BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */,
 				BC1D8A111FB546CC00179FAE /* main.m in Sources */,
