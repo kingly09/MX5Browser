@@ -1,5 +1,5 @@
 //
-//  MX5BrowserURLCahe.h
+//  MX5BrowserURLCache.h
 //  MX5BrowserOC
 //
 //  Created by kingly on 2017/11/10.
@@ -27,15 +27,24 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- 浏览器URL
- */
-@interface MX5BrowserURLCahe : NSURLCache
+@interface MX5BrowserUtil : NSObject
 
-@property(nonatomic, assign) NSInteger cacheTime;
-@property(nonatomic, retain) NSString *diskPath;
++ (NSString *)sha1:(NSString *)str;
++ (NSString *)md5Hash:(NSString *)str;
+
+@end
+
+/**
+ 浏览器URLCache
+ */
+@interface MX5BrowserURLCache : NSURLCache
+
+@property(nonatomic, assign) NSInteger cacheTime;  //缓存时间
+@property(nonatomic, retain) NSString *diskPath;   //磁盘地址
 @property(nonatomic, retain) NSMutableDictionary *responseDictionary;
 
+//设置URLCache
 - (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(NSString *)path cacheTime:(NSInteger)cacheTime;
+
 
 @end
