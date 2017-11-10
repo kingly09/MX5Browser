@@ -27,6 +27,36 @@
 
 #import "MX5WebView.h"
 
+@interface MX5BrowserProcessPool()
+@property (nonatomic, strong) WKProcessPool *pool;
+@end
+
+@implementation MX5BrowserProcessPool
+
++ (instancetype)sharedInstance{
+    static id sharedInstance;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        sharedInstance= [[self alloc] initPrivate];
+    });
+    return sharedInstance;
+}
+
+- (instancetype)initPrivate
+{
+    self = [super init];
+    if (self) {
+        self.pool = [WKProcessPool new];
+    }
+    return self;
+}
+
+- (WKProcessPool *)defaultPool{
+    return self.pool;
+}
+
+@end
+
 @implementation MX5WebView
 
 /*

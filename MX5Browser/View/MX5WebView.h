@@ -26,10 +26,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+/**
+ MX5共享一个pool 用以cookies共享
+ */
+@interface MX5BrowserProcessPool : NSObject
+
++ (instancetype)sharedInstance;
+
+- (WKProcessPool *)defaultPool;
+
+@end
 
 /**
  基于WKWebView的网页的渲染与展示
