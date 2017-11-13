@@ -26,6 +26,7 @@
 //
 
 #import "ViewController.h"
+#import "MX5BrowserViewController.h"
 
 @interface ViewController ()
 

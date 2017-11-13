@@ -26,7 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MX5Browser.h"
 NS_ASSUME_NONNULL_BEGIN
 
 /**

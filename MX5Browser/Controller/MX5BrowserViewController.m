@@ -43,6 +43,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    
+    DDLogDebug(@" MX5BrowserViewController dealloc ");
+}
 /*
 #pragma mark - Navigation
 

@@ -35,6 +35,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 #endif
 
+#pragma mark - view and Controller
 
 #import "MX5WebView.h"
 #import "MX5NavigationView.h"
@@ -43,6 +44,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #import "MX5BrowserViewController.h"
 
 
+#pragma mark - Convienence
+
+#define KBrowserVC  [MX5BrowserViewController sharedInstance]
 
 #pragma mark - WEAK、STRONG
 
