@@ -99,6 +99,40 @@
     self.UIDelegate = self;
     self.scrollView.delegate = self;
     
+    //设置网页的配置文件
+    WKWebViewConfiguration * Configuration = [[WKWebViewConfiguration alloc]init];
+    //这个值决定了从这个页面是否可以Air Play
+     if (@available(iOS 9.0, *)) {
+         Configuration.allowsAirPlayForMediaPlayback = YES;
+         // 在iPhone和iPad上默认使YES。这个值决定了HTML5视频可以自动播放还是需要用户去启动播放
+         Configuration.requiresUserActionForMediaPlayback = NO;
+     }
+    // 允许在线播放 ,默认使NO。这个值决定了用内嵌HTML5播放视频还是用本地的全屏控制。为了内嵌视频播放，不仅仅需要在这个页面上设置这个属性，还必须的是在HTML中的video元素必须包含webkit-playsinline属性。
+    if (@available(iOS 11.0, *)) {
+        Configuration.allowsInlineMediaPlayback = YES;
+    }else{
+        Configuration.allowsInlineMediaPlayback = NO;
+    }
+    Configuration.allowsInlineMediaPlayback = YES;
+    
+    // 创建设置对象
+    WKPreferences *preference = [[WKPreferences alloc]init];
+    // 设置字体大小(最小的字体大小)
+    //preference.minimumFontSize = self.minimumFontSize;
+    // 设置偏好设置对象
+    Configuration.preferences = preference;
+    
+    // 允许可以与网页交互，选择视图
+    Configuration.selectionGranularity = YES;
+    // web内容处理池(共享一个pool 用以cookies共享)
+    Configuration.processPool = [[MX5BrowserProcessPool sharedInstance] defaultPool];
+    //自定义配置,一般用于 js调用oc方法(OC拦截URL中的数据做自定义操作)
+    WKUserContentController * UserContentController = [[WKUserContentController alloc]init];
+    
+    // 是否支持记忆读取
+    Configuration.suppressesIncrementalRendering = YES;
+    // 允许用户更改网页的设置
+    Configuration.userContentController = UserContentController;
 }
 
 -(void)dealloc {
