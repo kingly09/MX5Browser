@@ -37,10 +37,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #pragma mark - view and Controller
 
-#import "MX5WebView.h"
-#import "MX5NavigationView.h"
-#import "MX5BrowserURLCache.h"
-#import "MX5BottomToolBar.h"
 #import "MX5BrowserViewController.h"
 
 
