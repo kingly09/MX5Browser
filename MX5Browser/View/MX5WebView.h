@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  基于WKWebView的网页的渲染与展示
  */
-@interface MX5WebView : WKWebView
+@interface MX5WebView : WKWebView <WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 
 
 NS_ASSUME_NONNULL_END

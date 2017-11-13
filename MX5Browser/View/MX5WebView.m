@@ -60,6 +60,11 @@
 
 @interface MX5WebView()
 
+//设置加载进度条
+@property (nonatomic,strong) UIProgressView *progressView;
+
+@property (nonatomic, strong) NSURLRequest *originRequest;
+@property (nonatomic, strong) NSURLRequest *request;
 
 @end
 
@@ -89,6 +94,11 @@
     [self setFrame:self.bounds];
     [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     
+    // 设置代理
+    self.navigationDelegate = self;
+    self.UIDelegate = self;
+    self.scrollView.delegate = self;
+    
 }
 
 -(void)dealloc {
@@ -96,5 +106,104 @@
     DDLogDebug(@"MX5WebView dealloc");
     
 }
+
+#pragma mark - 对外接口
+
+-(UIScrollView *)scrollView {
+    return [self scrollView];
+}
+
+
+
+#pragma mark - Cookie有关
+
+- (void)injectCookies:(NSMutableURLRequest *)request{
+    [self resetCookieForHeaderFields:request];
+    [self addUserCookieScript:request];
+}
+
+// 修改请求头的Cookie
+- (void)resetCookieForHeaderFields:(NSMutableURLRequest *)request{
+    NSArray *cookies = [self currentCookies:request];
+    NSDictionary *requestHeaderFields = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+    request.allHTTPHeaderFields = requestHeaderFields;
+}
+
+// 获取当前域名下的cookie
+- (NSArray *)currentCookies:(NSMutableURLRequest *)request{
+    NSArray *cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies;
+    NSString *validDomain = request.URL.host;
+    NSMutableArray *mutableArr = [NSMutableArray array];
+    for (NSHTTPCookie *cookie in cookies) {
+        if (![validDomain hasSuffix:cookie.domain]) {
+            continue;
+        }
+        [mutableArr addObject:cookie];
+    }
+    return mutableArr;
+}
+
+// 通过脚本出入cookie
+- (void)addUserCookieScript:(NSURLRequest *)request{
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    if (!cookies || cookies.count < 1) {
+        return;
+    }
+    NSString *cookieScript = [self injectLocalCookieScript];
+    WKUserScript *startScript = [[WKUserScript alloc]initWithSource:cookieScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [self.configuration.userContentController addUserScript:startScript];
+}
+
+- (NSString *)injectLocalCookieScript{
+    NSString *jsString = kInjectLocalCookieScript;
+    NSMutableString *cookieScript = [NSMutableString stringWithString:jsString];
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    for (NSHTTPCookie *cookie in cookies) {
+        if ([cookie.name isEqualToString:@"jk"]) {//不添加本地jk，一般页面会写入jk
+            continue;
+        }
+        NSString *name = cookie.name ?: @"";
+        NSString *value = cookie.value ?: @"";
+        NSString *domain = cookie.domain ?: @"";
+        NSString *path = cookie.path ?: @"/";
+        NSString *secure = cookie.secure ?@"true": @"false";
+        NSInteger days = 1;
+        if (cookie.expiresDate) {
+            NSTimeInterval seconds = [cookie.expiresDate timeIntervalSinceNow];
+            days = seconds/3600/24;
+        }
+        [cookieScript appendString:[NSString stringWithFormat:@"setCookieFromApp('%@', '%@', %ld, '%@','%@', %@);",name,value,(long)days,path,domain,secure]];
+    }
+    return cookieScript;
+}
+
+//防止Cookie丢失
+- (NSURLRequest *)fixRequest:(NSURLRequest *)request{
+    NSMutableURLRequest *fixedRequest;
+    if ([request isKindOfClass:[NSMutableURLRequest class]]) {
+        fixedRequest = (NSMutableURLRequest *)request;
+    } else {
+        fixedRequest = request.mutableCopy;
+    }
+    NSDictionary *dict = [NSHTTPCookie requestHeaderFieldsWithCookies:[self currentCookies:fixedRequest]];
+    if (dict.count) {
+        NSMutableDictionary *mDict = request.allHTTPHeaderFields.mutableCopy;
+        [mDict setValuesForKeysWithDictionary:dict];
+        fixedRequest.allHTTPHeaderFields = mDict;
+    }
+    return fixedRequest;
+}
+
+/**
+ 添加Cookie
+ @param completion 回调
+ */
+- (void)evaluateJavaScriptToAddCookie:(void(^)(void))completion{
+    NSString *cookieScript = [self injectLocalCookieScript];
+    [self evaluateJavaScript:cookieScript completionHandler:^(id _Nullable data, NSError * _Nullable error) {
+        completion();
+    }];
+}
+
 
 @end
