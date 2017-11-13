@@ -26,6 +26,7 @@
 //
 
 #import "MX5WebView.h"
+#import "MX5Browser.h"
 
 @interface MX5BrowserProcessPool()
 @property (nonatomic, strong) WKProcessPool *pool;
@@ -92,6 +93,7 @@
 
 -(void)dealloc {
     
+    DDLogDebug(@"MX5WebView dealloc");
     
 }
 
