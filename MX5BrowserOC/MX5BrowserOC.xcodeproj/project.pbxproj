@@ -10,6 +10,8 @@
 		1AE992655056F3C3BA5B3B4E /* Pods_MX5BrowserOCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B10F7643F7246A22BF81A51 /* Pods_MX5BrowserOCUITests.framework */; };
 		4138D1B6213AE69EEEA6D491 /* Pods_MX5BrowserOCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716FD57A49FD2772BFB3FE57 /* Pods_MX5BrowserOCTests.framework */; };
 		5D72B0EBA82B926EDCB91CC7 /* Pods_MX5BrowserOC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C15B1CAFEFD6E0F81255361 /* Pods_MX5BrowserOC.framework */; };
+		BC0A18DC1FBABD2000ABDEA0 /* NSString+MX5Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18DB1FBABD2000ABDEA0 /* NSString+MX5Browser.m */; };
+		BC0A18DF1FBABFCF00ABDEA0 /* MX5BrowserUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18DE1FBABFCF00ABDEA0 /* MX5BrowserUtils.m */; };
 		BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A021FB546CC00179FAE /* AppDelegate.m */; };
 		BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A051FB546CC00179FAE /* ViewController.m */; };
 		BC1D8A091FB546CC00179FAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1D8A071FB546CC00179FAE /* Main.storyboard */; };
@@ -50,6 +52,10 @@
 		6C15B1CAFEFD6E0F81255361 /* Pods_MX5BrowserOC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MX5BrowserOC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		716FD57A49FD2772BFB3FE57 /* Pods_MX5BrowserOCTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MX5BrowserOCTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A84990F66682BE2BE369CFA /* Pods-MX5BrowserOCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCTests/Pods-MX5BrowserOCTests.release.xcconfig"; sourceTree = "<group>"; };
+		BC0A18DA1FBABD2000ABDEA0 /* NSString+MX5Browser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MX5Browser.h"; sourceTree = "<group>"; };
+		BC0A18DB1FBABD2000ABDEA0 /* NSString+MX5Browser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MX5Browser.m"; sourceTree = "<group>"; };
+		BC0A18DD1FBABFCF00ABDEA0 /* MX5BrowserUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserUtils.h; sourceTree = "<group>"; };
+		BC0A18DE1FBABFCF00ABDEA0 /* MX5BrowserUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserUtils.m; sourceTree = "<group>"; };
 		BC1D89FE1FB546CC00179FAE /* MX5BrowserOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MX5BrowserOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D8A011FB546CC00179FAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC1D8A021FB546CC00179FAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -222,6 +228,10 @@
 			isa = PBXGroup;
 			children = (
 				BC1D8A571FB585A200179FAE /* URLCache */,
+				BC0A18DA1FBABD2000ABDEA0 /* NSString+MX5Browser.h */,
+				BC0A18DB1FBABD2000ABDEA0 /* NSString+MX5Browser.m */,
+				BC0A18DD1FBABFCF00ABDEA0 /* MX5BrowserUtils.h */,
+				BC0A18DE1FBABFCF00ABDEA0 /* MX5BrowserUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -531,9 +541,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */,
+				BC0A18DC1FBABD2000ABDEA0 /* NSString+MX5Browser.m in Sources */,
 				BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */,
 				BC1D8A111FB546CC00179FAE /* main.m in Sources */,
 				BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */,
+				BC0A18DF1FBABFCF00ABDEA0 /* MX5BrowserUtils.m in Sources */,
 				BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */,
 				BC1D8A601FB5861500179FAE /* MX5BrowserURLCache.m in Sources */,
 				BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */,
