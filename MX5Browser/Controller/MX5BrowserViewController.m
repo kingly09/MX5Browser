@@ -29,9 +29,11 @@
 #import "MX5Browser.h"
 #import "MX5WebView.h"
 #import "MX5BrowserURLCache.h"
+#import "MX5BottomToolBar.h"
 
 @interface MX5BrowserViewController ()<MX5WebViewDelegate>
 @property (nonatomic, strong) MX5WebView *webView;
+@property (nonatomic, strong) MX5BottomToolBar *bottomToolBar;
 
 //返回按钮
 @property (nonatomic) UIBarButtonItem *customBackBarItem;
@@ -47,19 +49,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self navigationItemView];
-   
+    
+    [self initializeView];
+    
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
      self.navigationController.navigationBarHidden = NO;
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:YES];
 }
-
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -80,6 +84,16 @@
 }
 
 #pragma mark - 初始化数据
+
+-(void)initializeView {
+    
+  [self navigationItemView];
+    
+    self.bottomToolBar = [[MX5BottomToolBar alloc] initWithFrame:CGRectMake(0, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT)];
+    [self.view addSubview:self.bottomToolBar];
+
+}
+
 /**
  初始化WebView
  */
@@ -195,6 +209,9 @@
     [self setupWebView];
     //加载数据
     [self loadViewData];
+    
+    //初始化视图
+    [self initializeView];
     
     [self.webView loadWebURLSring:urlString];
 }

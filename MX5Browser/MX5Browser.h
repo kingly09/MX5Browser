@@ -47,6 +47,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
 #define kNavBarHeight 44.0
 #define KBrowserVC  [MX5BrowserViewController sharedInstance]
+#define KBOTTOM_TOOL_BAR_HEIGHT 44
 
 #pragma mark - WEAK、STRONG
 

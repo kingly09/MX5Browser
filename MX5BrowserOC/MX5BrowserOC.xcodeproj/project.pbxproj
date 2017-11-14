@@ -10,8 +10,9 @@
 		1AE992655056F3C3BA5B3B4E /* Pods_MX5BrowserOCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B10F7643F7246A22BF81A51 /* Pods_MX5BrowserOCUITests.framework */; };
 		4138D1B6213AE69EEEA6D491 /* Pods_MX5BrowserOCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716FD57A49FD2772BFB3FE57 /* Pods_MX5BrowserOCTests.framework */; };
 		5D72B0EBA82B926EDCB91CC7 /* Pods_MX5BrowserOC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C15B1CAFEFD6E0F81255361 /* Pods_MX5BrowserOC.framework */; };
-		BC0A18DC1FBABD2000ABDEA0 /* NSString+MX5Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18DB1FBABD2000ABDEA0 /* NSString+MX5Browser.m */; };
 		BC0A18DF1FBABFCF00ABDEA0 /* MX5BrowserUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18DE1FBABFCF00ABDEA0 /* MX5BrowserUtils.m */; };
+		BC0A18E41FBAD30900ABDEA0 /* NSString+MX5Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18E31FBAD30900ABDEA0 /* NSString+MX5Browser.m */; };
+		BC0A18EA1FBAD34600ABDEA0 /* MX5BrowserURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18E81FBAD34600ABDEA0 /* MX5BrowserURLCache.m */; };
 		BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A021FB546CC00179FAE /* AppDelegate.m */; };
 		BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A051FB546CC00179FAE /* ViewController.m */; };
 		BC1D8A091FB546CC00179FAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1D8A071FB546CC00179FAE /* Main.storyboard */; };
@@ -23,7 +24,6 @@
 		BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A381FB5553700179FAE /* MX5WebView.m */; };
 		BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */; };
 		BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */; };
-		BC1D8A601FB5861500179FAE /* MX5BrowserURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A5F1FB5861500179FAE /* MX5BrowserURLCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,10 +52,12 @@
 		6C15B1CAFEFD6E0F81255361 /* Pods_MX5BrowserOC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MX5BrowserOC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		716FD57A49FD2772BFB3FE57 /* Pods_MX5BrowserOCTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MX5BrowserOCTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A84990F66682BE2BE369CFA /* Pods-MX5BrowserOCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCTests/Pods-MX5BrowserOCTests.release.xcconfig"; sourceTree = "<group>"; };
-		BC0A18DA1FBABD2000ABDEA0 /* NSString+MX5Browser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MX5Browser.h"; sourceTree = "<group>"; };
-		BC0A18DB1FBABD2000ABDEA0 /* NSString+MX5Browser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MX5Browser.m"; sourceTree = "<group>"; };
 		BC0A18DD1FBABFCF00ABDEA0 /* MX5BrowserUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserUtils.h; sourceTree = "<group>"; };
 		BC0A18DE1FBABFCF00ABDEA0 /* MX5BrowserUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserUtils.m; sourceTree = "<group>"; };
+		BC0A18E21FBAD30900ABDEA0 /* NSString+MX5Browser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MX5Browser.h"; sourceTree = "<group>"; };
+		BC0A18E31FBAD30900ABDEA0 /* NSString+MX5Browser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MX5Browser.m"; sourceTree = "<group>"; };
+		BC0A18E81FBAD34600ABDEA0 /* MX5BrowserURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserURLCache.m; sourceTree = "<group>"; };
+		BC0A18E91FBAD34600ABDEA0 /* MX5BrowserURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MX5BrowserURLCache.h; sourceTree = "<group>"; };
 		BC1D89FE1FB546CC00179FAE /* MX5BrowserOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MX5BrowserOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D8A011FB546CC00179FAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC1D8A021FB546CC00179FAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -79,8 +81,6 @@
 		BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserViewController.m; sourceTree = "<group>"; };
 		BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BottomToolBar.h; sourceTree = "<group>"; };
 		BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BottomToolBar.m; sourceTree = "<group>"; };
-		BC1D8A5E1FB5861500179FAE /* MX5BrowserURLCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserURLCache.h; sourceTree = "<group>"; };
-		BC1D8A5F1FB5861500179FAE /* MX5BrowserURLCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserURLCache.m; sourceTree = "<group>"; };
 		D1103513EC1D434B66BCA0CB /* Pods-MX5BrowserOCUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +133,22 @@
 				25609E58F4FA33C036A19675 /* Pods-MX5BrowserOCUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		BC0A18E01FBAD2DE00ABDEA0 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				BC0A18E21FBAD30900ABDEA0 /* NSString+MX5Browser.h */,
+				BC0A18E31FBAD30900ABDEA0 /* NSString+MX5Browser.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		BC0A18E11FBAD2E800ABDEA0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		BC1D89F51FB546CC00179FAE = {
@@ -196,6 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				BC1D8A361FB549CD00179FAE /* MX5Browser.h */,
+				BC0A18E11FBAD2E800ABDEA0 /* Resources */,
+				BC0A18E01FBAD2DE00ABDEA0 /* Categories */,
 				BC1D8A491FB56ACF00179FAE /* Utils */,
 				BC1D8A351FB549B400179FAE /* View */,
 				BC1D8A341FB549B400179FAE /* Controller */,
@@ -227,22 +245,12 @@
 		BC1D8A491FB56ACF00179FAE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				BC1D8A571FB585A200179FAE /* URLCache */,
-				BC0A18DA1FBABD2000ABDEA0 /* NSString+MX5Browser.h */,
-				BC0A18DB1FBABD2000ABDEA0 /* NSString+MX5Browser.m */,
+				BC0A18E91FBAD34600ABDEA0 /* MX5BrowserURLCache.h */,
+				BC0A18E81FBAD34600ABDEA0 /* MX5BrowserURLCache.m */,
 				BC0A18DD1FBABFCF00ABDEA0 /* MX5BrowserUtils.h */,
 				BC0A18DE1FBABFCF00ABDEA0 /* MX5BrowserUtils.m */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		BC1D8A571FB585A200179FAE /* URLCache */ = {
-			isa = PBXGroup;
-			children = (
-				BC1D8A5E1FB5861500179FAE /* MX5BrowserURLCache.h */,
-				BC1D8A5F1FB5861500179FAE /* MX5BrowserURLCache.m */,
-			);
-			path = URLCache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -541,13 +549,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */,
-				BC0A18DC1FBABD2000ABDEA0 /* NSString+MX5Browser.m in Sources */,
 				BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */,
 				BC1D8A111FB546CC00179FAE /* main.m in Sources */,
 				BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */,
 				BC0A18DF1FBABFCF00ABDEA0 /* MX5BrowserUtils.m in Sources */,
 				BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */,
-				BC1D8A601FB5861500179FAE /* MX5BrowserURLCache.m in Sources */,
+				BC0A18EA1FBAD34600ABDEA0 /* MX5BrowserURLCache.m in Sources */,
+				BC0A18E41FBAD30900ABDEA0 /* NSString+MX5Browser.m in Sources */,
 				BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

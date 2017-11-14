@@ -36,5 +36,18 @@
     DDLogDebug(@"MX5BottomToolBar dealloc");
 }
 
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        [self initializeView];
+    }
+    return self;
+}
+
+- (void)initializeView {
+
+    self.backgroundColor = [UIColor whiteColor];
+    
+   
+}
 
 @end
