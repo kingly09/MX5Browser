@@ -44,8 +44,18 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  基于WKWebView的网页的渲染与展示
  */
-@interface MX5WebView : WKWebView <WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
+@interface MX5WebView : UIView <WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 
+/**
+ 当内部使用的时候
+ */
+@property (nonatomic, readonly) WKWebView *wkWebView;
+/**
+ 当前滚动视图
+ */
+@property (nonatomic, readonly, weak) UIScrollView *scrollView;
+/// 网页标题
+@property (nonatomic, readonly, copy) NSString *title;
 
 NS_ASSUME_NONNULL_END
 
