@@ -28,11 +28,11 @@
 #import "MX5WebView.h"
 #import "MX5Browser.h"
 
+static void *WkwebBrowserContext = &WkwebBrowserContext;
+
 @interface MX5BrowserProcessPool()
 @property (nonatomic, strong) WKProcessPool *pool;
 @end
-
-static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 @implementation MX5BrowserProcessPool
 
@@ -66,10 +66,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 @property (nonatomic, copy) NSString *title;
 //设置加载进度条
 @property (nonatomic,strong) UIProgressView *progressView;
-
-@property (nonatomic, strong) NSURLRequest *originRequest;
-@property (nonatomic, strong) NSURLRequest *request;
-
+//保存请求链接
+@property (nonatomic) NSMutableArray* snapShotsArray;
 @end
 
 @implementation MX5WebView
@@ -141,6 +139,26 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 #pragma mark - 私有方法
 
+- (UIViewController *)topViewController {
+    UIViewController *resultVC;
+    resultVC = [self findTopViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
+    while (resultVC.presentedViewController) {
+        resultVC = [self findTopViewController:resultVC.presentedViewController];
+    }
+    return resultVC;
+}
+
+- (UIViewController *)findTopViewController:(UIViewController *)vc {
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [self findTopViewController:[(UINavigationController *)vc topViewController]];
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [self findTopViewController:[(UITabBarController *)vc selectedViewController]];
+    } else {
+        return vc;
+    }
+    return nil;
+}
+
 -(void)pushCurrentSnapshotViewWithRequest:(NSURLRequest*)request{
     NSLog(@"push with request %@",request);
     NSURLRequest* lastRequest = (NSURLRequest*)[[self.snapShotsArray lastObject] objectForKey:@"request"];
@@ -196,6 +214,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.title = self.wkWebView.title;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self updateNavigationItems];
+    
+    if([self.delegate respondsToSelector:@selector(webViewDidFinishLoad:)]){
+        [self.delegate webViewDidFinishLoad:self];
+    }
 }
 
 //开始加载
@@ -207,6 +229,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [self.wkWebView evaluateJavaScript:metaJScript completionHandler:^(id _Nullable response, NSError * _Nullable error) {
         NSLog(@"value: %@ error: %@", response, error);
     }];
+    
+    if([self.delegate respondsToSelector:@selector(webViewDidStartLoad:)]){
+        [self.delegate webViewDidStartLoad:self];
+    }
     
 }
 // 加载内容
@@ -283,11 +309,16 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 // 内容加载失败时候调用
 -(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error{
     NSLog(@"页面加载超时");
+    if([self.delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]){
+        [self.delegate webView:self didFailLoadWithError:error];
+    }
 }
 
 //跳转失败的时候调用
 -(void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
-    
+    if([self.delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]){
+        [self.delegate webView:self didFailLoadWithError:error];
+    }
 }
 
 //进度条
@@ -305,8 +336,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         completionHandler();
     }]];
-    
-    [self presentViewController:alert animated:YES completion:NULL];
+    UIViewController *tpVCL = [self topViewController];
+    [tpVCL presentViewController:alert animated:YES completion:NULL];
 }
 
 // js 信息的交流
@@ -318,7 +349,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         completionHandler(NO);
     }]];
-    [self presentViewController:alert animated:YES completion:NULL];
+    UIViewController *tpVCL = [self topViewController];
+    [tpVCL presentViewController:alert animated:YES completion:NULL];
 }
 
 // runJavaScriptTextInput
@@ -337,17 +369,19 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         completionHandler(nil);
     }]];
-    [self presentViewController:alert animated:YES completion:NULL];
+    UIViewController *tpVCL = [self topViewController];
+    [tpVCL presentViewController:alert animated:YES completion:NULL];
 }
 
 #pragma mark - UIScrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     
 }
 
-
 #pragma mark - 懒加载
+
 - (WKWebView *)wkWebView{
     if (!_wkWebView) {
         
@@ -413,6 +447,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 }
 
 - (UIProgressView *)progressView{
+    
     if (!_progressView) {
         _progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
         _progressView.frame = CGRectMake(0, 0, self.bounds.size.width, 3);

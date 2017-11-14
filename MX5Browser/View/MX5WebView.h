@@ -41,11 +41,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@class MX5WebView;
+@protocol MX5WebViewDelegate <NSObject>
+
+@optional
+/**
+ webView开始加载
+ */
+- (void)webViewDidStartLoad:(MX5WebView *)webView;
+/**
+ webView加载完成
+ */
+- (void)webViewDidFinishLoad:(MX5WebView *)webView;
+/**
+ 加载webView失败
+
+ @param webView MX5WebView
+ @param error 失败消息
+ */
+- (void)webView:(MX5WebView *)webView didFailLoadWithError:(NSError *)error;
+@end
+
 /**
  基于WKWebView的网页的渲染与展示
  */
 @interface MX5WebView : UIView <WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 
+@property (nonatomic, weak) id<MX5WebViewDelegate> delegate;
 /**
  当内部使用的时候
  */
