@@ -29,10 +29,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class MX5WebView;
 /**
  整个浏览器的主框架
  */
 @interface MX5BrowserViewController : UIViewController
+/**
+ 加载纯外部链接网页
+ 
+ @param urlString URL地址
+ */
+- (void)loadWebURLSring:(NSString *)urlString;
 
 NS_ASSUME_NONNULL_END
 

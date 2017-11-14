@@ -27,17 +27,36 @@
 
 #import "MX5BrowserViewController.h"
 #import "MX5Browser.h"
+#import "MX5WebView.h"
 
-@interface MX5BrowserViewController ()
-
+@interface MX5BrowserViewController ()<MX5WebViewDelegate>
+@property (nonatomic, strong) MX5WebView *webView;
 @end
 
 @implementation MX5BrowserViewController
 
+#pragma mark - 生命周期
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor redColor];
+    
+   
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+   
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:YES];
+}
+
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,14 +68,65 @@
     
     DDLogDebug(@" MX5BrowserViewController dealloc ");
 }
-/*
+
+#pragma mark - 初始化数据
+/**
+ 初始化WebView
+ */
+-(void)setupWebView {
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.webView = [[MX5WebView alloc]initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight))];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+}
+
+-(void)loadViewData {
+    
+    
+}
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+/**
+ webView开始加载
+ */
+- (void)webViewDidStartLoad:(MX5WebView *)webView {
+    
 }
-*/
+/**
+ webView加载完成
+ */
+- (void)webViewDidFinishLoad:(MX5WebView *)webView {
+    
+}
+/**
+ 加载webView失败
+ 
+ @param webView MX5WebView
+ @param error 失败消息
+ */
+- (void)webView:(MX5WebView *)webView didFailLoadWithError:(NSError *)error {
+    
+    
+}
+/**
+ 更新导航条
+ */
+- (void)updateNavigationItems:(MX5WebView *)webView {
+    
+}
+
+#pragma mark - 初始化URL/对外扩展方法
+
+- (void)loadWebURLSring:(NSString *)urlString {
+    //初始化WebView
+    [self setupWebView];
+    //加载数据
+    [self loadViewData];
+    
+    [self.webView loadWebURLSring:urlString];
+}
 
 @end
