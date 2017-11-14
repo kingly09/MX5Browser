@@ -60,6 +60,11 @@ NS_ASSUME_NONNULL_BEGIN
  @param error 失败消息
  */
 - (void)webView:(MX5WebView *)webView didFailLoadWithError:(NSError *)error;
+/**
+ 更新导航条
+ */
+- (void)updateNavigationItems:(MX5WebView *)webView;
+
 @end
 
 /**
@@ -76,8 +81,15 @@ NS_ASSUME_NONNULL_BEGIN
  当前滚动视图
  */
 @property (nonatomic, readonly, weak) UIScrollView *scrollView;
-/// 网页标题
+// 网页标题
 @property (nonatomic, readonly, copy) NSString *title;
+
+/**
+ 加载纯外部链接网页
+ 
+ @param urlString URL地址
+ */
+- (void)loadWebURLSring:(NSString *)urlString;
 
 NS_ASSUME_NONNULL_END
 

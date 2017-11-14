@@ -27,9 +27,10 @@
 
 #import "ViewController.h"
 #import "MX5Browser.h"
+#import "MX5WebView.h"
 
-@interface ViewController ()
-
+@interface ViewController ()<MX5WebViewDelegate>
+@property (nonatomic, strong) MX5WebView *webView;
 @end
 
 @implementation ViewController
@@ -38,6 +39,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.title = @"测试MX5";
+    
+    self.webView = [[MX5WebView alloc]initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight))];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+    
+    [self.webView loadWebURLSring:@"http://www.baidu.com/"];
 }
 
 
@@ -52,8 +59,10 @@
  */
 - (IBAction)onClickTestBrowser:(id)sender {
     
-    MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
-    [self.navigationController pushViewController:browserViewController animated:YES];
+//    MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+//    [self.navigationController pushViewController:browserViewController animated:YES];
+    
+    
 }
 
 @end

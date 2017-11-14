@@ -42,6 +42,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #pragma mark - Convienence
 
+#define KScreenWidth ([UIScreen mainScreen].bounds.size.width)
+#define KScreenHeight ([UIScreen mainScreen].bounds.size.height)
+#define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define kNavBarHeight 44.0
 #define KBrowserVC  [MX5BrowserViewController sharedInstance]
 
 #pragma mark - WEAK、STRONG

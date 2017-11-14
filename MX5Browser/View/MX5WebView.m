@@ -68,6 +68,12 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 @property (nonatomic,strong) UIProgressView *progressView;
 //保存请求链接
 @property (nonatomic) NSMutableArray* snapShotsArray;
+//保存的网址链接
+@property (nonatomic, copy) NSString *URLString;
+//设置缓存时间（过期时间默认为一周）
+@property(nonatomic,assign) NSTimeInterval timeoutInterval;
+
+@property (nonatomic, strong) UIView *testView;
 @end
 
 @implementation MX5WebView
@@ -93,12 +99,13 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
  */
 -(void)initWKWebView {
     
-    [self setFrame:self.bounds];
-    [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [self.wkWebView setFrame:self.bounds];
+    [self.wkWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     //添加WKWebView
     [self addSubview:self.wkWebView];
     //添加进度条
     [self addSubview:self.progressView];
+    
 }
 
 -(void)dealloc {
@@ -126,15 +133,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 #pragma mark - 自定义返回/关闭按钮
 -(void)updateNavigationItems{
-//    if (self.wkWebView.canGoBack) {
-//        UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-//        spaceButtonItem.width = -6.5;
-//
-//        [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem] animated:NO];
-//    }else{
-//        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-//        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
-//    }
+  
+    if(_delegate && [_delegate respondsToSelector:@selector(updateNavigationItems:)]){
+        [self.delegate updateNavigationItems:self];
+    }
 }
 
 #pragma mark - 私有方法
@@ -215,7 +217,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self updateNavigationItems];
     
-    if([self.delegate respondsToSelector:@selector(webViewDidFinishLoad:)]){
+     if(_delegate && [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]){
         [self.delegate webViewDidFinishLoad:self];
     }
 }
@@ -230,7 +232,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         NSLog(@"value: %@ error: %@", response, error);
     }];
     
-    if([self.delegate respondsToSelector:@selector(webViewDidStartLoad:)]){
+    if(_delegate && [_delegate respondsToSelector:@selector(webViewDidStartLoad:)]){
         [self.delegate webViewDidStartLoad:self];
     }
     
@@ -309,14 +311,14 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 // 内容加载失败时候调用
 -(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error{
     NSLog(@"页面加载超时");
-    if([self.delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]){
+     if(_delegate && [_delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]){
         [self.delegate webView:self didFailLoadWithError:error];
     }
 }
 
 //跳转失败的时候调用
 -(void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
-    if([self.delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]){
+     if(_delegate && [_delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]){
         [self.delegate webView:self didFailLoadWithError:error];
     }
 }
@@ -450,12 +452,37 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     
     if (!_progressView) {
         _progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
-        _progressView.frame = CGRectMake(0, 0, self.bounds.size.width, 3);
+        _progressView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , 3);
         // 设置进度条的色彩
         [_progressView setTrackTintColor:[UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1.0]];
         _progressView.progressTintColor = [UIColor greenColor];
     }
     return _progressView;
+}
+
+-(NSMutableArray*)snapShotsArray{
+    if (!_snapShotsArray) {
+        _snapShotsArray = [NSMutableArray array];
+    }
+    return _snapShotsArray;
+}
+
+-(NSTimeInterval )timeoutInterval {
+    if (!_timeoutInterval) {
+        _timeoutInterval = 1000 * 60 * 60 * 24 * 7;  //默认缓存时间为1周的时间
+    }
+    return _timeoutInterval;
+}
+
+#pragma mark - 初始化URL/对外扩展方法
+
+- (void)loadWebURLSring:(NSString *)urlString{
+    
+    self.URLString  = urlString;
+    //创建一个NSURLRequest 的对象,加入缓存机制，缓存时间为默认为一周
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
+    //加载网页
+    [self.wkWebView loadRequest:urlRequest];
 }
 
 
