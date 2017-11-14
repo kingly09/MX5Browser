@@ -20,7 +20,6 @@
 		BC1D8A261FB546CC00179FAE /* MX5BrowserOCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A251FB546CC00179FAE /* MX5BrowserOCUITests.m */; };
 		BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A381FB5553700179FAE /* MX5WebView.m */; };
 		BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */; };
-		BC1D8A3F1FB55B6200179FAE /* MX5NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */; };
 		BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */; };
 		BC1D8A601FB5861500179FAE /* MX5BrowserURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A5F1FB5861500179FAE /* MX5BrowserURLCache.m */; };
 /* End PBXBuildFile section */
@@ -72,8 +71,6 @@
 		BC1D8A381FB5553700179FAE /* MX5WebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5WebView.m; sourceTree = "<group>"; };
 		BC1D8A3A1FB559F700179FAE /* MX5BrowserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserViewController.h; sourceTree = "<group>"; };
 		BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserViewController.m; sourceTree = "<group>"; };
-		BC1D8A3D1FB55B6200179FAE /* MX5NavigationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5NavigationView.h; sourceTree = "<group>"; };
-		BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5NavigationView.m; sourceTree = "<group>"; };
 		BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BottomToolBar.h; sourceTree = "<group>"; };
 		BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BottomToolBar.m; sourceTree = "<group>"; };
 		BC1D8A5E1FB5861500179FAE /* MX5BrowserURLCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserURLCache.h; sourceTree = "<group>"; };
@@ -215,8 +212,6 @@
 			children = (
 				BC1D8A371FB5553700179FAE /* MX5WebView.h */,
 				BC1D8A381FB5553700179FAE /* MX5WebView.m */,
-				BC1D8A3D1FB55B6200179FAE /* MX5NavigationView.h */,
-				BC1D8A3E1FB55B6200179FAE /* MX5NavigationView.m */,
 				BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */,
 				BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */,
 			);
@@ -539,7 +534,6 @@
 				BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */,
 				BC1D8A111FB546CC00179FAE /* main.m in Sources */,
 				BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */,
-				BC1D8A3F1FB55B6200179FAE /* MX5NavigationView.m in Sources */,
 				BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */,
 				BC1D8A601FB5861500179FAE /* MX5BrowserURLCache.m in Sources */,
 				BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */,
