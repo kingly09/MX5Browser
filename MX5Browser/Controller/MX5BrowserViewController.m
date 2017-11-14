@@ -28,9 +28,16 @@
 #import "MX5BrowserViewController.h"
 #import "MX5Browser.h"
 #import "MX5WebView.h"
+#import "MX5BrowserURLCache.h"
 
 @interface MX5BrowserViewController ()<MX5WebViewDelegate>
 @property (nonatomic, strong) MX5WebView *webView;
+
+//返回按钮
+@property (nonatomic) UIBarButtonItem *customBackBarItem;
+//关闭按钮
+@property (nonatomic) UIBarButtonItem *closeButtonItem;
+
 @end
 
 @implementation MX5BrowserViewController
@@ -40,13 +47,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [self navigationItemView];
    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-   
+     self.navigationController.navigationBarHidden = NO;
 }
 -(void)viewWillDisappear:(BOOL)animated{
     
@@ -62,6 +69,9 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    MX5BrowserURLCache *urlCache = (MX5BrowserURLCache *)[NSURLCache sharedURLCache];
+    [urlCache removeAllCachedResponses];
 }
 
 - (void)dealloc {
@@ -81,13 +91,59 @@
     [self.view addSubview:self.webView];
 }
 
+-(void)navigationItemView{
+    
+    //添加右边刷新按钮
+    UIBarButtonItem *roadLoad = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(roadLoadClicked)];
+    self.navigationItem.rightBarButtonItem = roadLoad;
+}
+
 -(void)loadViewData {
     
     
 }
 
+// 网页缓存设置
+-(void) webViewCache {
+    //网页缓存设置
+    MX5BrowserURLCache *urlCache = [[MX5BrowserURLCache alloc] initWithMemoryCapacity:20 * 1024 * 1024
+                                                                 diskCapacity:200 * 1024 * 1024
+                                                                     diskPath:nil
+                                                                    cacheTime:0];
+    [MX5BrowserURLCache setSharedURLCache:urlCache];
+    
+}
 
-#pragma mark - Navigation
+#pragma mark - 点击事件
+
+/**
+ 重新加载网页
+ */
+- (void)roadLoadClicked{
+    
+    [self.webView reload];
+}
+
+/**
+ 返回上一个网页
+ */
+- (void)customBackItemClicked{
+    
+    if (self.webView.goBack) {
+        [self.webView goBack];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+/**
+ 点击关闭web视图
+ */
+-(void)closeItemClicked{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - MX5WebViewDelegate
 
 /**
  webView开始加载
@@ -99,7 +155,7 @@
  webView加载完成
  */
 - (void)webViewDidFinishLoad:(MX5WebView *)webView {
-    
+    self.title = webView.title;
 }
 /**
  加载webView失败
@@ -116,6 +172,20 @@
  */
 - (void)updateNavigationItems:(MX5WebView *)webView {
     
+    if (webView.canGoBack) {
+        UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        spaceButtonItem.width = -6.5;
+        [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem] animated:NO];
+    }else{
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
+    }
+}
+/**
+ 更新web视图的title
+ */
+- (void)updateWebViewTitle:(MX5WebView *)webView {
+     self.title = webView.title;
 }
 
 #pragma mark - 初始化URL/对外扩展方法
@@ -127,6 +197,36 @@
     [self loadViewData];
     
     [self.webView loadWebURLSring:urlString];
+}
+
+#pragma mark - setter and getter 方法
+#pragma mark - 懒加载
+
+-(UIBarButtonItem *)customBackBarItem{
+    if (!_customBackBarItem) {
+        UIImage* backItemImage = [[UIImage imageNamed:@"backItemImage"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage* backItemHlImage = [[UIImage imageNamed:@"backItemImage-hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        UIButton* backButton = [[UIButton alloc] init];
+        [backButton setTitle:@"返回" forState:UIControlStateNormal];
+        [backButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
+        [backButton setTitleColor:[self.navigationController.navigationBar.tintColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [backButton.titleLabel setFont:[UIFont systemFontOfSize:17]];
+        [backButton setImage:backItemImage forState:UIControlStateNormal];
+        [backButton setImage:backItemHlImage forState:UIControlStateHighlighted];
+        [backButton sizeToFit];
+        
+        [backButton addTarget:self action:@selector(customBackItemClicked) forControlEvents:UIControlEventTouchUpInside];
+        _customBackBarItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    }
+    return _customBackBarItem;
+}
+
+-(UIBarButtonItem *)closeButtonItem{
+    if (!_closeButtonItem) {
+        _closeButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(closeItemClicked)];
+    }
+    return _closeButtonItem;
 }
 
 @end

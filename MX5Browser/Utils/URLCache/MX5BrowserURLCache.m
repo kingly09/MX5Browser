@@ -102,7 +102,7 @@
 
 SYNTHESIZE_SINGLETON_FOR_CLASS (MX5BrowserURLCache)
 
-- (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(NSString *)path cacheTime:(NSInteger)cacheTime {
+- (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(nullable NSString *)path cacheTime:(NSInteger)cacheTime {
     if (self = [self initWithMemoryCapacity:memoryCapacity diskCapacity:diskCapacity diskPath:path]) {
         self.cacheTime = cacheTime;
         if (path)

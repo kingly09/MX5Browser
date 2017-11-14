@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param cacheTime 缓存网页的时间
  @return 返回带有缓存的网页
  */
-- (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(NSString *)path cacheTime:(NSInteger)cacheTime;
+- (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(nullable NSString *)path cacheTime:(NSInteger)cacheTime;
 
 /**
  清理缓存的方法，这个方法会清除缓存类型为HTML类型的文件

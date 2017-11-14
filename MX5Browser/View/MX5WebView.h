@@ -64,6 +64,12 @@ NS_ASSUME_NONNULL_BEGIN
  更新导航条
  */
 - (void)updateNavigationItems:(MX5WebView *)webView;
+/**
+ 更新web视图的title
+ */
+- (void)updateWebViewTitle:(MX5WebView *)webView;
+
+
 
 @end
 
@@ -84,12 +90,28 @@ NS_ASSUME_NONNULL_BEGIN
 // 网页标题
 @property (nonatomic, readonly, copy) NSString *title;
 
+@property (nonatomic, readonly, getter=isLoading) BOOL loading;
+
+@property (nonatomic, readonly) BOOL canGoBack;
+@property (nonatomic, readonly) BOOL canGoForward;
+
 /**
  加载纯外部链接网页
  
  @param urlString URL地址
  */
 - (void)loadWebURLSring:(NSString *)urlString;
+
+- (id)goBack;
+- (id)goForward;
+
+- (id)reload;
+- (id)reloadFromOrigin;
+
+- (void)stopLoading;
+
+// 清除缓存
++ (void)removeCache;
 
 NS_ASSUME_NONNULL_END
 

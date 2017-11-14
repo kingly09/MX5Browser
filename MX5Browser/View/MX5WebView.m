@@ -199,6 +199,11 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         }
     }else if ([keyPath isEqualToString:@"title"]) {
         _title = self.wkWebView.title;
+        
+        if(_delegate && [_delegate respondsToSelector:@selector(updateWebViewTitle:)]){
+            [self.delegate updateWebViewTitle:self];
+        }
+        
     }else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -482,6 +487,43 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
     //加载网页
     [self.wkWebView loadRequest:urlRequest];
+}
+
+-(BOOL)isLoading{
+    return [self.wkWebView isLoading];
+}
+
+-(BOOL)canGoBack{
+    return [self.wkWebView canGoBack];
+}
+
+-(BOOL)canGoForward{
+    return [self.wkWebView canGoForward];
+}
+
+- (id)goBack{
+   return [self.wkWebView goBack];
+}
+
+- (id)goForward{
+    return [self.wkWebView goForward];
+}
+
+- (id)reload{
+    return [self.wkWebView reload];
+}
+
+- (id)reloadFromOrigin{
+    return [self.wkWebView reloadFromOrigin];
+}
+
+- (void)stopLoading{
+    [self.wkWebView stopLoading];
+}
+
++ (void)removeCache {
+  
+    
 }
 
 
