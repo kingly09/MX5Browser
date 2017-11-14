@@ -13,6 +13,8 @@
 		BC0A18DF1FBABFCF00ABDEA0 /* MX5BrowserUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18DE1FBABFCF00ABDEA0 /* MX5BrowserUtils.m */; };
 		BC0A18E41FBAD30900ABDEA0 /* NSString+MX5Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18E31FBAD30900ABDEA0 /* NSString+MX5Browser.m */; };
 		BC0A18EA1FBAD34600ABDEA0 /* MX5BrowserURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18E81FBAD34600ABDEA0 /* MX5BrowserURLCache.m */; };
+		BC0A18ED1FBAD44A00ABDEA0 /* UIView+MX5Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18EC1FBAD44A00ABDEA0 /* UIView+MX5Browser.m */; };
+		BC0A18F01FBAD56000ABDEA0 /* UIColor+MX5Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18EF1FBAD56000ABDEA0 /* UIColor+MX5Browser.m */; };
 		BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A021FB546CC00179FAE /* AppDelegate.m */; };
 		BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A051FB546CC00179FAE /* ViewController.m */; };
 		BC1D8A091FB546CC00179FAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1D8A071FB546CC00179FAE /* Main.storyboard */; };
@@ -58,6 +60,10 @@
 		BC0A18E31FBAD30900ABDEA0 /* NSString+MX5Browser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MX5Browser.m"; sourceTree = "<group>"; };
 		BC0A18E81FBAD34600ABDEA0 /* MX5BrowserURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserURLCache.m; sourceTree = "<group>"; };
 		BC0A18E91FBAD34600ABDEA0 /* MX5BrowserURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MX5BrowserURLCache.h; sourceTree = "<group>"; };
+		BC0A18EB1FBAD44A00ABDEA0 /* UIView+MX5Browser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+MX5Browser.h"; sourceTree = "<group>"; };
+		BC0A18EC1FBAD44A00ABDEA0 /* UIView+MX5Browser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+MX5Browser.m"; sourceTree = "<group>"; };
+		BC0A18EE1FBAD56000ABDEA0 /* UIColor+MX5Browser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+MX5Browser.h"; sourceTree = "<group>"; };
+		BC0A18EF1FBAD56000ABDEA0 /* UIColor+MX5Browser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MX5Browser.m"; sourceTree = "<group>"; };
 		BC1D89FE1FB546CC00179FAE /* MX5BrowserOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MX5BrowserOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D8A011FB546CC00179FAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC1D8A021FB546CC00179FAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -140,6 +146,10 @@
 			children = (
 				BC0A18E21FBAD30900ABDEA0 /* NSString+MX5Browser.h */,
 				BC0A18E31FBAD30900ABDEA0 /* NSString+MX5Browser.m */,
+				BC0A18EB1FBAD44A00ABDEA0 /* UIView+MX5Browser.h */,
+				BC0A18EC1FBAD44A00ABDEA0 /* UIView+MX5Browser.m */,
+				BC0A18EE1FBAD56000ABDEA0 /* UIColor+MX5Browser.h */,
+				BC0A18EF1FBAD56000ABDEA0 /* UIColor+MX5Browser.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -555,7 +565,9 @@
 				BC0A18DF1FBABFCF00ABDEA0 /* MX5BrowserUtils.m in Sources */,
 				BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */,
 				BC0A18EA1FBAD34600ABDEA0 /* MX5BrowserURLCache.m in Sources */,
+				BC0A18F01FBAD56000ABDEA0 /* UIColor+MX5Browser.m in Sources */,
 				BC0A18E41FBAD30900ABDEA0 /* NSString+MX5Browser.m in Sources */,
+				BC0A18ED1FBAD44A00ABDEA0 /* UIView+MX5Browser.m in Sources */,
 				BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

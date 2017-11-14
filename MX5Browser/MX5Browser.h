@@ -38,7 +38,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #pragma mark - view and Controller
 
 #import "MX5BrowserViewController.h"
-
+#import "NSString+MX5Browser.h"
+#import "UIView+MX5Browser.h"
+#import "UIColor+MX5Browser.h"
 
 #pragma mark - Convienence
 
