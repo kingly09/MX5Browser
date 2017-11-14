@@ -29,6 +29,8 @@
 #define MX5Browser_h
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <KYMenu/KYMenu.h>
+
 #if DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 #else
@@ -46,6 +48,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #define KScreenWidth ([UIScreen mainScreen].bounds.size.width)
 #define KScreenHeight ([UIScreen mainScreen].bounds.size.height)
+#define SCALE ([UIScreen mainScreen].scale)
+
 #define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
 #define kNavBarHeight 44.0
 #define KBrowserVC  [MX5BrowserViewController sharedInstance]

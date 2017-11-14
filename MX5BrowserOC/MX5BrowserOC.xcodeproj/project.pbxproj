@@ -161,6 +161,13 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		BC0A18F11FBAE80500ABDEA0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BC1D89F51FB546CC00179FAE = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				BC1D8A361FB549CD00179FAE /* MX5Browser.h */,
+				BC0A18F11FBAE80500ABDEA0 /* Models */,
 				BC0A18E11FBAD2E800ABDEA0 /* Resources */,
 				BC0A18E01FBAD2DE00ABDEA0 /* Categories */,
 				BC1D8A491FB56ACF00179FAE /* Utils */,
@@ -473,11 +481,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/KYMenu/KYMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KYMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

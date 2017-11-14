@@ -34,6 +34,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MX5BottomToolBar : UIView
 
+- (instancetype)initWithFrame:(CGRect)frame withParentview:(UIView *)parentview;
+
+/**
+ 加载自定义的菜单数组
+
+ @param menuViewArr 自定义的菜单数组
+ */
+- (void)reloadMenuView:(NSArray *)menuViewArr;
 
 NS_ASSUME_NONNULL_END
 

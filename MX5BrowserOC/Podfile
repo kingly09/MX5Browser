@@ -8,6 +8,7 @@ target 'MX5BrowserOC' do
   
   pod 'Reachability', '~> 3.2'
   pod 'CocoaLumberjack', '~> 3.3.0'
+  pod 'KYMenu'
 
   # Pods for MX5BrowserOC
 

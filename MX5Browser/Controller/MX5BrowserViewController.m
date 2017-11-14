@@ -89,7 +89,7 @@
     
   [self navigationItemView];
     
-    self.bottomToolBar = [[MX5BottomToolBar alloc] initWithFrame:CGRectMake(0, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT)];
+    self.bottomToolBar = [[MX5BottomToolBar alloc] initWithFrame:CGRectMake(0, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT) withParentview:self.view];
     [self.view addSubview:self.bottomToolBar];
 
 }
@@ -100,7 +100,7 @@
 -(void)setupWebView {
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.webView = [[MX5WebView alloc]initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight))];
+    self.webView = [[MX5WebView alloc]initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - KBOTTOM_TOOL_BAR_HEIGHT)];
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
 }
