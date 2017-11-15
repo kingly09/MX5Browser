@@ -95,7 +95,7 @@
     menuBackgroundColor.G = 1;
     menuBackgroundColor.B = 1;
     
-    
+   
     optionals.arrowSize = 0;                    //指示箭头大小
     optionals.marginXSpacing = 7;               //MenuItem左右边距
     optionals.marginYSpacing = 9;               //MenuItem上下边距
@@ -106,8 +106,10 @@
     optionals.hasSeperatorLine = YES ;          //是否设置分割线
     optionals.seperatorLineHasInsets = NO ;     //是否在分割线两侧留下Insets
     optionals.textColor = textColor;            //menuItem字体颜色
-    optionals.menuBackgroundColor = menuBackgroundColor; //菜单的底色
+    optionals.shadowOfMenuOutside = YES;
+    optionals.notContainsSubview = YES;
     
+    optionals.menuBackgroundColor = menuBackgroundColor; //菜单的底色
     
     _menuViewArr = @[@"菜单一",@"菜单二",@"菜单三"];
     
@@ -203,6 +205,7 @@
 
 - (void)reloadMenuView:(NSArray *)menuViewArr {
     
+    _menuViewArr = menuViewArr;
     
 }
 
