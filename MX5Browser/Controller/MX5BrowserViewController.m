@@ -91,6 +91,10 @@
     
     self.bottomToolBar = [[MX5BottomToolBar alloc] initWithFrame:CGRectMake(0, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT) withParentview:self.view];
     [self.view addSubview:self.bottomToolBar];
+    
+    if (_isHideBottomToolBar == YES) {
+        self.bottomToolBar.hidden = YES;
+    }
 
 }
 
@@ -100,7 +104,8 @@
 -(void)setupWebView {
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.webView = [[MX5WebView alloc]initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - KBOTTOM_TOOL_BAR_HEIGHT)];
+    float bottomToolBarHight = (_isHideBottomToolBar == YES)?0:KBOTTOM_TOOL_BAR_HEIGHT;
+    self.webView = [[MX5WebView alloc]initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - bottomToolBarHight)];
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
 }
@@ -143,7 +148,7 @@
  */
 - (void)customBackItemClicked{
     
-    if (self.webView.goBack) {
+    if (self.webView.canGoBack) {
         [self.webView goBack];
     }else{
         [self.navigationController popViewControllerAnimated:YES];

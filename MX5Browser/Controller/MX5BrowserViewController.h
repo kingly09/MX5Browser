@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
  整个浏览器的主框架
  */
 @interface MX5BrowserViewController : UIViewController
+
+@property (nonatomic) BOOL isHideBottomToolBar;  //是否隐藏底部导航条
 /**
  加载纯外部链接网页
  
