@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.framework    = "UIKit"
   s.requires_arc = true
   s.dependency "Reachability", "~> 3.2"
-  s.dependency "KYMenu", "~> 3.2"
+  s.dependency "KYMenu"
   s.dependency "CocoaLumberjack", "~> 3.3.0"
   s.dependency "YYKit", "~> 1.0.9"
 
