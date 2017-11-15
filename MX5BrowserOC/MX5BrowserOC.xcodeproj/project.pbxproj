@@ -15,6 +15,9 @@
 		BC0A18EA1FBAD34600ABDEA0 /* MX5BrowserURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18E81FBAD34600ABDEA0 /* MX5BrowserURLCache.m */; };
 		BC0A18ED1FBAD44A00ABDEA0 /* UIView+MX5Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18EC1FBAD44A00ABDEA0 /* UIView+MX5Browser.m */; };
 		BC0A18F01FBAD56000ABDEA0 /* UIColor+MX5Browser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18EF1FBAD56000ABDEA0 /* UIColor+MX5Browser.m */; };
+		BC0A18F41FBC01A800ABDEA0 /* MX5ButtonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18F31FBC01A800ABDEA0 /* MX5ButtonModel.m */; };
+		BC0A18F71FBC01C000ABDEA0 /* MX5SubButtonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18F61FBC01C000ABDEA0 /* MX5SubButtonModel.m */; };
+		BC0A18F91FBC026600ABDEA0 /* menuList.geojson in Resources */ = {isa = PBXBuildFile; fileRef = BC0A18F81FBC026600ABDEA0 /* menuList.geojson */; };
 		BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A021FB546CC00179FAE /* AppDelegate.m */; };
 		BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A051FB546CC00179FAE /* ViewController.m */; };
 		BC1D8A091FB546CC00179FAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1D8A071FB546CC00179FAE /* Main.storyboard */; };
@@ -64,6 +67,11 @@
 		BC0A18EC1FBAD44A00ABDEA0 /* UIView+MX5Browser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+MX5Browser.m"; sourceTree = "<group>"; };
 		BC0A18EE1FBAD56000ABDEA0 /* UIColor+MX5Browser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+MX5Browser.h"; sourceTree = "<group>"; };
 		BC0A18EF1FBAD56000ABDEA0 /* UIColor+MX5Browser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MX5Browser.m"; sourceTree = "<group>"; };
+		BC0A18F21FBC01A800ABDEA0 /* MX5ButtonModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5ButtonModel.h; sourceTree = "<group>"; };
+		BC0A18F31FBC01A800ABDEA0 /* MX5ButtonModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5ButtonModel.m; sourceTree = "<group>"; };
+		BC0A18F51FBC01C000ABDEA0 /* MX5SubButtonModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5SubButtonModel.h; sourceTree = "<group>"; };
+		BC0A18F61FBC01C000ABDEA0 /* MX5SubButtonModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5SubButtonModel.m; sourceTree = "<group>"; };
+		BC0A18F81FBC026600ABDEA0 /* menuList.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = menuList.geojson; sourceTree = "<group>"; };
 		BC1D89FE1FB546CC00179FAE /* MX5BrowserOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MX5BrowserOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D8A011FB546CC00179FAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC1D8A021FB546CC00179FAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -157,6 +165,7 @@
 		BC0A18E11FBAD2E800ABDEA0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BC0A18F81FBC026600ABDEA0 /* menuList.geojson */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -164,6 +173,10 @@
 		BC0A18F11FBAE80500ABDEA0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BC0A18F21FBC01A800ABDEA0 /* MX5ButtonModel.h */,
+				BC0A18F31FBC01A800ABDEA0 /* MX5ButtonModel.m */,
+				BC0A18F51FBC01C000ABDEA0 /* MX5SubButtonModel.h */,
+				BC0A18F61FBC01C000ABDEA0 /* MX5SubButtonModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -387,6 +400,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC0A18F91FBC026600ABDEA0 /* menuList.geojson in Resources */,
 				BC1D8A0E1FB546CC00179FAE /* LaunchScreen.storyboard in Resources */,
 				BC1D8A0B1FB546CC00179FAE /* Assets.xcassets in Resources */,
 				BC1D8A091FB546CC00179FAE /* Main.storyboard in Resources */,
@@ -483,12 +497,14 @@
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/KYMenu/KYMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KYMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -578,6 +594,8 @@
 				BC0A18F01FBAD56000ABDEA0 /* UIColor+MX5Browser.m in Sources */,
 				BC0A18E41FBAD30900ABDEA0 /* NSString+MX5Browser.m in Sources */,
 				BC0A18ED1FBAD44A00ABDEA0 /* UIView+MX5Browser.m in Sources */,
+				BC0A18F41FBC01A800ABDEA0 /* MX5ButtonModel.m in Sources */,
+				BC0A18F71FBC01C000ABDEA0 /* MX5SubButtonModel.m in Sources */,
 				BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
