@@ -27,6 +27,7 @@
 
 #import "MX5BottomToolBar.h"
 #import "MX5Browser.h"
+#define KMenuButtonTag 10000
 
 @interface MX5BottomToolBar() {
     
@@ -156,17 +157,44 @@
 -(void)showMenuView {
     
     if (_menuViewArr.count > 0) {
+        float buttonWidth = _menuView.width/_menuViewArr.count;
+        
         for (int i = 0; i < _menuViewArr.count; i++) {
             
             UIButton *itemBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            itemBtn.size = CGSizeMake(buttonWidth, KBOTTOM_TOOL_BAR_HEIGHT);
+            itemBtn.x    =  buttonWidth * i;
             [itemBtn setExclusiveTouch:YES];
             [itemBtn setBackgroundColor:[UIColor clearColor]];
             itemBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
             [itemBtn adjustsImageWhenHighlighted];
+            itemBtn.tag = KMenuButtonTag + i;
             [itemBtn adjustsImageWhenDisabled];
             [itemBtn setTitle:[_menuViewArr objectAtIndex:i] forState:UIControlStateNormal];
             [itemBtn setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
+            [itemBtn addTarget:self action:@selector(clickItemBtn:) forControlEvents:UIControlEventTouchUpInside];
             [_menuView addSubview:itemBtn];
+            
+            if ((i + 1) != _menuViewArr.count) {
+                UIView *lineView = [[UIView alloc] init];
+                lineView.size = CGSizeMake(1/SCALE , KBOTTOM_TOOL_BAR_HEIGHT);
+                lineView.x    = buttonWidth * (i + 1);
+                lineView.backgroundColor = [UIColor colorWithHexStr:@"#c3c3c3"];
+                [_menuView addSubview:lineView];
+            }
+        }
+    }
+}
+
+/**
+ 点击小菜单消失视图
+ */
+-(void) dismissMenu {
+    [KYMenu dismissMenu];
+    for (id obj in _menuView.subviews)  {
+        if ([obj isKindOfClass:[UIButton class]]) {
+            UIButton *theButton = (UIButton*)obj;
+            theButton.selected = NO;
         }
     }
 }
@@ -184,14 +212,50 @@
  */
 - (void)clickLocalBtn:(UIButton *)sender {
     
-    CGRect menuFrame = CGRectMake(0, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 5, KBOTTOM_TOOL_BAR_HEIGHT, KBOTTOM_TOOL_BAR_HEIGHT);
-    [KYMenu showMenuInView:self.parentview
-                  fromRect:menuFrame
-                 menuItems:menuArray withOptions:optionals];
+    [self dismissMenu];
+  
+    
 }
+
+- (void)clickItemBtn:(UIButton *)sender {
+    
+    NSInteger tag = sender.tag - KMenuButtonTag;
+    
+     sender.selected =!sender.selected;
+    
+    for (id obj in _menuView.subviews)  {
+        if ([obj isKindOfClass:[UIButton class]]) {
+            UIButton *theButton = (UIButton*)obj;
+            if (theButton.tag ==  sender.tag) {
+
+            }else{
+                theButton.selected = NO;
+            }
+        }
+    }
+
+    if (sender.selected == YES) {
+        
+        float menuButtonX = KBOTTOM_TOOL_BAR_HEIGHT + sender.width * tag;
+        
+        CGRect menuFrame = CGRectMake(menuButtonX, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 5, sender.width, sender.height);
+        [KYMenu showMenuInView:self.parentview
+                      fromRect:menuFrame
+                     menuItems:menuArray withOptions:optionals];
+        
+    }else{
+        
+        [self dismissMenu];
+    }
+}
+
 
 - (void)onMenuItemAction:(UIButton *)sender {
     
+    [self dismissMenu];
+    
 }
+
+
 
 @end
