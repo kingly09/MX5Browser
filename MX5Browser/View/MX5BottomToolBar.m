@@ -112,9 +112,7 @@
     
     optionals.menuBackgroundColor = menuBackgroundColor; //菜单的底色
     
-    _menuViewArr = @[@"菜单一",@"菜单二",@"菜单三"];
-    
-    [self showMenuView];
+
 }
 
 /**
@@ -165,6 +163,8 @@
         
         for (int i = 0; i < _menuViewArr.count; i++) {
             
+            MX5ButtonModel *buttonModel = [_menuViewArr objectAtIndex:i];
+            
             UIButton *itemBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             itemBtn.size = CGSizeMake(buttonWidth, KBOTTOM_TOOL_BAR_HEIGHT);
             itemBtn.x    =  buttonWidth * i;
@@ -174,10 +174,21 @@
             [itemBtn adjustsImageWhenHighlighted];
             itemBtn.tag = KMenuButtonTag + i;
             [itemBtn adjustsImageWhenDisabled];
-            [itemBtn setTitle:[_menuViewArr objectAtIndex:i] forState:UIControlStateNormal];
+            [itemBtn setTitle:buttonModel.name forState:UIControlStateNormal];
             [itemBtn setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
             [itemBtn addTarget:self action:@selector(clickItemBtn:) forControlEvents:UIControlEventTouchUpInside];
             [_menuView addSubview:itemBtn];
+            
+            //如果有子菜单的显示小三角形
+            if (buttonModel.sub_button.count > 0 ) {
+                
+                UIImageView *image = [[UIImageView alloc] init];
+                image.image = [UIImage imageNamed:@"m_ic_sjx"];
+                image.size = CGSizeMake(8, 8);
+                image.x    = itemBtn.width - 13;
+                image.y    = itemBtn.height - 13;
+                [itemBtn addSubview:image];
+            }
             
             if ((i + 1) != _menuViewArr.count) {
                 UIView *lineView = [[UIView alloc] init];
@@ -208,6 +219,8 @@
 - (void)reloadMenuView:(NSArray *)menuViewArr {
     
     _menuViewArr = menuViewArr;
+
+    [self showMenuView];
     
 }
 

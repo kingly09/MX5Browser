@@ -95,6 +95,11 @@
     
     if (_isHideBottomToolBar == YES) {
         self.bottomToolBar.hidden = YES;
+    }else{
+        
+        if (_menuList.count > 0) {
+             [self.bottomToolBar reloadMenuView:_menuList];
+        }
     }
 
 }

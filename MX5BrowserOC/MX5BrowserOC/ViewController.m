@@ -27,6 +27,7 @@
 
 #import "ViewController.h"
 #import "MX5Browser.h"
+#import  <YYKit/YYKit.h>
 
 @interface ViewController ()
 
@@ -38,6 +39,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.title = @"测试MX5";
+  
     
 }
 
@@ -53,8 +55,13 @@
  */
 - (IBAction)onClickTestBrowser:(id)sender {
     
+    
+    NSArray *menuLists = [NSArray modelArrayWithClass:[MX5ButtonModel class] json:[NSData dataNamed:[NSString stringWithFormat:@"menuList.geojson"]]];
+    
     MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+    browserViewController.menuList = menuLists;
     [browserViewController loadWebURLSring:@"http://www.baidu.com"];
+    
     [self.navigationController pushViewController:browserViewController animated:YES];
     
 }
