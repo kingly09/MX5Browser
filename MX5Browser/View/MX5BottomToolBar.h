@@ -29,6 +29,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class MX5ButtonModel,MX5SubButtonModel;
+@protocol MX5BottomToolBarDelegate <NSObject>
+
+/**
+ 点击自定义的一级菜单
+
+ @param buttonModel 一级菜单对象
+ */
+-(void)onClickBottomToolBarWithMemubutton:(MX5ButtonModel *)buttonModel;
+/**
+ 点击自定义的二级菜单
+ @param buttonModel 二级菜单对象
+ */
+-(void)onClickBottomToolBarWithSubMemubutton:(MX5SubButtonModel *)buttonModel;
+
+@end
+
 /**
  浏览器底部菜单栏
  */
@@ -36,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(CGRect)frame withParentview:(UIView *)parentview;
 
+@property (nonatomic, weak) id<MX5BottomToolBarDelegate> delegate;
 /**
  加载自定义的菜单数组
 

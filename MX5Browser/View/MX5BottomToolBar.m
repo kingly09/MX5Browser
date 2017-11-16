@@ -31,8 +31,10 @@
 
 @interface MX5BottomToolBar() {
     
-    NSArray *menuArray;
+    NSMutableArray *menuArray;
     OptionalConfiguration  optionals;
+    MX5ButtonModel *currButtonModel;  //当前选中的父菜单
+    
 }
 @property (nonatomic, strong) UIView *bottomToolBar;  //底部视图
 @property (nonatomic, strong) UIButton *localBtn;     //不变的button
@@ -78,13 +80,6 @@
     [self addSubview:_bottomToolBar];
 
     [self addBottomToolBarSubview];
-    
-    menuArray = @[[KYMenuItem menuItem:@"发起多人聊天天天" image:[UIImage imageNamed:@"right_menu_multichat"] target:self action:@selector(onMenuItemAction:)],
-                  [KYMenuItem menuItem:@"加好友" image:[UIImage imageNamed:@"right_menu_addFri"] target:self action:@selector(onMenuItemAction:)],
-                  [KYMenuItem menuItem:@"扫一扫" image:[UIImage imageNamed:@"right_menu_QR"] target:self action:@selector(onMenuItemAction:)],
-                  [KYMenuItem menuItem:@"面对面快传" image:[UIImage imageNamed:@"right_menu_facetoface"] target:self action:@selector(onMenuItemAction:)],
-                  [KYMenuItem menuItem:@"付款" image:[UIImage imageNamed:@"right_menu_payMoney"] target:self action:@selector(onMenuItemAction:)]];
-    
     
     Color textColor;
     textColor.R = 0;
@@ -216,12 +211,30 @@
 
 #pragma mark - 对外方法
 
-- (void)reloadMenuView:(NSArray *)menuViewArr {
+- (void)reloadMenuView:(NSArray *)menuViewArr{
     
     _menuViewArr = menuViewArr;
 
     [self showMenuView];
     
+}
+
+/**
+ 显示子菜单
+
+ @param bModel 菜单对象
+ @param menuFrame 子菜单显示的位置
+ */
+-(void)showSupMemuView:(MX5ButtonModel *)bModel  withMenuFrame:(CGRect )menuFrame{
+    
+    menuArray = [NSMutableArray array];
+    for (MX5SubButtonModel *subButtonModel in bModel.sub_button) {
+        [menuArray addObject:[KYMenuItem menuItem:subButtonModel.name image:nil target:self action:@selector(onMenuItemAction:)]];
+    }
+    
+    [KYMenu showMenuInView:self.parentview
+                  fromRect:menuFrame
+                 menuItems:menuArray withOptions:optionals];
 }
 
 #pragma mark - 点击事件
@@ -235,11 +248,16 @@
     
 }
 
+/**
+ 点击一级菜单
+ */
 - (void)clickItemBtn:(UIButton *)sender {
     
     NSInteger tag = sender.tag - KMenuButtonTag;
     
      sender.selected =!sender.selected;
+    
+     MX5ButtonModel *buttonModel = [_menuViewArr objectAtIndex:tag];
     
     for (id obj in _menuView.subviews)  {
         if ([obj isKindOfClass:[UIButton class]]) {
@@ -254,24 +272,54 @@
 
     if (sender.selected == YES) {
         
-        float menuButtonX = KBOTTOM_TOOL_BAR_HEIGHT + sender.width * tag;
-        
-        CGRect menuFrame = CGRectMake(menuButtonX, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 5, sender.width, sender.height);
-        [KYMenu showMenuInView:self.parentview
-                      fromRect:menuFrame
-                     menuItems:menuArray withOptions:optionals];
-        
+       
+        //如果子菜单的显示子菜单
+        if (buttonModel.sub_button.count > 0 ) {
+             currButtonModel = buttonModel;
+            float menuButtonX = KBOTTOM_TOOL_BAR_HEIGHT + sender.width * tag;
+            CGRect menuFrame = CGRectMake(menuButtonX, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 5, sender.width, sender.height);
+            [self showSupMemuView:buttonModel withMenuFrame:menuFrame];
+        }else{
+            //关闭其他的菜单
+            [self dismissMenu];
+            if(_delegate && [_delegate respondsToSelector:@selector(onClickBottomToolBarWithMemubutton:)]){
+                [self.delegate onClickBottomToolBarWithMemubutton:buttonModel];
+            }
+        }
     }else{
         
         [self dismissMenu];
+        if(_delegate && [_delegate respondsToSelector:@selector(onClickBottomToolBarWithMemubutton:)]){
+            [self.delegate onClickBottomToolBarWithMemubutton:buttonModel];
+        }
     }
 }
 
 
-- (void)onMenuItemAction:(UIButton *)sender {
+/**
+ 点击二级菜单
+
+ */
+- (void)onMenuItemAction:(id)sender{
     
+    KYMenuItem *menuItem = sender;
+
     [self dismissMenu];
-    
+
+    if (currButtonModel.sub_button.count > 0) {
+        
+        for (MX5SubButtonModel *subButtonModel  in currButtonModel.sub_button) {
+            
+            if ([subButtonModel.name isEqualToString:menuItem.title]) {
+                
+                if(_delegate && [_delegate respondsToSelector:@selector(onClickBottomToolBarWithSubMemubutton:)]){
+                    [self.delegate onClickBottomToolBarWithSubMemubutton:subButtonModel];
+                }
+                break;
+            }
+        }
+    }
+
 }
 
 

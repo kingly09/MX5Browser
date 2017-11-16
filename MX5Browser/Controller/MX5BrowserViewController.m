@@ -30,8 +30,9 @@
 #import "MX5WebView.h"
 #import "MX5BrowserURLCache.h"
 #import "MX5BottomToolBar.h"
+#import "MX5BrowserUtils.h"
 
-@interface MX5BrowserViewController ()<MX5WebViewDelegate>
+@interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate>
 @property (nonatomic, strong) MX5WebView *webView;
 @property (nonatomic, strong) MX5BottomToolBar *bottomToolBar;
 
@@ -91,6 +92,7 @@
     
     self.bottomToolBar = [[MX5BottomToolBar alloc] initWithFrame:CGRectMake(0, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT) withParentview:self.view];
     self.bottomToolBar.userInteractionEnabled = YES;
+    self.bottomToolBar.delegate = self;
     [self.view addSubview:self.bottomToolBar];
     
     if (_isHideBottomToolBar == YES) {
@@ -211,6 +213,32 @@
  */
 - (void)updateWebViewTitle:(MX5WebView *)webView {
      self.title = webView.title;
+}
+
+#pragma mark - MX5BottomToolBarDelegate
+/**
+ 点击自定义的一级菜单
+ 
+ @param buttonModel 一级菜单对象
+ */
+-(void)onClickBottomToolBarWithMemubutton:(MX5ButtonModel *)buttonModel {
+    
+}
+/**
+ 点击自定义的二级菜单
+ @param buttonModel 二级菜单对象
+ */
+-(void)onClickBottomToolBarWithSubMemubutton:(MX5SubButtonModel *)buttonModel {
+    
+    if ([MX5BrowserUtils isURL:buttonModel.url]) {
+        MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+        browserViewController.menuList = _menuList;
+        [browserViewController loadWebURLSring:buttonModel.url];
+        [self.navigationController pushViewController:browserViewController animated:YES];
+    
+    }else {
+        
+    }
 }
 
 #pragma mark - 初始化URL/对外扩展方法
