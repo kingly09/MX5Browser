@@ -118,6 +118,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)stopLoading;
 
+
+- (void)deallocWebView;
+
+
 // 清除缓存
 + (void)removeCache;
 

@@ -37,7 +37,7 @@
                                     <action selector="onClickLocalHtml:" destination="BYZ-38-t0r" eventType="touchUpInside" id="chU-lG-WC8"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" text="http://m.baidu.com" translatesAutoresizingMaskIntoConstraints="NO" id="i0L-ye-env">
+                            <searchBar contentMode="redraw" text="http://m.youku.com" translatesAutoresizingMaskIntoConstraints="NO" id="i0L-ye-env">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>

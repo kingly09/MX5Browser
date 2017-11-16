@@ -109,6 +109,7 @@
     
     [super viewWillDisappear:YES];
     
+    [self.webView deallocWebView];
     [self.webView.wkWebView setNavigationDelegate:nil];
     [self.webView.wkWebView setUIDelegate:nil];
     self.webView = nil;
@@ -129,7 +130,16 @@
 
 - (void)dealloc {
     
+    
     DDLogDebug(@" MX5BrowserViewController dealloc ");
+    roadLoadButton = nil;
+    self.bottomToolBar = nil;
+    [self.webView deallocWebView];
+    [self.webView.wkWebView setNavigationDelegate:nil];
+    [self.webView.wkWebView setUIDelegate:nil];
+    self.webView = nil;
+    
+    
 }
 
 #pragma mark - 初始化数据

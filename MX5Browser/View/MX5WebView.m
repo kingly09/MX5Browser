@@ -73,7 +73,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 //设置缓存时间（过期时间默认为一周）
 @property(nonatomic,assign) NSTimeInterval timeoutInterval;
 
-@property (nonatomic, strong) UIView *testView;
 @end
 
 @implementation MX5WebView
@@ -111,8 +110,17 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 -(void)dealloc {
     
     DDLogDebug(@"MX5WebView dealloc");
-    
-    self.wkWebView.UIDelegate = nil;
+    [self deallocWebView];
+   
+}
+
+- (void)deallocWebView {
+   
+   self.progressView = nil;
+   self.snapShotsArray = nil;
+   self.URLString = nil;
+ 
+   self.wkWebView.UIDelegate = nil;
     self.wkWebView.navigationDelegate = nil;
     [self.wkWebView scrollView].delegate = nil;
     
