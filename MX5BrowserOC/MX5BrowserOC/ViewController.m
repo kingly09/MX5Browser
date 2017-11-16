@@ -75,7 +75,25 @@
     browserViewController.menuList = menuLists;
     //获取JS所在的路径
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"html"];
-    [browserViewController loadLocalHTMLString:path];
+    [browserViewController loadLocalHTMLStringWithHtmlPath:path];
+    
+    [self.navigationController pushViewController:browserViewController animated:YES];
+    
+    
+}
+
+- (IBAction)onClickHTMLString:(id)sender {
+    
+    NSArray *menuLists = [NSArray modelArrayWithClass:[MX5ButtonModel class] json:[NSData dataNamed:[NSString stringWithFormat:@"menuList.geojson"]]];
+    
+    MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+    browserViewController.menuList = menuLists;
+    //获取JS所在的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"text"];
+    
+    NSString *htmlString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    [browserViewController loadHTMLString:htmlString];
     
     [self.navigationController pushViewController:browserViewController animated:YES];
     

@@ -65,7 +65,7 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
  加载本地html
  @param htmlPath html的文件路径地址
  */
-- (void)loadLocalHTMLString:(NSString *)htmlPath;
+- (void)loadLocalHTMLStringWithHtmlPath:(NSString *)htmlPath;
 /**
  自动带填登录
 

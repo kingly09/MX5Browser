@@ -255,7 +255,16 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     
     DDLogDebug(@"API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转");
-
+    NSString *urlString = [[navigationAction.request URL] absoluteString];
+    urlString = [urlString stringByRemovingPercentEncoding];
+    // 用://截取字符串
+    NSArray *urlComps = [urlString componentsSeparatedByString:@"://"];
+    if ([urlComps count]) {
+        // 获取协议头
+        NSString *protocolHead = [urlComps objectAtIndex:0];
+        DDLogDebug(@"protocolHead=%@",protocolHead);
+    }
+#warning 可以做相应的URL逻辑
     
     switch (navigationAction.navigationType) {
         case WKNavigationTypeLinkActivated: {

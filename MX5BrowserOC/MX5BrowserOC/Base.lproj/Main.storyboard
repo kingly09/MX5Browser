@@ -44,6 +44,14 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="1Dq-hk-QDF"/>
                                 </connections>
                             </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Wr-Eo-cvS">
+                                <rect key="frame" x="116" y="287" width="118" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="加载HTML字符串"/>
+                                <connections>
+                                    <action selector="onClickHTMLString:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uav-XK-P21"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>

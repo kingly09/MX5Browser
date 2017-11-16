@@ -44,6 +44,8 @@
 @property (nonatomic,copy) NSString  *webURLSring;
 //本地HTML路径
 @property (nonatomic,copy) NSString  *htmlPath;
+//HTML代码字符串
+@property (nonatomic,copy) NSString  *htmlString;
 //注入js代码
 @property (nonatomic, copy) NSString *injectJSCode;
 //网页加载的类型
@@ -86,7 +88,8 @@
         [self.webView loadWebURLSring:_webURLSring];
         
     }else  if (self.webViewType == MX5WebViewTypeHTMLString) {
-        
+        //加载js
+        [self.webView loadHTMLString:self.htmlString baseURL:[[NSBundle mainBundle] bundleURL]];
         
     }
     
@@ -187,9 +190,9 @@
 /**
  重新加载网页
  */
-- (void)roadLoadClicked{
-    
-    [self.webView reload];
+- (void)roadLoadClicked {
+   
+     [self.webView reload];
 }
 
 /**
@@ -297,7 +300,7 @@
  加载本地html
  @param htmlPath html的文件路径地址
  */
-- (void)loadLocalHTMLString:(NSString *)htmlPath {
+- (void)loadLocalHTMLStringWithHtmlPath:(NSString *)htmlPath {
     
     self.webViewType  = MX5WebViewTypeLocalHTMLString;
     self.htmlPath     = htmlPath;
@@ -320,6 +323,7 @@
  */
 - (void)loadHTMLString:(NSString *)htmlString {
     
+    self.htmlString   = htmlString;
     self.webViewType  = MX5WebViewTypeHTMLString;
 }
 
