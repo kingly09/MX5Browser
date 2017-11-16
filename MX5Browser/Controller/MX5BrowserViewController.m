@@ -32,7 +32,10 @@
 #import "MX5BottomToolBar.h"
 #import "MX5BrowserUtils.h"
 
-@interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate>
+@interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate> {
+    
+    float bottomToolBarY;
+}
 @property (nonatomic, strong) MX5WebView *webView;
 @property (nonatomic, strong) MX5BottomToolBar *bottomToolBar;
 
@@ -104,6 +107,10 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:YES];
+    
+    [self.webView.wkWebView setNavigationDelegate:nil];
+    [self.webView.wkWebView setUIDelegate:nil];
+    self.webView = nil;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -130,7 +137,7 @@
     
   [self navigationItemView];
     
-    float bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
+     bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
     if (iPhoneX) {
         bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 20;
     }
@@ -148,6 +155,25 @@
         }
     }
 
+}
+
+/**
+ 显示底部导航
+ */
+- (void)showBottomToolBar {
+    
+    self.bottomToolBar.hidden = NO;
+    self.bottomToolBar.frame = CGRectMake(0, bottomToolBarY, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT);
+    self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - KBOTTOM_TOOL_BAR_HEIGHT);
+}
+
+/**
+ 隐藏底部导航
+ */
+- (void)hiddenBottomToolBar {
+    
+    self.bottomToolBar.hidden = YES;
+    self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight));
 }
 
 /**
@@ -249,7 +275,15 @@
     if (webView.canGoBack) {
         
         [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem,spaceButtonItem] animated:NO];
+        
+        self.bottomToolBar.hidden = YES;
+        [self hiddenBottomToolBar];
+        
     }else{
+        
+        self.bottomToolBar.hidden = NO;
+        [self showBottomToolBar];
+        
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
         [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem,spaceButtonItem]];
     }
@@ -279,6 +313,7 @@
     if ([MX5BrowserUtils isURL:buttonModel.url]) {
         MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
         browserViewController.menuList = _menuList;
+        browserViewController.isHideBottomToolBar = YES;
         [browserViewController loadWebURLSring:buttonModel.url];
         [self.navigationController pushViewController:browserViewController animated:YES];
     
@@ -334,18 +369,18 @@
 -(UIBarButtonItem *)customBackBarItem{
     if (!_customBackBarItem) {
         
-        UIImage* backItemImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        UIImage* backItemHlImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        
+//        UIImage* backItemImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//        UIImage* backItemHlImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//
         UIButton* backButton = [[UIButton alloc] init];
         [backButton adjustsImageWhenHighlighted];
         [backButton adjustsImageWhenDisabled];
         [backButton setTitle:@"返回" forState:UIControlStateNormal];
-        [backButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
-        [backButton setTitleColor:[self.navigationController.navigationBar.tintColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [backButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
+//        [backButton setTitleColor:[self.navigationController.navigationBar.tintColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        [backButton setImage:backItemImage forState:UIControlStateNormal];
-        [backButton setImage:backItemHlImage forState:UIControlStateHighlighted];
+//        [backButton setImage:backItemImage forState:UIControlStateNormal];
+//        [backButton setImage:backItemHlImage forState:UIControlStateHighlighted];
         
         [backButton addTarget:self action:@selector(customBackItemClicked) forControlEvents:UIControlEventTouchUpInside];
         _customBackBarItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
