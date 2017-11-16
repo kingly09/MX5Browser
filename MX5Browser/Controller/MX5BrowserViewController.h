@@ -29,6 +29,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 请求方式
+
+ - MX5WebViewTypeWebURLString: 请求网路链接
+ - MX5WebViewTypeLocalHTMLString: 请求本地html文件
+ - MX5WebViewTypeAutomaticLogin: 请求带填登录
+ - MX5WebViewTypeHTMLString: 请求html字符串或本地html字符串
+ */
+typedef NS_ENUM(NSUInteger, MX5WebViewType){
+    MX5WebViewTypeWebURLString = 0,
+    MX5WebViewTypeLocalHTMLString = 1,
+    MX5WebViewTypeAutomaticLogin = 2,
+    MX5WebViewTypeHTMLString= 3
+};
+
+
 @class MX5WebView;
 /**
  整个浏览器的主框架

@@ -40,6 +40,10 @@
 @property (nonatomic) UIBarButtonItem *customBackBarItem;
 //关闭按钮
 @property (nonatomic) UIBarButtonItem *closeButtonItem;
+//打开链接
+@property (nonatomic,copy) NSString  *webURLSring;
+//网页加载的类型
+@property(nonatomic,assign) MX5WebViewType webViewType;
 
 @end
 
@@ -50,8 +54,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self webViewCache];
     
+    //初始化WebView
+    [self setupWebView];
+    //初始化视图
     [self initializeView];
+    //加载
+    [self webViewloadURLType];
+}
+
+- (void)webViewloadURLType {
+    
+    if (self.webViewType == MX5WebViewTypeWebURLString) {
+        //加载webURLSring
+        [self.webView loadWebURLSring:_webURLSring];
+        
+    }else  if (self.webViewType == MX5WebViewTypeLocalHTMLString) {
+        
+    }else  if (self.webViewType == MX5WebViewTypeAutomaticLogin) {
+        
+    }else  if (self.webViewType == MX5WebViewTypeHTMLString) {
+        
+    }
     
 }
 
@@ -133,10 +158,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:roadLoadButton];
 }
 
--(void)loadViewData {
-    
-    
-}
 
 // 网页缓存设置
 -(void) webViewCache {
@@ -253,19 +274,16 @@
 #pragma mark - 初始化URL/对外扩展方法
 
 - (void)loadWebURLSring:(NSString *)urlString {
-    //初始化WebView
-    [self setupWebView];
-    //加载数据
-    [self loadViewData];
+   
+    _webURLSring = urlString;
     
-    //初始化视图
-    [self initializeView];
-    
-    [self.webView loadWebURLSring:urlString];
+    self.webViewType  = MX5WebViewTypeWebURLString;
 }
 
 #pragma mark - setter and getter 方法
 #pragma mark - 懒加载
+
+
 
 -(UIBarButtonItem *)customBackBarItem{
     if (!_customBackBarItem) {
