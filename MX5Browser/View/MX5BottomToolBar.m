@@ -278,6 +278,9 @@
              currButtonModel = buttonModel;
             float menuButtonX = KBOTTOM_TOOL_BAR_HEIGHT + sender.width * tag;
             CGRect menuFrame = CGRectMake(menuButtonX, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 5, sender.width, sender.height);
+            if ( iPhoneX) {
+                menuFrame = CGRectMake(menuButtonX, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 25, sender.width, sender.height);
+            }
             [self showSupMemuView:buttonModel withMenuFrame:menuFrame];
         }else{
             //关闭其他的菜单
