@@ -35,6 +35,7 @@
 @interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate> {
     
     float bottomToolBarY;
+    UIButton *roadLoadButton; //右边按钮
 }
 @property (nonatomic, strong) MX5WebView *webView;
 @property (nonatomic, strong) MX5BottomToolBar *bottomToolBar;
@@ -147,9 +148,9 @@
     [self.view addSubview:self.bottomToolBar];
     
     if (_isHideBottomToolBar == YES) {
-        self.bottomToolBar.hidden = YES;
+        [self hiddenBottomToolBar];
     }else{
-        
+        [self showBottomToolBar];
         if (_menuList.count > 0) {
              [self.bottomToolBar reloadMenuView:_menuList];
         }
@@ -163,6 +164,7 @@
 - (void)showBottomToolBar {
     
     self.bottomToolBar.hidden = NO;
+    [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
     self.bottomToolBar.frame = CGRectMake(0, bottomToolBarY, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT);
     self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - KBOTTOM_TOOL_BAR_HEIGHT);
 }
@@ -173,6 +175,7 @@
 - (void)hiddenBottomToolBar {
     
     self.bottomToolBar.hidden = YES;
+    [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_apply"] forState:UIControlStateNormal];
     self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight));
 }
 
@@ -191,7 +194,8 @@
 -(void)navigationItemView{
     
     //添加右边刷新按钮
-    UIButton *roadLoadButton = [[UIButton alloc] init];
+    roadLoadButton = [[UIButton alloc] init];
+    roadLoadButton.size = CGSizeMake(22,22);
     [roadLoadButton adjustsImageWhenHighlighted];
     [roadLoadButton adjustsImageWhenDisabled];
     [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
@@ -218,7 +222,15 @@
  */
 - (void)roadLoadClicked {
    
-     [self.webView reload];
+    //当前是内页的时候，不显示底部自定义菜单
+    if (self.bottomToolBar.hidden == YES) {
+#warning 当前是内页的时候，不显示底部自定义菜单
+        
+    }else {
+        
+        [self.webView reload];
+    }
+
 }
 
 /**
@@ -275,15 +287,15 @@
     if (webView.canGoBack) {
         
         [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem,spaceButtonItem] animated:NO];
-        
-        self.bottomToolBar.hidden = YES;
         [self hiddenBottomToolBar];
         
     }else{
-        
-        self.bottomToolBar.hidden = NO;
-        [self showBottomToolBar];
-        
+        if (_isHideBottomToolBar) {
+            [self hiddenBottomToolBar];
+        }else{
+            [self showBottomToolBar];
+        }
+       
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
         [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem,spaceButtonItem]];
     }
@@ -395,8 +407,9 @@
         [closeButton adjustsImageWhenHighlighted];
         [closeButton adjustsImageWhenDisabled];
         [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
-        [closeButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
-        [closeButton setTitleColor:[self.navigationController.navigationBar.tintColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [closeButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
+//        [closeButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
+//        [closeButton setTitleColor:[self.navigationController.navigationBar.tintColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
         [closeButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
   
         [closeButton addTarget:self action:@selector(closeItemClicked) forControlEvents:UIControlEventTouchUpInside];
