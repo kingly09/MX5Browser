@@ -51,14 +51,33 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
  */
 @interface MX5BrowserViewController : UIViewController
 
-@property (nonatomic) BOOL isHideBottomToolBar;  //是否隐藏底部导航条
-@property (nonatomic,strong) NSArray *menuList;  //底部菜单数组
+@property (nonatomic) BOOL isHideBottomToolBar;     //是否隐藏底部导航条
+@property (nonatomic,strong) NSArray *menuList;     //底部菜单数组
+@property(nonatomic,assign) BOOL needInjectJS;      //是否需要注入js代码
 /**
  加载纯外部链接网页
  
  @param urlString URL地址
  */
 - (void)loadWebURLSring:(NSString *)urlString;
+
+/**
+ 加载本地html
+ @param htmlPath html的文件路径地址
+ */
+- (void)loadLocalHTMLString:(NSString *)htmlPath;
+/**
+ 自动带填登录
+
+ @param urlString 需要带填的URL地址
+ @param JSCode 注入js
+ */
+- (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode;
+/**
+ 加载带有HTML字符串
+ @param htmlString 带有HTML字符串
+ */
+- (void)loadHTMLString:(NSString *)htmlString;
 
 NS_ASSUME_NONNULL_END
 

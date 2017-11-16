@@ -101,6 +101,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param urlString URL地址
  */
 - (void)loadWebURLSring:(NSString *)urlString;
+/**
+ 加载本地HTML
+
+ @param string HTML字符串
+ @param baseURL  bundleURL
+ */
+- (void)loadHTMLString:(NSString *)string baseURL:(nullable NSURL *)baseURL;
+
 
 - (id)goBack;
 - (id)goForward;

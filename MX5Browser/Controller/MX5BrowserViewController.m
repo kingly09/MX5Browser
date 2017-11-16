@@ -42,6 +42,10 @@
 @property (nonatomic) UIBarButtonItem *closeButtonItem;
 //打开链接
 @property (nonatomic,copy) NSString  *webURLSring;
+//本地HTML路径
+@property (nonatomic,copy) NSString  *htmlPath;
+//注入js代码
+@property (nonatomic, copy) NSString *injectJSCode;
 //网页加载的类型
 @property(nonatomic,assign) MX5WebViewType webViewType;
 
@@ -72,9 +76,17 @@
         
     }else  if (self.webViewType == MX5WebViewTypeLocalHTMLString) {
         
+        //获得html内容
+        NSString *html = [[NSString alloc] initWithContentsOfFile:self.htmlPath encoding:NSUTF8StringEncoding error:nil];
+        //加载js
+        [self.webView loadHTMLString:html baseURL:[[NSBundle mainBundle] bundleURL]];
+        
     }else  if (self.webViewType == MX5WebViewTypeAutomaticLogin) {
         
+        [self.webView loadWebURLSring:_webURLSring];
+        
     }else  if (self.webViewType == MX5WebViewTypeHTMLString) {
+        
         
     }
     
@@ -229,13 +241,14 @@
  */
 - (void)updateNavigationItems:(MX5WebView *)webView {
     
+    UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceButtonItem.width = -6.5;
     if (webView.canGoBack) {
-        UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        spaceButtonItem.width = -6.5;
+        
         [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem,spaceButtonItem] animated:NO];
     }else{
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
+        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem,spaceButtonItem]];
     }
 }
 /**
@@ -280,9 +293,38 @@
     self.webViewType  = MX5WebViewTypeWebURLString;
 }
 
+/**
+ 加载本地html
+ @param htmlPath html的文件路径地址
+ */
+- (void)loadLocalHTMLString:(NSString *)htmlPath {
+    
+    self.webViewType  = MX5WebViewTypeLocalHTMLString;
+    self.htmlPath     = htmlPath;
+}
+/**
+ 自动带填登录
+ 
+ @param urlString 需要带填的URL地址
+ @param JSCode 注入js
+ */
+- (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode {
+    
+    _webURLSring = urlString;
+    _injectJSCode = JSCode;
+    self.webViewType  = MX5WebViewTypeAutomaticLogin;
+}
+/**
+ 加载带有HTML字符串
+ @param htmlString 带有HTML字符串
+ */
+- (void)loadHTMLString:(NSString *)htmlString {
+    
+    self.webViewType  = MX5WebViewTypeHTMLString;
+}
+
 #pragma mark - setter and getter 方法
 #pragma mark - 懒加载
-
 
 
 -(UIBarButtonItem *)customBackBarItem{

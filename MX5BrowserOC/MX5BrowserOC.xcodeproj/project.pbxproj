@@ -18,6 +18,7 @@
 		BC0A18F41FBC01A800ABDEA0 /* MX5ButtonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18F31FBC01A800ABDEA0 /* MX5ButtonModel.m */; };
 		BC0A18F71FBC01C000ABDEA0 /* MX5SubButtonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A18F61FBC01C000ABDEA0 /* MX5SubButtonModel.m */; };
 		BC0A18F91FBC026600ABDEA0 /* menuList.geojson in Resources */ = {isa = PBXBuildFile; fileRef = BC0A18F81FBC026600ABDEA0 /* menuList.geojson */; };
+		BC0FD7211FBD67D000F03E37 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = BC0FD7201FBD67D000F03E37 /* test.html */; };
 		BC1D8A031FB546CC00179FAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A021FB546CC00179FAE /* AppDelegate.m */; };
 		BC1D8A061FB546CC00179FAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A051FB546CC00179FAE /* ViewController.m */; };
 		BC1D8A091FB546CC00179FAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1D8A071FB546CC00179FAE /* Main.storyboard */; };
@@ -72,6 +73,7 @@
 		BC0A18F51FBC01C000ABDEA0 /* MX5SubButtonModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5SubButtonModel.h; sourceTree = "<group>"; };
 		BC0A18F61FBC01C000ABDEA0 /* MX5SubButtonModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5SubButtonModel.m; sourceTree = "<group>"; };
 		BC0A18F81FBC026600ABDEA0 /* menuList.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = menuList.geojson; sourceTree = "<group>"; };
+		BC0FD7201FBD67D000F03E37 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		BC1D89FE1FB546CC00179FAE /* MX5BrowserOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MX5BrowserOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D8A011FB546CC00179FAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC1D8A021FB546CC00179FAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		BC0A18E11FBAD2E800ABDEA0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BC0FD7201FBD67D000F03E37 /* test.html */,
 				BC0A18F81FBC026600ABDEA0 /* menuList.geojson */,
 			);
 			path = Resources;
@@ -403,6 +406,7 @@
 				BC0A18F91FBC026600ABDEA0 /* menuList.geojson in Resources */,
 				BC1D8A0E1FB546CC00179FAE /* LaunchScreen.storyboard in Resources */,
 				BC1D8A0B1FB546CC00179FAE /* Assets.xcassets in Resources */,
+				BC0FD7211FBD67D000F03E37 /* test.html in Resources */,
 				BC1D8A091FB546CC00179FAE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

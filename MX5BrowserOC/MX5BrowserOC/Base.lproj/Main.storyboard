@@ -22,17 +22,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBN-1e-5cR">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <rect key="frame" x="129" y="157" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="点击"/>
+                                <state key="normal" title="点击加载百度"/>
                                 <connections>
                                     <action selector="onClickTestBrowser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UTD-1Q-daI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q0a-U2-FcE">
+                                <rect key="frame" x="124" y="220" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="加载本地HTML"/>
+                                <connections>
+                                    <action selector="onClickLocalHtml:" destination="BYZ-38-t0r" eventType="touchUpInside" id="chU-lG-WC8"/>
+                                </connections>
+                            </button>
+                            <searchBar contentMode="redraw" text="http://m.baidu.com" translatesAutoresizingMaskIntoConstraints="NO" id="i0L-ye-env">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="1Dq-hk-QDF"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="i0L-ye-env" firstAttribute="top" secondItem="2zj-rb-7Ll" secondAttribute="bottom" id="98s-dy-cbG"/>
+                            <constraint firstItem="i0L-ye-env" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IjJ-t5-E9w"/>
+                            <constraint firstAttribute="trailing" secondItem="i0L-ye-env" secondAttribute="trailing" id="TdT-dg-6ne"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Z9m-nv-jdX"/>
+                    <connections>
+                        <outlet property="searchBar" destination="i0L-ye-env" id="gJD-tT-Onv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

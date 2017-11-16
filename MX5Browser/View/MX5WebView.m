@@ -488,6 +488,17 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [self.wkWebView loadRequest:urlRequest];
 }
 
+/**
+ 加载本地HTML
+ 
+ @param string HTML字符串
+ @param baseURL  bundleURL
+ */
+- (void)loadHTMLString:(NSString *)string baseURL:(nullable NSURL *)baseURL {
+    
+     [self.wkWebView loadHTMLString:string baseURL:baseURL];
+}
+
 -(BOOL)isLoading{
     return [self.wkWebView isLoading];
 }

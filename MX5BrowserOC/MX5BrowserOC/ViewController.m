@@ -29,8 +29,8 @@
 #import "MX5Browser.h"
 #import  <YYKit/YYKit.h>
 
-@interface ViewController ()
-
+@interface ViewController ()<UISearchBarDelegate>
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @end
 
 @implementation ViewController
@@ -63,6 +63,39 @@
     [browserViewController loadWebURLSring:@"http://www.baidu.com"];
     
     [self.navigationController pushViewController:browserViewController animated:YES];
+    
+}
+
+- (IBAction)onClickLocalHtml:(id)sender {
+    
+    
+    NSArray *menuLists = [NSArray modelArrayWithClass:[MX5ButtonModel class] json:[NSData dataNamed:[NSString stringWithFormat:@"menuList.geojson"]]];
+    
+    MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+    browserViewController.menuList = menuLists;
+    //获取JS所在的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"html"];
+    [browserViewController loadLocalHTMLString:path];
+    
+    [self.navigationController pushViewController:browserViewController animated:YES];
+    
+    
+}
+
+#pragma mark - UISearchBarDelegate 点击search跳到搜索结果页
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+
+    NSArray *menuLists = [NSArray modelArrayWithClass:[MX5ButtonModel class] json:[NSData dataNamed:[NSString stringWithFormat:@"menuList.geojson"]]];
+    
+    MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+    browserViewController.menuList = menuLists;
+    [browserViewController loadWebURLSring:searchBar.text];
+    
+    [self.navigationController pushViewController:browserViewController animated:YES];
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     
 }
 
