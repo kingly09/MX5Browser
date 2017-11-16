@@ -108,7 +108,7 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:YES];
-    
+    [self.webView removeFromSuperview];
     [self.webView deallocWebView];
     [self.webView.wkWebView setNavigationDelegate:nil];
     [self.webView.wkWebView setUIDelegate:nil];
@@ -132,8 +132,13 @@
     
     
     DDLogDebug(@" MX5BrowserViewController dealloc ");
+    [roadLoadButton removeFromSuperview];
     roadLoadButton = nil;
+    
+    [self.bottomToolBar removeFromSuperview];
     self.bottomToolBar = nil;
+    
+    [self.webView removeFromSuperview];
     [self.webView deallocWebView];
     [self.webView.wkWebView setNavigationDelegate:nil];
     [self.webView.wkWebView setUIDelegate:nil];

@@ -116,7 +116,9 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 - (void)deallocWebView {
    
+   [self.progressView removeFromSuperview];
    self.progressView = nil;
+   
    self.snapShotsArray = nil;
    self.URLString = nil;
  

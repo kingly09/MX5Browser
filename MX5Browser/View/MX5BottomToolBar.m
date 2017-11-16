@@ -50,6 +50,21 @@
 -(void)dealloc {
     
     DDLogDebug(@"MX5BottomToolBar dealloc");
+    
+    [_bottomToolBar removeFromSuperview];
+    _bottomToolBar = nil;
+    
+    [_localBtn removeFromSuperview];
+    _localBtn = nil;
+    
+    [_menuView removeFromSuperview];
+    _menuView = nil;
+    
+    [_parentview removeFromSuperview];
+    _parentview = nil;
+    
+    _menuViewArr = nil;
+    
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{

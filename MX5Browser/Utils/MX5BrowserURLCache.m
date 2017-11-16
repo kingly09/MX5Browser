@@ -117,9 +117,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS (MX5BrowserURLCache)
 
 - (void)dealloc {
     
-    _diskPath = nil;
-    _responseDictionary  = nil;
-    
     DDLogDebug(@"MX5BrowserURLCache dealloc");
 }
 
