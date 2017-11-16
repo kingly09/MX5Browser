@@ -55,6 +55,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #define kNavBarHeight 44.0
 #define KBrowserVC  [MX5BrowserViewController sharedInstance]
 #define KBOTTOM_TOOL_BAR_HEIGHT 44
+#define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define iPhoneX  [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen  mainScreen] bounds].size.height >= 812.0f && isiPhone
 
 #pragma mark - WEAK、STRONG
 

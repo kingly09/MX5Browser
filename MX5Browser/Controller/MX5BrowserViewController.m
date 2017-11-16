@@ -90,7 +90,11 @@
     
   [self navigationItemView];
     
-    self.bottomToolBar = [[MX5BottomToolBar alloc] initWithFrame:CGRectMake(0, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT) withParentview:self.view];
+    float bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
+    if (iPhoneX) {
+        bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 20;
+    }
+    self.bottomToolBar = [[MX5BottomToolBar alloc] initWithFrame:CGRectMake(0, bottomToolBarY, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT) withParentview:self.view];
     self.bottomToolBar.userInteractionEnabled = YES;
     self.bottomToolBar.delegate = self;
     [self.view addSubview:self.bottomToolBar];
