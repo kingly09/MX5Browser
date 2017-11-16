@@ -68,11 +68,12 @@
 
 - (void)initializeView {
 
-   
+    self.userInteractionEnabled = YES;
     self.backgroundColor = [UIColor whiteColor];
     
     _bottomToolBar = [[UIView alloc] init];
     _bottomToolBar.frame = self.bounds;
+    _bottomToolBar.userInteractionEnabled = YES;
     [_bottomToolBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [self addSubview:_bottomToolBar];
 
@@ -134,6 +135,7 @@
     
     //自定义菜单
     _menuView =  [[UIView alloc] init];
+    _menuView.userInteractionEnabled = YES;
     _menuView.size = CGSizeMake(self.width - KBOTTOM_TOOL_BAR_HEIGHT , KBOTTOM_TOOL_BAR_HEIGHT);
     _menuView.x    = KBOTTOM_TOOL_BAR_HEIGHT;
     [_bottomToolBar addSubview:_menuView];

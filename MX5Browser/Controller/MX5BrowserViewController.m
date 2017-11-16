@@ -90,6 +90,7 @@
   [self navigationItemView];
     
     self.bottomToolBar = [[MX5BottomToolBar alloc] initWithFrame:CGRectMake(0, KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT) withParentview:self.view];
+    self.bottomToolBar.userInteractionEnabled = YES;
     [self.view addSubview:self.bottomToolBar];
     
     if (_isHideBottomToolBar == YES) {
@@ -226,10 +227,12 @@
 
 -(UIBarButtonItem *)customBackBarItem{
     if (!_customBackBarItem) {
-        UIImage* backItemImage = [[UIImage imageNamed:@"backItemImage"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        UIImage* backItemHlImage = [[UIImage imageNamed:@"backItemImage-hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage* backItemImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage* backItemHlImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         UIButton* backButton = [[UIButton alloc] init];
+        [backButton adjustsImageWhenHighlighted];
+        [backButton adjustsImageWhenDisabled];
         [backButton setTitle:@"返回" forState:UIControlStateNormal];
         [backButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
         [backButton setTitleColor:[self.navigationController.navigationBar.tintColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
