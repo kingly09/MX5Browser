@@ -219,8 +219,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     // 获取加载网页的标题
     self.title = self.wkWebView.title;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [self updateNavigationItems];
-    
+
      if(_delegate && [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]){
         [self.delegate webViewDidFinishLoad:self];
     }

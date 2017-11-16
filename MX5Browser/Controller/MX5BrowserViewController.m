@@ -125,8 +125,12 @@
 -(void)navigationItemView{
     
     //添加右边刷新按钮
-    UIBarButtonItem *roadLoad = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(roadLoadClicked)];
-    self.navigationItem.rightBarButtonItem = roadLoad;
+    UIButton *roadLoadButton = [[UIButton alloc] init];
+    [roadLoadButton adjustsImageWhenHighlighted];
+    [roadLoadButton adjustsImageWhenDisabled];
+    [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
+    [roadLoadButton addTarget:self action:@selector(roadLoadClicked) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:roadLoadButton];
 }
 
 -(void)loadViewData {
@@ -187,6 +191,7 @@
  */
 - (void)webViewDidFinishLoad:(MX5WebView *)webView {
     self.title = webView.title;
+    [self updateNavigationItems:webView];
 }
 /**
  加载webView失败
@@ -206,7 +211,7 @@
     if (webView.canGoBack) {
         UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         spaceButtonItem.width = -6.5;
-        [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem] animated:NO];
+        [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem,spaceButtonItem] animated:NO];
     }else{
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
         [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
@@ -264,6 +269,7 @@
 
 -(UIBarButtonItem *)customBackBarItem{
     if (!_customBackBarItem) {
+        
         UIImage* backItemImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         UIImage* backItemHlImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
@@ -273,10 +279,9 @@
         [backButton setTitle:@"返回" forState:UIControlStateNormal];
         [backButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
         [backButton setTitleColor:[self.navigationController.navigationBar.tintColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
-        [backButton.titleLabel setFont:[UIFont systemFontOfSize:17]];
+        [backButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [backButton setImage:backItemImage forState:UIControlStateNormal];
         [backButton setImage:backItemHlImage forState:UIControlStateHighlighted];
-        [backButton sizeToFit];
         
         [backButton addTarget:self action:@selector(customBackItemClicked) forControlEvents:UIControlEventTouchUpInside];
         _customBackBarItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
@@ -286,7 +291,17 @@
 
 -(UIBarButtonItem *)closeButtonItem{
     if (!_closeButtonItem) {
-        _closeButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(closeItemClicked)];
+        
+        UIButton* closeButton = [[UIButton alloc] init];
+        [closeButton adjustsImageWhenHighlighted];
+        [closeButton adjustsImageWhenDisabled];
+        [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
+        [closeButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
+        [closeButton setTitleColor:[self.navigationController.navigationBar.tintColor colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+        [closeButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+  
+        [closeButton addTarget:self action:@selector(closeItemClicked) forControlEvents:UIControlEventTouchUpInside];
+        _closeButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
     }
     return _closeButtonItem;
 }
