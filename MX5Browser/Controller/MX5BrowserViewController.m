@@ -35,7 +35,9 @@
 @interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate> {
     
     float bottomToolBarY;
+    float webViewY;
     UIButton *roadLoadButton; //右边按钮
+    UILabel  *titleViewLabel; //标题视图
 }
 @property (nonatomic, strong) MX5WebView *webView;
 @property (nonatomic, strong) MX5BottomToolBar *bottomToolBar;
@@ -44,6 +46,7 @@
 @property (nonatomic) UIBarButtonItem *customBackBarItem;
 //关闭按钮
 @property (nonatomic) UIBarButtonItem *closeButtonItem;
+
 //打开链接
 @property (nonatomic,copy) NSString  *webURLSring;
 //本地HTML路径
@@ -150,6 +153,7 @@
 #pragma mark - 初始化数据
 
 -(void)initializeView {
+   
     
   [self navigationItemView];
     
@@ -199,6 +203,12 @@
  */
 -(void)setupWebView {
     
+    if (@available(iOS 11.0, *)) {
+        
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+
     self.view.backgroundColor = [UIColor whiteColor];
     float bottomToolBarHight = (_isHideBottomToolBar == YES)?0:KBOTTOM_TOOL_BAR_HEIGHT;
     self.webView = [[MX5WebView alloc]initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - bottomToolBarHight)];
@@ -207,7 +217,7 @@
 }
 
 -(void)navigationItemView{
-    
+
     //添加右边刷新按钮
     roadLoadButton = [[UIButton alloc] init];
     roadLoadButton.size = CGSizeMake(22,22);
@@ -216,6 +226,17 @@
     [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
     [roadLoadButton addTarget:self action:@selector(roadLoadClicked) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:roadLoadButton];
+    
+    titleViewLabel = [[UILabel alloc] init];
+    titleViewLabel.size = CGSizeMake(KScreenWidth - 5, 44);
+    titleViewLabel.x    = 5;
+    titleViewLabel.font = [UIFont systemFontOfSize:16];
+    titleViewLabel.textColor = [UIColor colorWithHexStr:@"#101010"];
+    titleViewLabel.backgroundColor = [UIColor clearColor];
+    titleViewLabel.text = self.title;
+    titleViewLabel.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.titleView = titleViewLabel;
+    
 }
 
 
@@ -279,7 +300,7 @@
  webView加载完成
  */
 - (void)webViewDidFinishLoad:(MX5WebView *)webView {
-    self.title = webView.title;
+    titleViewLabel.text = webView.title;
     [self updateNavigationItems:webView];
 }
 /**
@@ -296,30 +317,26 @@
  更新导航条
  */
 - (void)updateNavigationItems:(MX5WebView *)webView {
-    
-    UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    spaceButtonItem.width = -6.5;
+
     if (webView.canGoBack) {
-        
-        [self.navigationItem setLeftBarButtonItems:@[spaceButtonItem,self.customBackBarItem,self.closeButtonItem,spaceButtonItem] animated:NO];
+        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem,self.closeButtonItem] animated:NO];
         [self hiddenBottomToolBar];
-        
+
     }else{
         if (_isHideBottomToolBar) {
             [self hiddenBottomToolBar];
         }else{
             [self showBottomToolBar];
         }
-       
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem,spaceButtonItem]];
+        [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
     }
 }
 /**
  更新web视图的title
  */
 - (void)updateWebViewTitle:(MX5WebView *)webView {
-     self.title = webView.title;
+      titleViewLabel.text = webView.title;
 }
 
 #pragma mark - MX5BottomToolBarDelegate
@@ -414,6 +431,7 @@
 //        UIImage* backItemHlImage = [[UIImage imageNamed:@"m_ic_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 //
         UIButton* backButton = [[UIButton alloc] init];
+        backButton.size = CGSizeMake(30, 44);
         [backButton adjustsImageWhenHighlighted];
         [backButton adjustsImageWhenDisabled];
         [backButton setTitle:@"返回" forState:UIControlStateNormal];
@@ -435,6 +453,7 @@
         UIButton* closeButton = [[UIButton alloc] init];
         [closeButton adjustsImageWhenHighlighted];
         [closeButton adjustsImageWhenDisabled];
+        closeButton.size = CGSizeMake(30, 44);
         [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
         [closeButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
 //        [closeButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
@@ -446,5 +465,6 @@
     }
     return _closeButtonItem;
 }
+
 
 @end
