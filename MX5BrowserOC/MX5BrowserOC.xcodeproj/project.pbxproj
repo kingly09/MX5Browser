@@ -31,6 +31,7 @@
 		BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A381FB5553700179FAE /* MX5WebView.m */; };
 		BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */; };
 		BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */; };
+		BC9D67451FBEBD58002FAE66 /* MX5ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9D67441FBEBD58002FAE66 /* MX5ToolView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,8 @@
 		BC1D8A3B1FB559F700179FAE /* MX5BrowserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BrowserViewController.m; sourceTree = "<group>"; };
 		BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BottomToolBar.h; sourceTree = "<group>"; };
 		BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5BottomToolBar.m; sourceTree = "<group>"; };
+		BC9D67431FBEBD58002FAE66 /* MX5ToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5ToolView.h; sourceTree = "<group>"; };
+		BC9D67441FBEBD58002FAE66 /* MX5ToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5ToolView.m; sourceTree = "<group>"; };
 		D1103513EC1D434B66BCA0CB /* Pods-MX5BrowserOCUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +278,8 @@
 				BC1D8A381FB5553700179FAE /* MX5WebView.m */,
 				BC1D8A431FB5698400179FAE /* MX5BottomToolBar.h */,
 				BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */,
+				BC9D67431FBEBD58002FAE66 /* MX5ToolView.h */,
+				BC9D67441FBEBD58002FAE66 /* MX5ToolView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -597,6 +602,7 @@
 				BC1D8A111FB546CC00179FAE /* main.m in Sources */,
 				BC1D8A3C1FB559F700179FAE /* MX5BrowserViewController.m in Sources */,
 				BC0A18DF1FBABFCF00ABDEA0 /* MX5BrowserUtils.m in Sources */,
+				BC9D67451FBEBD58002FAE66 /* MX5ToolView.m in Sources */,
 				BC1D8A391FB5553700179FAE /* MX5WebView.m in Sources */,
 				BC0A18EA1FBAD34600ABDEA0 /* MX5BrowserURLCache.m in Sources */,
 				BC0A18F01FBAD56000ABDEA0 /* UIColor+MX5Browser.m in Sources */,

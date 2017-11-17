@@ -31,16 +31,19 @@
 #import "MX5BrowserURLCache.h"
 #import "MX5BottomToolBar.h"
 #import "MX5BrowserUtils.h"
+#import "MX5ToolView.h"
 
-@interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate> {
+@interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate,MX5ToolViewDelegate> {
     
-    float bottomToolBarY;
+
     float webViewY;
     UIButton *roadLoadButton; //右边按钮
     UILabel  *titleViewLabel; //标题视图
+    MX5ToolView *toolView;    //工具类
 }
 @property (nonatomic, strong) MX5WebView *webView;
 @property (nonatomic, strong) MX5BottomToolBar *bottomToolBar;
+
 
 //返回按钮
 @property (nonatomic) UIBarButtonItem *customBackBarItem;
@@ -138,6 +141,13 @@
     [self.bottomToolBar removeFromSuperview];
     self.bottomToolBar = nil;
     
+    [titleViewLabel removeFromSuperview];
+    titleViewLabel = nil;
+    
+    [toolView removeFromSuperview];
+    toolView = nil;
+    
+    
     [self.webView removeFromSuperview];
     [self.webView deallocWebView];
     [self.webView.wkWebView setNavigationDelegate:nil];
@@ -150,11 +160,11 @@
 #pragma mark - 初始化数据
 
 -(void)initializeView {
-   
     
-  [self navigationItemView];
     
-     bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
+    [self navigationItemView];
+    
+    float  bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
     if (iPhoneX) {
         bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 20;
     }
@@ -168,10 +178,14 @@
     }else{
         [self showBottomToolBar];
         if (_menuList.count > 0) {
-             [self.bottomToolBar reloadMenuView:_menuList];
+            [self.bottomToolBar reloadMenuView:_menuList];
         }
     }
-
+    
+    //工具栏
+//    toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+//    [self.view addSubview:toolView];
+    
 }
 
 /**
@@ -180,11 +194,20 @@
 - (void)showBottomToolBar {
     
     self.bottomToolBar.hidden = NO;
+    float bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
+    if (iPhoneX) {
+        bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 20;
+    }else{
+        
+        
+    }
     [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
     self.bottomToolBar.frame = CGRectMake(0, bottomToolBarY, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT);
-    self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - KBOTTOM_TOOL_BAR_HEIGHT);
+    
     if (iPhoneX) {
-       self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - KBOTTOM_TOOL_BAR_HEIGHT - 20);
+        self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - KBOTTOM_TOOL_BAR_HEIGHT - 20);
+    }else{
+        self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - KBOTTOM_TOOL_BAR_HEIGHT);
     }
     
 }
@@ -196,10 +219,14 @@
     
     self.bottomToolBar.hidden = YES;
     [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_apply"] forState:UIControlStateNormal];
-    self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight));
+    
     if (iPhoneX) {
-         self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - 20);
+        self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - 20);
+    }else{
+        
+        self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight));
     }
+    
 }
 
 /**
@@ -360,9 +387,10 @@
     
     if ([MX5BrowserUtils isURL:buttonModel.url]) {
         MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
-        browserViewController.menuList = _menuList;
+        
         browserViewController.isHideBottomToolBar = YES;
         [browserViewController loadWebURLSring:buttonModel.url];
+        [browserViewController loadMenuView:_menuList];
         [self.navigationController pushViewController:browserViewController animated:YES];
     
     }else {
@@ -419,7 +447,7 @@
     _menuList = menuList;
     
     [self.bottomToolBar reloadMenuView:_menuList];
-    
+    self.bottomToolBar.userInteractionEnabled = YES;
     self.bottomToolBar.hidden = _isHideBottomToolBar;
     
 }
