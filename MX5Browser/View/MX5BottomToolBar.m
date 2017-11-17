@@ -34,6 +34,7 @@
     NSMutableArray *menuArray;
     OptionalConfiguration  optionals;
     MX5ButtonModel *currButtonModel;  //当前选中的父菜单
+    UIView *underscoreView;           //底线
     
 }
 @property (nonatomic, strong) UIView *bottomToolBar;  //底部视图
@@ -41,6 +42,8 @@
 @property (nonatomic, strong) UIView *menuView;       //菜单视图
 @property (nonatomic, strong) UIView *parentview;     //菜单所处于的父视图
 @property (nonatomic, strong) NSArray *menuViewArr;   //菜单数组
+
+
 
 @end
 
@@ -62,6 +65,10 @@
     
     [_parentview removeFromSuperview];
     _parentview = nil;
+    
+    
+    [underscoreView removeFromSuperview];
+    underscoreView = nil;
     
     _menuViewArr = nil;
     
@@ -161,6 +168,15 @@
     toplineView.size = CGSizeMake(self.width , 1/SCALE );
     toplineView.backgroundColor = [UIColor colorWithHexStr:@"#c3c3c3"];
     [_bottomToolBar addSubview:toplineView];
+    
+    //底线
+    underscoreView = [[UIView alloc] init];
+    underscoreView.size = CGSizeMake(self.width , 1/SCALE );
+    underscoreView.backgroundColor = [UIColor colorWithHexStr:@"#c3c3c3"];
+    underscoreView.y = _bottomToolBar.height - 1/SCALE;
+   [_bottomToolBar addSubview:underscoreView];
+    
+    
 }
 
 /**
@@ -184,6 +200,7 @@
             [itemBtn adjustsImageWhenHighlighted];
             itemBtn.tag = KMenuButtonTag + i;
             [itemBtn adjustsImageWhenDisabled];
+            itemBtn.titleLabel.font = [UIFont systemFontOfSize:14];
             [itemBtn setTitle:buttonModel.name forState:UIControlStateNormal];
             [itemBtn setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
             [itemBtn addTarget:self action:@selector(clickItemBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -246,7 +263,7 @@
     for (MX5SubButtonModel *subButtonModel in bModel.sub_button) {
         [menuArray addObject:[KYMenuItem menuItem:subButtonModel.name image:nil target:self action:@selector(onMenuItemAction:)]];
     }
-    
+    [KYMenu setTitleFont:[UIFont systemFontOfSize:14]];
     [KYMenu showMenuInView:self.parentview
                   fromRect:menuFrame
                  menuItems:menuArray withOptions:optionals];
