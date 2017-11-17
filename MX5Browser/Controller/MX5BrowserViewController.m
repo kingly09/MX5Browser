@@ -111,11 +111,8 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:YES];
-    [self.webView removeFromSuperview];
-    [self.webView deallocWebView];
-    [self.webView.wkWebView setNavigationDelegate:nil];
-    [self.webView.wkWebView setUIDelegate:nil];
-    self.webView = nil;
+  
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
