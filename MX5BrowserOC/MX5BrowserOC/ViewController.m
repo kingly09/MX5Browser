@@ -59,9 +59,8 @@
     NSArray *menuLists = [NSArray modelArrayWithClass:[MX5ButtonModel class] json:[NSData dataNamed:[NSString stringWithFormat:@"menuList.geojson"]]];
     
     MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
-    browserViewController.menuList = menuLists;
     [browserViewController loadWebURLSring:@"http://www.baidu.com"];
-    
+    [browserViewController loadMenuView:menuLists];
     [self.navigationController pushViewController:browserViewController animated:YES];
     
 }

@@ -54,6 +54,12 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 @property (nonatomic) BOOL isHideBottomToolBar;     //是否隐藏底部导航条
 @property (nonatomic,strong) NSArray *menuList;     //底部菜单数组
 @property(nonatomic,assign) BOOL needInjectJS;      //是否需要注入js代码
+
+/**
+ 加载底部菜单
+ @param menuList 菜单列表
+ */
+- (void)loadMenuView:(NSArray *)menuList;
 /**
  加载纯外部链接网页
  

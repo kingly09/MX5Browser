@@ -389,6 +389,20 @@
     self.webViewType  = MX5WebViewTypeHTMLString;
 }
 
+/**
+ 加载底部菜单
+ @param menuList 菜单列表
+ */
+- (void)loadMenuView:(NSArray *)menuList {
+    
+    _menuList = menuList;
+    
+    [self.bottomToolBar reloadMenuView:_menuList];
+    
+    self.bottomToolBar.hidden = _isHideBottomToolBar;
+    
+}
+
 #pragma mark - setter and getter 方法
 #pragma mark - 懒加载
 
