@@ -35,7 +35,7 @@
 
 @interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate,MX5ToolViewDelegate> {
     
-
+    float  bottomToolBarY;
     float webViewY;
     UIButton *roadLoadButton; //右边按钮
     UILabel  *titleViewLabel; //标题视图
@@ -171,7 +171,7 @@
     
     [self navigationItemView];
     
-    float  bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
+     bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
     if (iPhoneX) {
         bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 20;
     }
@@ -190,8 +190,8 @@
     }
     
     //工具栏
-//    toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
-//    [self.view addSubview:toolView];
+    toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+    [self.view addSubview:toolView];
     
 }
 
@@ -201,13 +201,6 @@
 - (void)showBottomToolBar {
     
     self.bottomToolBar.hidden = NO;
-    float bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT;
-    if (iPhoneX) {
-        bottomToolBarY = KScreenHeight - KBOTTOM_TOOL_BAR_HEIGHT - 20;
-    }else{
-        
-        
-    }
     [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
     self.bottomToolBar.frame = CGRectMake(0, bottomToolBarY, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT);
     
@@ -230,7 +223,6 @@
     if (iPhoneX) {
         self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - 20);
     }else{
-        
         self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight));
     }
     

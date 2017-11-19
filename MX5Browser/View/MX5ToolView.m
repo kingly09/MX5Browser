@@ -135,10 +135,31 @@
     
     //放大
     enlargeView = [[UIView alloc] init];
+    enlargeView.size =  CGSizeMake(KScreenWidth/4, 104);
+    
+    enlargeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [enlargeBtn setExclusiveTouch:YES];
+    [enlargeBtn adjustsImageWhenHighlighted];
+    [enlargeBtn adjustsImageWhenDisabled];
+    [enlargeBtn setBackgroundColor:[UIColor clearColor]];
+    [enlargeBtn addTarget:self action:@selector(clickExit) forControlEvents:UIControlEventTouchUpInside];
+    enlargeBtn.size = CGSizeMake(40, 40);
+    enlargeBtn.x    =  (KScreenWidth/4 - 40)/2;
+    enlargeBtn.y    = 20;
+    [enlargeBtn setImage:[UIImage imageNamed:@"m_ic_fd_word"] forState:UIControlStateNormal];
+    [enlargeView addSubview:enlargeBtn];
+    
+    enlargelabel = [[UILabel alloc] init];
+    enlargelabel.size = CGSizeMake(enlargeView.width, 20);
+    enlargelabel.y    =  (104 - (enlargeBtn.y + enlargeBtn.height) - 20)/2  + enlargeBtn.y + enlargeBtn.height;
+    enlargelabel.text = @"放大字体";
+    enlargelabel.font = [UIFont systemFontOfSize:14];
+    enlargelabel.textAlignment = NSTextAlignmentCenter;
     [buttonView addSubview:enlargeView];
     
     //缩小
     narrowView = [[UIView alloc] init];
+    narrowView.size =  CGSizeMake(KScreenWidth/4, 104);
     [buttonView addSubview:narrowView];
     
     
