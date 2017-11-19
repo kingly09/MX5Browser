@@ -198,7 +198,7 @@
     [nightBtn adjustsImageWhenHighlighted];
     [nightBtn adjustsImageWhenDisabled];
     [nightBtn setBackgroundColor:[UIColor clearColor]];
-    [nightBtn addTarget:self action:@selector(clickNarrowBtn) forControlEvents:UIControlEventTouchUpInside];
+    [nightBtn addTarget:self action:@selector(clickNightBtn) forControlEvents:UIControlEventTouchUpInside];
     nightBtn.size = CGSizeMake(40, 40);
     nightBtn.x    =  (KScreenWidth/4 - 40)/2;
     nightBtn.y    = 20;
@@ -237,8 +237,8 @@
     collectionlabel = [[UILabel alloc] init];
     collectionlabel.size = CGSizeMake(collectionView.width, 20);
     collectionlabel.y    =  (104 - (collectionBtn.y + collectionBtn.height) - 20)/2  + collectionBtn.y + collectionBtn.height;
-    collectionlabel.text = @"收藏";
-    narrcollectionlabelowlabel.font = [UIFont systemFontOfSize:14];
+    collectionlabel.text = @"添加收藏";
+    collectionlabel.font = [UIFont systemFontOfSize:14];
     collectionlabel.textAlignment = NSTextAlignmentCenter;
     [collectionView addSubview:collectionlabel];
     
@@ -265,6 +265,13 @@
 
 
 }
+
+// 夜间模式
+-(void)clickNightBtn {
+
+
+}
+
 //点击收藏
 -(void)clickCollectionBtn{
 
