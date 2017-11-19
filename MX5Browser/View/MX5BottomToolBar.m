@@ -277,7 +277,9 @@
     
     [self dismissMenu];
   
-    
+     if(_delegate && [_delegate respondsToSelector:@selector(onClickBottomToolBarWithLocalBtn)]){
+            [self.delegate onClickBottomToolBarWithLocalBtn];
+        }
 }
 
 /**

@@ -189,9 +189,7 @@
         }
     }
     
-    //工具栏
-    toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
-    [self.view addSubview:toolView];
+ 
     
 }
 
@@ -290,8 +288,12 @@
    
     //当前是内页的时候，不显示底部自定义菜单
     if (self.bottomToolBar.hidden == YES) {
-#warning 当前是内页的时候，不显示底部自定义菜单
-        
+
+             //工具栏
+    toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+    [self.view addSubview:toolView];
+    
+    
     }else {
         
         [self.webView reload];
@@ -371,12 +373,24 @@
 
 #pragma mark - MX5BottomToolBarDelegate
 /**
+ 点击自定义工具菜单
+ */
+-(void)onClickBottomToolBarWithLocalBtn {
+
+     //工具栏
+    toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+    [self.view addSubview:toolView];
+
+}
+/**
  点击自定义的一级菜单
  
  @param buttonModel 一级菜单对象
  */
 -(void)onClickBottomToolBarWithMemubutton:(MX5ButtonModel *)buttonModel {
-    
+  
+
+
 }
 /**
  点击自定义的二级菜单

@@ -65,6 +65,9 @@
 
 @implementation MX5ToolView
 
+
+
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -220,7 +223,7 @@
     //收藏
     collectionView = [[UIView alloc] init];
     collectionView.size =  CGSizeMake(KScreenWidth/4, 104);
-    collectionView.x    =  KScreenWidth/4;
+    collectionView.x    =  KScreenWidth/4 * 3;
     
     collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [collectionBtn setExclusiveTouch:YES];
@@ -257,24 +260,27 @@
 }
 // 点击放大
 -(void) clickEnlargeBtn {
-
-
+   
+    [self clickExit];
+   
 }
 // 点击缩小
 -(void)clickNarrowBtn {
 
-
+     [self clickExit];
 }
 
 // 夜间模式
 -(void)clickNightBtn {
-
+  
+  [self clickExit];
 
 }
 
 //点击收藏
 -(void)clickCollectionBtn{
-
+   [self clickExit];
+   
 }
 
 @end

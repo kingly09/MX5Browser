@@ -33,6 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MX5BottomToolBarDelegate <NSObject>
 
 /**
+ 点击自定义工具菜单
+ */
+-(void)onClickBottomToolBarWithLocalBtn;
+/**
  点击自定义的一级菜单
 
  @param buttonModel 一级菜单对象

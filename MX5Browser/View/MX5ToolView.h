@@ -41,4 +41,5 @@
 
 @property(nonatomic,weak)id<MX5ToolViewDelegate> delegate;
 
+
 @end
