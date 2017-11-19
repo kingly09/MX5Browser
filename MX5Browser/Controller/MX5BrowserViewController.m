@@ -72,6 +72,10 @@
     // Do any additional setup after loading the view.
     [self webViewCache];
     
+    if (self.tabBarHidden) {
+      self.hidesBottomBarWhenPushed = YES;
+    }
+    
     //初始化WebView
     [self setupWebView];
     //初始化视图
@@ -109,6 +113,9 @@
 {
     [super viewWillAppear:YES];
      self.navigationController.navigationBarHidden = NO;
+     if (self.tabBarHidden) {
+      self.tabBarController.tabBar.hidden = YES;
+     }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
