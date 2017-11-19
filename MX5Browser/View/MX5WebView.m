@@ -274,7 +274,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         NSString *protocolHead = [urlComps objectAtIndex:0];
         DDLogDebug(@"protocolHead=%@",protocolHead);
     }
-#warning 可以做相应的URL逻辑
     
     switch (navigationAction.navigationType) {
         case WKNavigationTypeLinkActivated: {
