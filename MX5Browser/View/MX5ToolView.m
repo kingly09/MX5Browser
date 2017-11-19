@@ -142,7 +142,7 @@
     [enlargeBtn adjustsImageWhenHighlighted];
     [enlargeBtn adjustsImageWhenDisabled];
     [enlargeBtn setBackgroundColor:[UIColor clearColor]];
-    [enlargeBtn addTarget:self action:@selector(clickExit) forControlEvents:UIControlEventTouchUpInside];
+    [enlargeBtn addTarget:self action:@selector(clickEnlargeBtn) forControlEvents:UIControlEventTouchUpInside];
     enlargeBtn.size = CGSizeMake(40, 40);
     enlargeBtn.x    =  (KScreenWidth/4 - 40)/2;
     enlargeBtn.y    = 20;
@@ -155,11 +155,36 @@
     enlargelabel.text = @"放大字体";
     enlargelabel.font = [UIFont systemFontOfSize:14];
     enlargelabel.textAlignment = NSTextAlignmentCenter;
+    [enlargeView addSubview:enlargelabel];
+    
     [buttonView addSubview:enlargeView];
     
     //缩小
     narrowView = [[UIView alloc] init];
     narrowView.size =  CGSizeMake(KScreenWidth/4, 104);
+    narrowView.x    =  KScreenWidth/4;
+    
+    narrowBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [narrowBtn setExclusiveTouch:YES];
+    [narrowBtn adjustsImageWhenHighlighted];
+    [narrowBtn adjustsImageWhenDisabled];
+    [narrowBtn setBackgroundColor:[UIColor clearColor]];
+    [narrowBtn addTarget:self action:@selector(clickNarrowBtn) forControlEvents:UIControlEventTouchUpInside];
+    narrowBtn.size = CGSizeMake(40, 40);
+    narrowBtn.x    =  (KScreenWidth/4 - 40)/2;
+    narrowBtn.y    = 20;
+    [narrowBtn setImage:[UIImage imageNamed:@"m_ic_sx_word"] forState:UIControlStateNormal];
+    [narrowView addSubview:narrowBtn];
+    
+    narrowlabel = [[UILabel alloc] init];
+    narrowlabel.size = CGSizeMake(narrowView.width, 20);
+    narrowlabel.y    =  (104 - (narrowBtn.y + narrowBtn.height) - 20)/2  + narrowBtn.y + narrowBtn.height;
+    narrowlabel.text = @"缩小字体";
+    narrowlabel.font = [UIFont systemFontOfSize:14];
+    narrowlabel.textAlignment = NSTextAlignmentCenter;
+    [narrowView addSubview:narrowlabel];
+    
+    
     [buttonView addSubview:narrowView];
     
     
@@ -171,6 +196,16 @@
     currWindow.hidden = YES;
     currWindow = nil;
     self.hidden = YES;
+}
+// 点击放大
+-(void) clickEnlargeBtn {
+
+
+}
+// 点击缩小
+-(void)clickNarrowBtn {
+
+
 }
 
 @end
