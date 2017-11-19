@@ -54,7 +54,7 @@
     UIButton *nightBtn;
     UILabel *nightlabel;
     
-    //夜间模式
+    //收藏
     UIView *collectionView;
     UIButton *collectionBtn;
     UILabel *collectionlabel;
@@ -188,6 +188,64 @@
     [buttonView addSubview:narrowView];
     
     
+    //夜间模式
+    nightView = [[UIView alloc] init];
+    nightView.size =  CGSizeMake(KScreenWidth/4, 104);
+    nightView.x    =  KScreenWidth/4*2;
+    
+    nightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [nightBtn setExclusiveTouch:YES];
+    [nightBtn adjustsImageWhenHighlighted];
+    [nightBtn adjustsImageWhenDisabled];
+    [nightBtn setBackgroundColor:[UIColor clearColor]];
+    [nightBtn addTarget:self action:@selector(clickNarrowBtn) forControlEvents:UIControlEventTouchUpInside];
+    nightBtn.size = CGSizeMake(40, 40);
+    nightBtn.x    =  (KScreenWidth/4 - 40)/2;
+    nightBtn.y    = 20;
+    [nightBtn setImage:[UIImage imageNamed:@"m_ic_night"] forState:UIControlStateNormal];
+    [nightView addSubview:nightBtn];
+    
+    nightlabel = [[UILabel alloc] init];
+    nightlabel.size = CGSizeMake(nightView.width, 20);
+    nightlabel.y    =  (104 - (nightBtn.y + nightBtn.height) - 20)/2  + nightBtn.y + nightBtn.height;
+    nightlabel.text = @"夜间模式";
+    nightlabel.font = [UIFont systemFontOfSize:14];
+    nightlabel.textAlignment = NSTextAlignmentCenter;
+    [nightView addSubview:nightlabel];
+    
+    
+    [buttonView addSubview:nightView];
+    
+    
+    //收藏
+    collectionView = [[UIView alloc] init];
+    collectionView.size =  CGSizeMake(KScreenWidth/4, 104);
+    collectionView.x    =  KScreenWidth/4;
+    
+    collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [collectionBtn setExclusiveTouch:YES];
+    [collectionBtn adjustsImageWhenHighlighted];
+    [collectionBtn adjustsImageWhenDisabled];
+    [collectionBtn setBackgroundColor:[UIColor clearColor]];
+    [collectionBtn addTarget:self action:@selector(clickCollectionBtn) forControlEvents:UIControlEventTouchUpInside];
+    collectionBtn.size = CGSizeMake(40, 40);
+    collectionBtn.x    =  (KScreenWidth/4 - 40)/2;
+    collectionBtn.y    = 20;
+    [collectionBtn setImage:[UIImage imageNamed:@"m_ic_collect"] forState:UIControlStateNormal];
+    [collectionView addSubview:collectionBtn];
+    
+    collectionlabel = [[UILabel alloc] init];
+    collectionlabel.size = CGSizeMake(collectionView.width, 20);
+    collectionlabel.y    =  (104 - (collectionBtn.y + collectionBtn.height) - 20)/2  + collectionBtn.y + collectionBtn.height;
+    collectionlabel.text = @"收藏";
+    narrcollectionlabelowlabel.font = [UIFont systemFontOfSize:14];
+    collectionlabel.textAlignment = NSTextAlignmentCenter;
+    [collectionView addSubview:collectionlabel];
+    
+    
+    [buttonView addSubview:collectionView];
+    
+    
 }
 
 //退出分享
@@ -205,6 +263,10 @@
 // 点击缩小
 -(void)clickNarrowBtn {
 
+
+}
+//点击收藏
+-(void)clickCollectionBtn{
 
 }
 
