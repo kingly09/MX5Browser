@@ -70,6 +70,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [self webViewCache];
     
     if (self.tabBarHidden) {
@@ -250,6 +251,8 @@
 
 -(void)navigationItemView{
 
+    [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
+    
     //添加右边刷新按钮
     roadLoadButton = [[UIButton alloc] init];
     roadLoadButton.size = CGSizeMake(22,22);
