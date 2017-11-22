@@ -313,7 +313,7 @@
     if (self.webView.canGoBack) {
         [self.webView goBack];
     }else{
-        [self.navigationController popViewControllerAnimated:YES];
+        [self closeItemClicked];
     }
 }
 

@@ -46,6 +46,7 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 
 
 @class MX5WebView;
+
 /**
  整个浏览器的主框架
  */
