@@ -77,6 +77,7 @@
 		BC0A18F81FBC026600ABDEA0 /* menuList.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = menuList.geojson; sourceTree = "<group>"; };
 		BC0FD7201FBD67D000F03E37 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		BC0FD7221FBD6F1500F03E37 /* demo.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = demo.text; sourceTree = "<group>"; };
+		BC1011381FC7AD000060D1B5 /* MX5BrowserPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5BrowserPrefixHeader.pch; sourceTree = "<group>"; };
 		BC1D89FE1FB546CC00179FAE /* MX5BrowserOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MX5BrowserOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1D8A011FB546CC00179FAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC1D8A021FB546CC00179FAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -225,6 +226,7 @@
 				BC1D8A0C1FB546CC00179FAE /* LaunchScreen.storyboard */,
 				BC1D8A0F1FB546CC00179FAE /* Info.plist */,
 				BC1D8A101FB546CC00179FAE /* main.m */,
+				BC1011381FC7AD000060D1B5 /* MX5BrowserPrefixHeader.pch */,
 			);
 			path = MX5BrowserOC;
 			sourceTree = "<group>";

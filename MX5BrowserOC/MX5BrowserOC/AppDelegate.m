@@ -27,6 +27,14 @@
 
 #import "AppDelegate.h"
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
+#if DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelError;
+#endif
+
 @interface AppDelegate ()
 
 @end
