@@ -27,13 +27,6 @@
 
 #import "AppDelegate.h"
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-
-#if DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelDebug;
-#else
-static const DDLogLevel ddLogLevel = DDLogLevelError;
-#endif
 
 @interface AppDelegate ()
 
@@ -44,6 +37,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+    
     return YES;
 }
 
