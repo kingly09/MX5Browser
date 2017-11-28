@@ -28,10 +28,8 @@
 #ifndef MX5Browser_h
 #define MX5Browser_h
 
-
 #import <KYMenu/KYMenu.h>
 #import "MX5ButtonModel.h"
-
 
 #pragma mark - view and Controller
 
