@@ -275,6 +275,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         DDLogDebug(@"protocolHead=%@",protocolHead);
     }
     
+    
     switch (navigationAction.navigationType) {
         case WKNavigationTypeLinkActivated: {
             [self pushCurrentSnapshotViewWithRequest:navigationAction.request];
