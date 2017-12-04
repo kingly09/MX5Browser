@@ -27,6 +27,7 @@
 
 #import "MX5WebView.h"
 #import "MX5Browser.h"
+#import "MX5WebViewJavascriptBridge.h"
 
 static void *WkwebBrowserContext = &WkwebBrowserContext;
 
@@ -60,7 +61,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 @end
 
-@interface MX5WebView()
+@interface MX5WebView()<MX5WebViewJavascriptBridgeDelegate>
 
 @property (nonatomic, strong) WKWebView *wkWebView;
 @property (nonatomic, copy) NSString *title;
@@ -72,6 +73,9 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 @property (nonatomic, copy) NSString *URLString;
 //设置缓存时间（过期时间默认为一周）
 @property(nonatomic,assign) NSTimeInterval timeoutInterval;
+
+// oc 与 js的交互对象
+@property (nonatomic, strong) MX5WebViewJavascriptBridge *ocjsHelper;
 
 @end
 
@@ -100,6 +104,9 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     
     [self.wkWebView setFrame:self.bounds];
     [self.wkWebView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    
+    //设置 oc 与 js的交互对象
+    self.ocjsHelper.webView = self.wkWebView;
     //添加WKWebView
     [self addSubview:self.wkWebView];
     //添加进度条
@@ -404,6 +411,19 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     
 }
 
+#pragma mark - MX5WebViewJavascriptBridgeDelegate
+/**
+ 收到js发送过来的消息
+ 
+ @param receiveScriptMessage  字典类型的消息体
+ */
+-(void)MX5WebViewJavascriptBridgeDidReceiveScriptMessage:(NSDictionary *)receiveScriptMessage {
+    
+    if(_delegate && [_delegate respondsToSelector:@selector(webView:didReceiveScriptMessage:)]){
+        [self.delegate webView:self didReceiveScriptMessage:receiveScriptMessage];
+    }
+}
+
 #pragma mark - 懒加载
 
 - (WKWebView *)wkWebView{
@@ -439,7 +459,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         //自定义配置,一般用于 js调用oc方法(OC拦截URL中的数据做自定义操作)
         WKUserContentController * UserContentController = [[WKUserContentController alloc]init];
         // 添加消息处理，注意：self指代的对象需要遵守WKScriptMessageHandler协议，结束时需要移除
-        //[UserContentController addScriptMessageHandler:(id)self.ocjsHelper name:KWebGetDeviceID];
+        [UserContentController addScriptMessageHandler:(id)self.ocjsHelper name:KWebGetDeviceID];
         
         // 是否支持记忆读取
         Configuration.suppressesIncrementalRendering = YES;
@@ -496,6 +516,14 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     return _timeoutInterval;
 }
 
+- (MX5WebViewJavascriptBridge *)ocjsHelper {
+    if (!_ocjsHelper) {
+         UIViewController *currViewController = [self topViewController];
+        _ocjsHelper = [[MX5WebViewJavascriptBridge alloc] initWithDelegate:(id)self vc:currViewController];
+    }
+    return _ocjsHelper;
+}
+
 #pragma mark - 初始化URL/对外扩展方法
 
 - (void)loadWebURLSring:(NSString *)urlString{
@@ -516,6 +544,15 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 - (void)loadHTMLString:(NSString *)string baseURL:(nullable NSURL *)baseURL {
     
      [self.wkWebView loadHTMLString:string baseURL:baseURL];
+}
+/**
+ 注入javaScript代码
+ 
+ @param javaScriptString js代码
+ */
+- (void)evaluateJavaScript:(NSString *)javaScriptString {
+    
+    [self.wkWebView evaluateJavaScript:javaScriptString completionHandler:nil];
 }
 
 -(BOOL)isLoading{

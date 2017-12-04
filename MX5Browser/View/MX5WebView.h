@@ -69,6 +69,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)updateWebViewTitle:(MX5WebView *)webView;
 
+/**
+ 接受js 传递过来的消息
+ @param webView MX5WebView
+ @param receiveScriptMessage receiveScriptMessage  字典类型的消息体
+ */
+- (void)webView:(MX5WebView *)webView didReceiveScriptMessage:(NSDictionary *)receiveScriptMessage;
 
 
 @end
@@ -108,6 +114,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param baseURL  bundleURL
  */
 - (void)loadHTMLString:(NSString *)string baseURL:(nullable NSURL *)baseURL;
+
+/**
+ 注入javaScript代码
+
+ @param javaScriptString js代码
+ */
+- (void)evaluateJavaScript:(NSString *)javaScriptString;
 
 
 - (id)goBack;

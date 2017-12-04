@@ -352,6 +352,8 @@
     
     
 }
+
+
 /**
  更新导航条
  */
@@ -376,6 +378,15 @@
  */
 - (void)updateWebViewTitle:(MX5WebView *)webView {
       titleViewLabel.text = webView.title;
+}
+
+/**
+ 接受js 传递过来的消息
+ @param webView MX5WebView
+ @param receiveScriptMessage receiveScriptMessage  字典类型的消息体
+ */
+- (void)webView:(MX5WebView *)webView didReceiveScriptMessage:(NSDictionary *)receiveScriptMessage {
+    
 }
 
 #pragma mark - MX5BottomToolBarDelegate

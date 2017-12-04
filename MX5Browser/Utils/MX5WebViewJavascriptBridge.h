@@ -25,8 +25,33 @@
 // THE SOFTWARE. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 
-@interface MX5WebViewJavascriptBridge : NSObject
+#define KWebGetDeviceID @"epass"      //把一个名为 epass 的 ScriptMessageHandler 注册到我们的 wk。
 
+@protocol MX5WebViewJavascriptBridgeDelegate <NSObject>
+
+/**
+ 收到js发送过来的消息
+
+ @param receiveScriptMessage  字典类型的消息体
+ */
+-(void)MX5WebViewJavascriptBridgeDidReceiveScriptMessage:(NSDictionary *)receiveScriptMessage;
+
+@end
+
+@interface MX5WebViewJavascriptBridge : NSObject<WKScriptMessageHandler>
+@property (nonatomic, weak) id<MX5WebViewJavascriptBridgeDelegate> delegate;
+@property (nonatomic, weak) WKWebView *webView;
+
+/**
+ 指定初始化方法
+ 
+ @param delegate 代理
+ @param vc 实现WebView的VC
+ @return 返回自身实例
+ */
+- (instancetype)initWithDelegate:(id<MX5WebViewJavascriptBridgeDelegate>)delegate vc:(UIViewController *)vc;
 @end

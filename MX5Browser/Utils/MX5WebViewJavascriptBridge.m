@@ -27,6 +27,49 @@
 
 #import "MX5WebViewJavascriptBridge.h"
 
+@interface MX5WebViewJavascriptBridge()
+
+@property (nonatomic, weak) UIViewController *vc;
+@end
+
 @implementation MX5WebViewJavascriptBridge
+
+- (instancetype)initWithDelegate:(id<MX5WebViewJavascriptBridgeDelegate>)delegate vc:(UIViewController *)vc; {
+    if (self = [super init]) {
+        self.delegate = delegate;
+        self.vc = vc;
+    }
+    return self;
+}
+
+- (void)dealloc {
+    NSLog(@"MX5WebViewJavascriptBridge dealloc  %@, %s", self.class, __func__);
+}
+
+#pragma mark - WKScriptMessageHandler 拦截执行网页中的JS方法
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:message.body];
+    NSLog(@"JS交互参数：%@", dic);
+    //服务器固定格式写法 window.webkit.messageHandlers.名字.postMessage(内容);
+    //客户端写法 message.name isEqualToString:@"名字"]
+    if ([message.name isEqualToString:KWebGetDeviceID] && [dic isKindOfClass:[NSDictionary class]]) {
+        
+        NSLog(@"currentThread  ------   %@", [NSThread currentThread]);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if(_delegate && [_delegate respondsToSelector:@selector(MX5WebViewJavascriptBridgeDidReceiveScriptMessage:)]){
+                [self.delegate MX5WebViewJavascriptBridgeDidReceiveScriptMessage:dic];
+            }
+            
+        });
+    } else {
+        return;
+    }
+}
+
+
+
 
 @end
