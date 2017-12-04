@@ -123,6 +123,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)evaluateJavaScript:(NSString *)javaScriptString;
 
+/**
+ 添加一个添加js消息处理
+
+ */
+- (void)addScriptMessageHandlerName:(NSString *)scriptMessageHandlerName;
+
 
 - (id)goBack;
 - (id)goForward;

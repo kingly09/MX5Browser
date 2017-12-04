@@ -53,7 +53,7 @@
     NSLog(@"JS交互参数：%@", dic);
     //服务器固定格式写法 window.webkit.messageHandlers.名字.postMessage(内容);
     //客户端写法 message.name isEqualToString:@"名字"]
-    if ([message.name isEqualToString:KWebGetDeviceID] && [dic isKindOfClass:[NSDictionary class]]) {
+    if ([message.name isEqualToString:KWebGetDeviceID] && [dic isKindOfClass:[NSDictionary class]] ) {
         
         NSLog(@"currentThread  ------   %@", [NSThread currentThread]);
         

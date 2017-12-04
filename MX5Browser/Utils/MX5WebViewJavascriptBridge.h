@@ -45,7 +45,8 @@
 @interface MX5WebViewJavascriptBridge : NSObject<WKScriptMessageHandler>
 @property (nonatomic, weak) id<MX5WebViewJavascriptBridgeDelegate> delegate;
 @property (nonatomic, weak) WKWebView *webView;
-
+//消息对象key值
+@property (nonatomic, copy) NSString *scriptMessageHandlerName;
 /**
  指定初始化方法
  

@@ -79,7 +79,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 @property (nonatomic, strong) WKWebViewConfiguration *configuration;
 //js消息对象
 @property (nonatomic, strong) WKUserContentController *userContentController;
-
+//消息对象key值
+@property (nonatomic, copy) NSString *scriptMessageHandlerName;
 @end
 
 @implementation MX5WebView
@@ -136,12 +137,17 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.wkWebView.navigationDelegate = nil;
     [self.wkWebView scrollView].delegate = nil;
     
+    [self.wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
+    [self.wkWebView removeObserver:self forKeyPath:@"title"];
+    [self.wkWebView.configuration.userContentController removeScriptMessageHandlerForName:KWebGetDeviceID];
+    
+    if (_scriptMessageHandlerName.length > 0) {
+        [self.wkWebView.configuration.userContentController removeScriptMessageHandlerForName:_scriptMessageHandlerName];
+    }
+    
     self.configuration  = nil;
     self.userContentController = nil;
     
-    [self.wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
-    [self.wkWebView removeObserver:self forKeyPath:@"title"];
-     [self.wkWebView.configuration.userContentController removeScriptMessageHandlerForName:KWebGetDeviceID];
     
     [self.wkWebView stopLoading];
     [self.wkWebView  removeFromSuperview];
@@ -540,6 +546,18 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 }
 
 #pragma mark - 初始化URL/对外扩展方法
+
+/**
+ 添加一个添加js消息处理
+ 
+ */
+- (void)addScriptMessageHandlerName:(NSString *)scriptMessageHandlerName {
+
+_scriptMessageHandlerName = scriptMessageHandlerName;
+_ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
+[self.wkWebView.configuration.userContentController addScriptMessageHandler:(id)self.ocjsHelper name:scriptMessageHandlerName];
+    
+}
 
 - (void)loadWebURLSring:(NSString *)urlString{
     
