@@ -73,9 +73,12 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 @property (nonatomic, copy) NSString *URLString;
 //设置缓存时间（过期时间默认为一周）
 @property(nonatomic,assign) NSTimeInterval timeoutInterval;
-
 // oc 与 js的交互对象
 @property (nonatomic, strong) MX5WebViewJavascriptBridge *ocjsHelper;
+//设置网页相关设置信息
+@property (nonatomic, strong) WKWebViewConfiguration *configuration;
+//js消息对象
+@property (nonatomic, strong) WKUserContentController *userContentController;
 
 @end
 
@@ -133,8 +136,12 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.wkWebView.navigationDelegate = nil;
     [self.wkWebView scrollView].delegate = nil;
     
+    self.configuration  = nil;
+    self.userContentController = nil;
+    
     [self.wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
     [self.wkWebView removeObserver:self forKeyPath:@"title"];
+     [self.wkWebView.configuration.userContentController removeScriptMessageHandlerForName:KWebGetDeviceID];
     
     [self.wkWebView stopLoading];
     [self.wkWebView  removeFromSuperview];
@@ -430,44 +437,52 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     if (!_wkWebView) {
         
         //设置网页的配置文件
-        WKWebViewConfiguration * Configuration = [[WKWebViewConfiguration alloc]init];
+        _configuration = [[WKWebViewConfiguration alloc]init];
         //这个值决定了从这个页面是否可以Air Play
         if (@available(iOS 9.0, *)) {
-            Configuration.allowsAirPlayForMediaPlayback = YES;
+            _configuration.allowsAirPlayForMediaPlayback = YES;
             // 在iPhone和iPad上默认使YES。这个值决定了HTML5视频可以自动播放还是需要用户去启动播放
-            Configuration.requiresUserActionForMediaPlayback = NO;
+            _configuration.requiresUserActionForMediaPlayback = NO;
         }
         // 允许在线播放 ,默认使NO。这个值决定了用内嵌HTML5播放视频还是用本地的全屏控制。为了内嵌视频播放，不仅仅需要在这个页面上设置这个属性，还必须的是在HTML中的video元素必须包含webkit-playsinline属性。
         if (@available(iOS 11.0, *)) {
-            Configuration.allowsInlineMediaPlayback = YES;
+            _configuration.allowsInlineMediaPlayback = YES;
         }else{
-            Configuration.allowsInlineMediaPlayback = NO;
+            _configuration.allowsInlineMediaPlayback = NO;
         }
-        Configuration.allowsInlineMediaPlayback = YES;
+        _configuration.allowsInlineMediaPlayback = YES;
         // 创建设置对象
         WKPreferences *preference = [[WKPreferences alloc]init];
         // 设置字体大小(最小的字体大小)
         //preference.minimumFontSize = self.minimumFontSize;
         // 设置偏好设置对象
-        Configuration.preferences = preference;
+        _configuration.preferences = preference;
         
         // 允许可以与网页交互，选择视图
-        Configuration.selectionGranularity = YES;
+        _configuration.selectionGranularity = YES;
         // web内容处理池
-        Configuration.processPool = [[MX5BrowserProcessPool sharedInstance] defaultPool];
+        _configuration.processPool = [[MX5BrowserProcessPool sharedInstance] defaultPool];
         
         //自定义配置,一般用于 js调用oc方法(OC拦截URL中的数据做自定义操作)
-        WKUserContentController * UserContentController = [[WKUserContentController alloc]init];
+        _userContentController = [[WKUserContentController alloc]init];
+        
         // 添加消息处理，注意：self指代的对象需要遵守WKScriptMessageHandler协议，结束时需要移除
-        [UserContentController addScriptMessageHandler:(id)self.ocjsHelper name:KWebGetDeviceID];
+        [_userContentController addScriptMessageHandler:(id)self.ocjsHelper name:KWebGetDeviceID];
         
         // 是否支持记忆读取
-        Configuration.suppressesIncrementalRendering = YES;
+        _configuration.suppressesIncrementalRendering = YES;
         // 允许用户更改网页的设置
-        Configuration.userContentController = UserContentController;
+        _configuration.userContentController = _userContentController;
+        
+        //运行时加载JS代码
+//        NSString *js = @"I am JS Code";
+//        //初始化WKUserScript对象
+//        //WKUserScriptInjectionTimeAtDocumentEnd为网页加载完成时注入
+//        WKUserScript *script = [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+//        [_configuration.userContentController addUserScript:script];
         
         
-        _wkWebView = [[WKWebView alloc] initWithFrame:self.bounds configuration:Configuration];
+        _wkWebView = [[WKWebView alloc] initWithFrame:self.bounds configuration:_configuration];
         _wkWebView.backgroundColor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1.0];
         // 设置代理
         _wkWebView.navigationDelegate = self;
