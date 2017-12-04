@@ -387,6 +387,17 @@
  */
 - (void)webView:(MX5WebView *)webView didReceiveScriptMessage:(NSDictionary *)receiveScriptMessage {
     
+    NSString *code = [receiveScriptMessage objectForKey:@"code"];
+    NSString *functionName = [receiveScriptMessage objectForKey:@"functionName"];
+    
+    if ([code isEqualToString:@"0001"] && [functionName isEqualToString:@"getdevideId"] ) {
+        
+        NSString *deviceId = [NSString stringWithFormat:@"该设备的deviceId:%@",[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
+        NSString *js = [NSString stringWithFormat:@"globalCallback(\'%@\')", deviceId];
+        [webView evaluateJavaScript:js];
+    }
+    
+    
 }
 
 #pragma mark - MX5BottomToolBarDelegate
