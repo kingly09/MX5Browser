@@ -102,6 +102,11 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
  @param htmlString 带有HTML字符串
  */
 - (void)loadHTMLString:(NSString *)htmlString;
+/**
+ 点击收藏对外
+ @param webView MX5WebView
+ */
+-(void)browserViewClickCollection:(MX5WebView *)webView;
 
 NS_ASSUME_NONNULL_END
 

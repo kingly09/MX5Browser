@@ -298,6 +298,7 @@
 
              //工具栏
     toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+    toolView.delegate = self;
     [self.view addSubview:toolView];
     
     
@@ -450,7 +451,7 @@
     if(_delegate && [_delegate respondsToSelector:@selector(browserViewControllerWithCollection:)]){
         [self.delegate browserViewControllerWithCollection:self.webView];
     }
-    
+    [self browserViewClickCollection:self.webView];
 }
 
 
@@ -505,6 +506,15 @@
     [self.bottomToolBar reloadMenuView:_menuList];
     self.bottomToolBar.userInteractionEnabled = YES;
     self.bottomToolBar.hidden = _isHideBottomToolBar;
+    
+}
+
+/**
+ 点击收藏对外
+ @param webView MX5WebView
+ */
+-(void)browserViewClickCollection:(MX5WebView *)webView {
+    
     
 }
 
