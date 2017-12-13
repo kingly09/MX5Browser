@@ -95,6 +95,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, weak) UIScrollView *scrollView;
 // 网页标题
 @property (nonatomic, readonly, copy) NSString *title;
+// 请求网页Url
+@property (nonatomic, readonly, copy) NSString *URLString;
+// 当前网页Url
+@property (nonatomic, readonly, copy) NSString *currUrl;
 
 @property (nonatomic, readonly, getter=isLoading) BOOL loading;
 

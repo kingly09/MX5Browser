@@ -26,8 +26,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MX5WebView.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 
 /**
  请求方式
@@ -47,6 +49,18 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 
 @class MX5WebView;
 
+@protocol MX5BrowserViewControllerDelegate <NSObject>
+@optional
+
+/**
+ 点击收藏
+
+ @param webView MX5WebView
+ */
+-(void)browserViewControllerWithCollection:(MX5WebView *)webView;
+
+@end
+
 /**
  整个浏览器的主框架
  */
@@ -57,6 +71,8 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 @property(nonatomic,assign) BOOL needInjectJS;      //是否需要注入js代码
 @property(nonatomic,assign) BOOL tabBarHidden;      //是否隐藏tabBar
 @property(nonatomic,assign) BOOL navigationBarHidden;      //是否隐藏tabBar
+@property(nonatomic,weak)id<MX5BrowserViewControllerDelegate> delegate;
+
 /**
  加载底部菜单
  @param menuList 菜单列表

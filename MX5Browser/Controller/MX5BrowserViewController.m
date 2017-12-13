@@ -400,6 +400,8 @@
     
 }
 
+
+
 #pragma mark - MX5BottomToolBarDelegate
 /**
  点击自定义工具菜单
@@ -408,6 +410,7 @@
 
      //工具栏
     toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
+    toolView.delegate = self;
     [self.view addSubview:toolView];
 
 }
@@ -439,6 +442,17 @@
         
     }
 }
+
+#pragma mark - MX5ToolViewDelegate
+
+-(void)toolViewWithCollectionBtn {
+    
+    if(_delegate && [_delegate respondsToSelector:@selector(browserViewControllerWithCollection:)]){
+        [self.delegate browserViewControllerWithCollection:self.webView];
+    }
+    
+}
+
 
 #pragma mark - 初始化URL/对外扩展方法
 
@@ -539,6 +553,5 @@
     }
     return _closeButtonItem;
 }
-
 
 @end

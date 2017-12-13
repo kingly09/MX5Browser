@@ -3,7 +3,7 @@
 //  MX5BrowserOC
 //
 //  Created by kingly on 2017/11/17.
-//  Copyright © 2017年 MX5Browser Software https://github.com/kingly09/MX5Browser  by kingly inc.  
+//  Copyright © 2017年 MX5Browser Software https://github.com/kingly09/MX5Browser  by kingly inc.
 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,7 +30,7 @@
 @protocol MX5ToolViewDelegate <NSObject>
 @optional
 
-
+-(void)toolViewWithCollectionBtn;
 
 @end
 
@@ -43,3 +43,4 @@
 
 
 @end
+

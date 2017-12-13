@@ -29,7 +29,7 @@
 #import "MX5Browser.h"
 #import  <YYKit/YYKit.h>
 
-@interface ViewController ()<UISearchBarDelegate>
+@interface ViewController ()<UISearchBarDelegate,MX5BrowserViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @end
 
@@ -61,6 +61,7 @@
     MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
     [browserViewController loadWebURLSring:@"http://www.baidu.com"];
     [browserViewController loadMenuView:menuLists];
+    browserViewController.delegate = self;
     [self.navigationController pushViewController:browserViewController animated:YES];
     
 }
@@ -75,7 +76,7 @@
     //获取JS所在的路径
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"html"];
     [browserViewController loadLocalHTMLStringWithHtmlPath:path];
-    
+    browserViewController.delegate = self;
     [self.navigationController pushViewController:browserViewController animated:YES];
     
     
@@ -87,6 +88,7 @@
     
     MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
     browserViewController.menuList = menuLists;
+    browserViewController.delegate = self;
     //获取JS所在的路径
     NSString *path = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"text"];
     
@@ -108,13 +110,26 @@
     MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
     browserViewController.menuList = menuLists;
     [browserViewController loadWebURLSring:searchBar.text];
-    
+    browserViewController.delegate = self;
     [self.navigationController pushViewController:browserViewController animated:YES];
     
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     
+}
+
+#pragma mark - MX5BrowserViewControllerDelegate
+
+/**
+ 点击收藏
+ 
+ @param webView MX5WebView
+ */
+-(void)browserViewControllerWithCollection:(MX5WebView *)webView {
+    
+ 
+    NSLog(@"webView::%@ url:%@ webView.currUrl:%@",webView.title,webView.URLString,webView.currUrl);
 }
 
 @end

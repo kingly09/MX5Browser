@@ -3,7 +3,7 @@
 //  MX5BrowserOC
 //
 //  Created by kingly on 2017/11/17.
-//  Copyright © 2017年 MX5Browser Software https://github.com/kingly09/MX5Browser  by kingly inc.  
+//  Copyright © 2017年 MX5Browser Software https://github.com/kingly09/MX5Browser  by kingly inc.
 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -128,7 +128,7 @@
     [closeButton setImage:[UIImage imageNamed:@"m_ic_jt"] forState:UIControlStateNormal];
     [toolView addSubview:closeButton];
     
-
+    
 }
 
 /**
@@ -260,27 +260,31 @@
 }
 // 点击放大
 -(void) clickEnlargeBtn {
-   
+    
     [self clickExit];
-   
+    
 }
 // 点击缩小
 -(void)clickNarrowBtn {
-
-     [self clickExit];
+    
+    [self clickExit];
 }
 
 // 夜间模式
 -(void)clickNightBtn {
-  
-  [self clickExit];
-
+    
+    [self clickExit];
+    
 }
 
 //点击收藏
 -(void)clickCollectionBtn{
-   [self clickExit];
-   
+    [self clickExit];
+    
+    if(_delegate && [_delegate respondsToSelector:@selector(toolViewWithCollectionBtn)]){
+        [self.delegate toolViewWithCollectionBtn];
+    }
 }
 
 @end
+

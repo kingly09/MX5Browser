@@ -70,7 +70,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 //保存请求链接
 @property (nonatomic) NSMutableArray* snapShotsArray;
 //保存的网址链接
-@property (nonatomic, copy) NSString *URLString;
+@property (nonatomic,  readwrite, copy) NSString *URLString;
 //设置缓存时间（过期时间默认为一周）
 @property(nonatomic,assign) NSTimeInterval timeoutInterval;
 // oc 与 js的交互对象
@@ -81,6 +81,9 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 @property (nonatomic, strong) WKUserContentController *userContentController;
 //消息对象key值
 @property (nonatomic, copy) NSString *scriptMessageHandlerName;
+//当前Url
+@property (nonatomic, readwrite, copy) NSString *currUrl;
+
 @end
 
 @implementation MX5WebView
@@ -286,6 +289,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     
     DDLogDebug(@"API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转");
     NSString *urlString = [[navigationAction.request URL] absoluteString];
+    _currUrl = urlString;
     urlString = [urlString stringByRemovingPercentEncoding];
     // 用://截取字符串
     NSArray *urlComps = [urlString componentsSeparatedByString:@"://"];
