@@ -28,14 +28,14 @@
 #ifndef MX5BrowserPrefixHeader_pch
 #define MX5BrowserPrefixHeader_pch
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-
-#if DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelDebug;
-
-#else
-static const DDLogLevel ddLogLevel = DDLogLevelError;
-#endif
+//#import <CocoaLumberjack/CocoaLumberjack.h>
+//
+//#if DEBUG
+//static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+//
+//#else
+//static const DDLogLevel ddLogLevel = DDLogLevelError;
+//#endif
 
 
 #endif /* MX5BrowserPrefixHeader_pch */

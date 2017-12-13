@@ -27,6 +27,16 @@
 
 #import "AppDelegate.h"
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import <KYMenu/KYMenu.h>
+#import "MX5ButtonModel.h"
+
+#if DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelError;
+#endif
+
 
 @interface AppDelegate ()
 
