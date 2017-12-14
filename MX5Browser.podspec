@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MX5Browser"
-  s.version      = "0.2.2"
+  s.version      = "0.2.3"
   s.summary      = "MX5Browser是基于WKWebView内核的app内置web浏览器."
   s.homepage     = "https://github.com/kingly09/MX5Browser"
   s.license      = { :type => "MIT", :file => "LICENSE" }
