@@ -117,7 +117,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS (MX5BrowserURLCache)
 
 - (void)dealloc {
     
-    DDLogDebug(@"MX5BrowserURLCache dealloc");
+    NSLog(@"MX5BrowserURLCache dealloc");
 }
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request {
@@ -200,7 +200,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS (MX5BrowserURLCache)
         }
         
         if (expire == false) {
-            DDLogDebug(@"data from cache ...");
+            NSLog(@"data from cache ...");
             
             NSData *data = [NSData dataWithContentsOfFile:filePath];
             NSURLResponse *response = [[NSURLResponse alloc] initWithURL:request.URL
@@ -210,7 +210,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS (MX5BrowserURLCache)
             NSCachedURLResponse *cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:data];
             return cachedResponse;
         } else {
-            DDLogDebug(@"cache expire ... ");
+            NSLog(@"cache expire ... ");
             
             [fileManager removeItemAtPath:filePath error:nil];
             [fileManager removeItemAtPath:otherInfoPath error:nil];
@@ -232,12 +232,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS (MX5BrowserURLCache)
                  [self.responseDictionary removeObjectForKey:url];
                  
                  if (error) {
-                     DDLogDebug(@"error : %@", error);
-                     DDLogDebug(@"not cached: %@", request.URL.absoluteString);
+                     NSLog(@"error : %@", error);
+                     NSLog(@"not cached: %@", request.URL.absoluteString);
                      cachedResponse = nil;
                  }
                  
-                 DDLogDebug(@"cache url --- %@ ",url);
+                 NSLog(@"cache url --- %@ ",url);
                  
                  //save to cache
                  NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", [date timeIntervalSince1970]], @"time",

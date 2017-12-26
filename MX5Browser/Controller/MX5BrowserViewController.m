@@ -146,7 +146,7 @@
 - (void)dealloc {
     
     
-    DDLogDebug(@" MX5BrowserViewController dealloc ");
+    NSLog(@" MX5BrowserViewController dealloc ");
     [roadLoadButton removeFromSuperview];
     roadLoadButton = nil;
     

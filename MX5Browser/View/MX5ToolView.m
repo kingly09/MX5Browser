@@ -78,7 +78,7 @@
 
 -(void)dealloc {
     
-    DDLogDebug(@"MX5ToolView dealloc");
+    NSLog(@"MX5ToolView dealloc");
     
 }
 

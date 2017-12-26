@@ -123,7 +123,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 -(void)dealloc {
     
-    DDLogDebug(@"MX5WebView dealloc");
+    NSLog(@"MX5WebView dealloc");
     [self deallocWebView];
    
 }
@@ -194,12 +194,12 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 }
 
 -(void)pushCurrentSnapshotViewWithRequest:(NSURLRequest*)request{
-    DDLogDebug(@"push with request %@",request);
+    NSLog(@"push with request %@",request);
     NSURLRequest* lastRequest = (NSURLRequest*)[[self.snapShotsArray lastObject] objectForKey:@"request"];
     
     //如果url是很奇怪的就不push
     if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
-        DDLogDebug(@"about blank!! return");
+        NSLog(@"about blank!! return");
         return;
     }
     
@@ -247,7 +247,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 //这个是网页加载完成，导航的变化
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
-    DDLogDebug(@"页面加载完成");
+    NSLog(@"页面加载完成");
 
     // 获取加载网页的标题
     self.title = self.wkWebView.title;
@@ -262,10 +262,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 -(void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
     //开始加载的时候，让加载进度条显示
     self.progressView.hidden = NO;
-    DDLogDebug(@"页面开始加载");
+    NSLog(@"页面开始加载");
     NSString *metaJScript = @"document.getElementsByTagName('html')[0].setAttribute('manifest','demo_html.appcache');";
     [self.wkWebView evaluateJavaScript:metaJScript completionHandler:^(id _Nullable response, NSError * _Nullable error) {
-        DDLogDebug(@"value: %@ error: %@", response, error);
+        NSLog(@"value: %@ error: %@", response, error);
     }];
     
     if(_delegate && [_delegate respondsToSelector:@selector(webViewDidStartLoad:)]){
@@ -276,18 +276,18 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 // 加载内容
 -(void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation
 {
-    DDLogDebug(@"内容正在加载当中");
+    NSLog(@"内容正在加载当中");
 }
 
 //接收到服务器重新配置请求之后再执行(接收到服务器跳转请求之后调用)
 -(void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation{
-    DDLogDebug(@"接收到服务器重新配置请求之后再执行");
+    NSLog(@"接收到服务器重新配置请求之后再执行");
 }
 
 //API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转（在发送请求之前，决定是否跳转）
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     
-    DDLogDebug(@"API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转");
+    NSLog(@"API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转");
     NSString *urlString = [[navigationAction.request URL] absoluteString];
     _currUrl = urlString;
     urlString = [urlString stringByRemovingPercentEncoding];
@@ -296,7 +296,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     if ([urlComps count]) {
         // 获取协议头
         NSString *protocolHead = [urlComps objectAtIndex:0];
-        DDLogDebug(@"protocolHead=%@",protocolHead);
+        NSLog(@"protocolHead=%@",protocolHead);
     }
     
     
@@ -336,7 +336,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 // 在收到响应后，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
-    DDLogDebug(@"decidePolicyForNavigationResponse   ====    %@", navigationResponse);
+    NSLog(@"decidePolicyForNavigationResponse   ====    %@", navigationResponse);
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
@@ -356,7 +356,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 // 内容加载失败时候调用
 -(void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error{
-    DDLogDebug(@"页面加载超时");
+    NSLog(@"页面加载超时");
      if(_delegate && [_delegate respondsToSelector:@selector(webView:didFailLoadWithError:)]){
         [self.delegate webView:self didFailLoadWithError:error];
     }

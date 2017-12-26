@@ -52,7 +52,7 @@
 
 -(void)dealloc {
     
-    DDLogDebug(@"MX5BottomToolBar dealloc");
+    NSLog(@"MX5BottomToolBar dealloc");
     
     [_bottomToolBar removeFromSuperview];
     _bottomToolBar = nil;
