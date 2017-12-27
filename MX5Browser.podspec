@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MX5Browser"
-  s.version      = "0.2.5"
+  s.version      = "0.2.6"
   s.summary      = "MX5Browser是基于WKWebView内核的app内置web浏览器."
   s.homepage     = "https://github.com/kingly09/MX5Browser"
   s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/kingly09/MX5Browser.git", :tag => s.version.to_s }
   s.social_media_url   = "https://github.com/kingly09"
-  s.source_files = 'MX5Browser/**/*'
+  s.source_files = 'MX5Browser/**/*.{h,m}'
   s.framework    = "UIKit"
   s.requires_arc = true
   s.dependency "Reachability", "~> 3.2"
