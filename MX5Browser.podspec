@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MX5Browser"
-  s.version      = "0.2.4"
+  s.version      = "0.2.5"
   s.summary      = "MX5Browser是基于WKWebView内核的app内置web浏览器."
   s.homepage     = "https://github.com/kingly09/MX5Browser"
   s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -29,7 +29,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.dependency "Reachability", "~> 3.2"
   s.dependency "KYMenu"
-  s.dependency "CocoaLumberjack", "~> 3.3.0"
   s.dependency "YYKit", "~> 1.0.9"
 
 end
