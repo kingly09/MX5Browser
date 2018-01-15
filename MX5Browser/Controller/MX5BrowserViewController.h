@@ -107,6 +107,10 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
  @param webView MX5WebView
  */
 -(void)browserViewClickCollection:(MX5WebView *)webView;
+/**
+ 点击关闭web视图
+ */
+-(void)closeItemClicked;
 
 NS_ASSUME_NONNULL_END
 
