@@ -3,7 +3,7 @@
 //  MX5BrowserOC
 //
 //  Created by kingly on 2017/11/10.
-//  Copyright © 2017年 MX5Browser Software https://github.com/kingly09/MX5Browser  by kingly inc.  
+//  Copyright © 2017年 MX5Browser Software https://github.com/kingly09/MX5Browser  by kingly inc.
 
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,17 +33,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  请求方式
-
+ 
  - MX5WebViewTypeWebURLString: 请求网路链接
  - MX5WebViewTypeLocalHTMLString: 请求本地html文件
  - MX5WebViewTypeAutomaticLogin: 请求带填登录
  - MX5WebViewTypeHTMLString: 请求html字符串或本地html字符串
  */
 typedef NS_ENUM(NSUInteger, MX5WebViewType){
-    MX5WebViewTypeWebURLString = 0,
-    MX5WebViewTypeLocalHTMLString = 1,
-    MX5WebViewTypeAutomaticLogin = 2,
-    MX5WebViewTypeHTMLString= 3
+  MX5WebViewTypeWebURLString = 0,
+  MX5WebViewTypeLocalHTMLString = 1,
+  MX5WebViewTypeAutomaticLogin = 2,
+  MX5WebViewTypeHTMLString= 3
 };
 
 
@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 
 /**
  点击收藏
-
+ 
  @param webView MX5WebView
  */
 -(void)browserViewControllerWithCollection:(MX5WebView *)webView;
@@ -72,7 +72,8 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 @property(nonatomic,assign) BOOL tabBarHidden;      //是否隐藏tabBar
 @property(nonatomic,assign) BOOL navigationBarHidden;      //是否隐藏tabBar
 @property(nonatomic,weak)id<MX5BrowserViewControllerDelegate> delegate;
-
+@property(nonatomic,assign) BOOL hiddenCollectionButtonItem;      //隐藏导航条上的收藏按钮
+@property(nonatomic,assign) BOOL hiddenRightButtonItem;           //隐藏导航条上的右边按钮
 /**
  加载底部菜单
  @param menuList 菜单列表
@@ -92,7 +93,7 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 - (void)loadLocalHTMLStringWithHtmlPath:(NSString *)htmlPath;
 /**
  自动带填登录
-
+ 
  @param urlString 需要带填的URL地址
  @param JSCode 注入js
  */
@@ -115,3 +116,4 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 NS_ASSUME_NONNULL_END
 
 @end
+
