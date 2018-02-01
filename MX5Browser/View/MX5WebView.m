@@ -28,6 +28,7 @@
 #import "MX5WebView.h"
 #import "MX5Browser.h"
 #import "MX5WebViewJavascriptBridge.h"
+#import "MX5BrowserUtils.h"
 
 static void *WkwebBrowserContext = &WkwebBrowserContext;
 
@@ -287,15 +288,19 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 //API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转（在发送请求之前，决定是否跳转）
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     
-    NSLog(@"API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转");
+ 
     NSString *urlString = [[navigationAction.request URL] absoluteString];
-    _currUrl = urlString;
+    if([MX5BrowserUtils isURL:urlString]){
+      _currUrl = urlString;
+      NSLog(@"_currUrl:%@",urlString);
+    }
     urlString = [urlString stringByRemovingPercentEncoding];
     // 用://截取字符串
     NSArray *urlComps = [urlString componentsSeparatedByString:@"://"];
     if ([urlComps count]) {
         // 获取协议头
         NSString *protocolHead = [urlComps objectAtIndex:0];
+        NSLog(@"API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转");
         NSLog(@"protocolHead=%@",protocolHead);
     }
     
