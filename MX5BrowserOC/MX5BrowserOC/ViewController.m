@@ -132,4 +132,38 @@
     NSLog(@"webView::%@ url:%@ webView.currUrl:%@",webView.title,webView.URLString,webView.currUrl);
 }
 
+#pragma mark - 点击京东登录界面，自动代替
+
+- (IBAction)onClickJDDT:(id)sender {
+
+    NSArray *menuLists = [NSArray modelArrayWithClass:[MX5ButtonModel class] json:[NSData dataNamed:[NSString stringWithFormat:@"menuList.geojson"]]];
+    
+    MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+    browserViewController.needInjectJS = YES;
+    
+    NSString *inputValueJS = @"var psel = document.getElementById('uin');psel.value = '测试自动输入账号121';var pswd = document.getElementById('pwd');pswd.value = '123';";
+    [browserViewController loadAutomaticLogin:@"https://plogin.m.jd.com/user/login.action?appid=100&kpkey=&returnurl=https%3A%2F%2Fm.jd.com%3Findexloc%3D1%26sid%3D31b5f2f81de00144a039fe20e1d93f03" injectJSCode:inputValueJS];
+    [browserViewController loadMenuView:menuLists];
+    browserViewController.delegate = self;
+    [self.navigationController pushViewController:browserViewController animated:YES];
+    
+
+}
+
+
+
+- (IBAction)onClicktxyLogin:(id)sender {
+
+ NSArray *menuLists = [NSArray modelArrayWithClass:[MX5ButtonModel class] json:[NSData dataNamed:[NSString stringWithFormat:@"menuList.geojson"]]];
+    
+    MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+
+    NSString *inputValueJS = @"var psel = document.getElementById('uin');psel.value = '测试自动输入账号121';var pswd = document.getElementById('pwd');pswd.value = '123';";
+    [browserViewController loadAutomaticLogin:@"https://m.exmail.qq.com/cgi-bin/loginpage" injectJSCode:inputValueJS];
+    [browserViewController loadMenuView:menuLists];
+    browserViewController.delegate = self;
+    [self.navigationController pushViewController:browserViewController animated:YES];
+    
+}
+
 @end
