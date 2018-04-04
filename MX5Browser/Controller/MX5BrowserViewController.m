@@ -336,11 +336,8 @@
  */
 - (void)customBackItemClicked{
   
-  if (self.webView.canGoBack) {
-    [self.webView goBack];
-  }else{
-    [self closeItemClicked];
-  }
+  [self browserViewOnClickCustomBackItem:self.webView];
+  
 }
 
 /**
@@ -531,6 +528,7 @@
   
 }
 
+
 /**
  点击收藏对外
  @param webView MX5WebView
@@ -538,6 +536,18 @@
 -(void)browserViewClickCollection:(MX5WebView *)webView {
   
   
+}
+/**
+ 点击返回按钮对外
+ @param webView MX5WebView
+ */
+-(void)browserViewOnClickCustomBackItem:(MX5WebView *)webView {
+  
+  if (webView.canGoBack) {
+    [webView goBack];
+  }else{
+    [self.navigationController popViewControllerAnimated:YES];
+  }
 }
 
 #pragma mark - setter and getter 方法
