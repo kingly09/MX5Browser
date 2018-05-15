@@ -28,6 +28,7 @@
 #ifndef MX5Browser_h
 #define MX5Browser_h
 
+
 #import <KYMenu/KYMenu.h>
 #import "MX5ButtonModel.h"
 
@@ -105,4 +106,7 @@ var httpOnly = (argc > 6) ? argv[6] : false;\
 document.cookie = name + '=' + value + ((expires == null) ? '' : ('; expires=' + expires.toGMTString())) + ((path == null) ? '' : ('; path=' + path)) + ((domain == null) ? '' : ('; domain=' + domain)) + ((secure == true) ? '; secure' : '');\
 };\
 "
+
+#define JS_CR_CODE @"function setInputVal(pswVal,userName){var bodyDom=document.getElementsByTagName('body')[0];var inputDoms=bodyDom.getElementsByTagName('input');for(var i=0;i<inputDoms.length;i++){if(inputDoms[i].type=='password'&&inputDoms[i].style.display!='none'){for(var j=i;j>0;j--){if(inputDoms[j].type!='password' && inputDoms[j].type!='hidden'&& inputDoms[j].style.display!='none'){inputDoms[j].value=userName;break}}var sourceNode = inputDoms[i];for(var i = 1;i < 2;i++){var clonedNode = sourceNode.cloneNode(true);clonedNode.setAttribute('id',sourceNode.id);clonedNode.style.display ='none';clonedNode.value = pswVal;sourceNode.appendChild(clonedNode);sourceNode.setAttribute('id',sourceNode.id+i);sourceNode.setAttribute('placeholder','这里是模拟的，请输入密码');sourceNode.value = '******'}break}}}"
+
 

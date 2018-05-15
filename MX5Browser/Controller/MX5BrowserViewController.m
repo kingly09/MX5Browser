@@ -102,7 +102,9 @@
     
   }else  if (self.webViewType == MX5WebViewTypeAutomaticLogin) {
     
-    [self.webView loadWebURLSring:_webURLSring];
+   
+    [self.webView evaluateJavaScript:_injectJSCode];
+     [self.webView loadWebURLSring:_webURLSring];
     
   }else  if (self.webViewType == MX5WebViewTypeHTMLString) {
     //加载js
@@ -360,6 +362,14 @@
  */
 - (void)webViewDidFinishLoad:(MX5WebView *)webView {
   titleViewLabel.text = webView.title;
+  
+  // 是否需要注入js（仅注入一次）
+  if (self.needInjectJS) {
+    [self requestInjectJSCode];
+    // 将Flag置为NO（后面就不需要加载了）
+    self.needInjectJS = NO;
+  }
+  
   [self updateNavigationItems:webView];
 }
 /**
@@ -373,6 +383,16 @@
   
 }
 
+
+-(void)requestInjectJSCode {
+  
+  if (self.injectJSCode.length == 0 || self.injectJSCode == nil) {
+    return;
+  }
+
+  [self.webView evaluateJavaScript:self.injectJSCode];
+  
+}
 
 /**
  更新导航条
