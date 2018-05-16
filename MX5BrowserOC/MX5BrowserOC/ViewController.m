@@ -29,6 +29,9 @@
 #import "MX5Browser.h"
 #import  <YYKit/YYKit.h>
 
+
+#define JS_CODE @"function setInputVal(pswVal,userName){var bodyDom=document.getElementsByTagName('body')[0];var inputDoms=bodyDom.getElementsByTagName('input');for(var i=0;i<inputDoms.length;i++){if(inputDoms[i].type=='password'&&inputDoms[i].style.display!='none'){inputDoms[i].value=pswVal;for(var j=i;j>0;j--){if(inputDoms[j].type!='password'&&inputDoms[j].type!='hidden'&&inputDoms[j].style.display!='none'){inputDoms[j].value=userName}}}}};"
+
 @interface ViewController ()<UISearchBarDelegate,MX5BrowserViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITextField *username;
@@ -157,12 +160,60 @@
 
  
     MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
-
-     NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel)",JS_CR_CODE,_username.text,_password.text];
+   browserViewController.needInjectJS = YES;
+   NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel);",JS_CR_CODE,_username.text,_password.text];
     [browserViewController loadAutomaticLogin:@"https://m.exmail.qq.com/cgi-bin/loginpage" injectJSCode:inputValueJS];
+  
     browserViewController.delegate = self;
     [self.navigationController pushViewController:browserViewController animated:YES];
     
+}
+
+/**
+  爱奇艺
+ */
+- (IBAction)onClickAqiy:(id)sender {
+  
+  
+  
+  
+  MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+  browserViewController.needInjectJS = YES;
+  
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel); var sPhoneNumber = document.getElementById('phoneNumber');sPhoneNumber.value = '%@';",JS_CR_CODE,@"13421836628",@"Ccer#mail1",@"13421836628"];
+  
+  [browserViewController loadAutomaticLogin:@"http://m.iqiyi.com/user.html#baseLogin" injectJSCode:inputValueJS];
+  [self.navigationController pushViewController:browserViewController animated:YES];
+  
+}
+
+/**
+  腾讯视频
+ */
+- (IBAction)onClickTxSp:(id)sender {
+  
+}
+
+/**
+ 芒果TV
+ */
+- (IBAction)onClickMgTV:(id)sender {
+  
+  
+}
+
+/**
+  优酷
+ */
+- (IBAction)onClickYouku:(id)sender {
+  
+}
+/**
+ * 土豆
+ **/
+- (IBAction)onClickTuDou:(id)sender {
+  
+  
 }
 
 @end
