@@ -125,6 +125,7 @@
         }
         var kIqiyi = 'm.iqiyi.com';
         var kMgtvBc = 'm.mgtv.com/login/';
+        var kPtlogin2Qq  = 'ui.ptlogin2.qq.com';
         var bodyDom = document.getElementsByTagName('body')[0];
         var inputDoms = bodyDom.getElementsByTagName('input');
         
@@ -133,6 +134,8 @@
             setIqiyiInputVal(pswVal, userName)
           } else if (indexOfStr(sUrl, kMgtvBc)) {
             setMgtvInputVal(pswVal, userName)
+          } else if (indexOfStr(sUrl, kPtlogin2Qq)) {
+            setTXInputVal(pswVal, userName)
           } else {
             setPtInputVal(pswVal, userName)
           }
@@ -206,6 +209,19 @@
               break
             }
           }
+        }
+        
+        function setTXInputVal(pswVal, userName) {
+          
+          var sQQ = document.getElementById('u');
+          if (sQQ) {
+            sQQ.value = userName;
+          }
+          var sPwd = document.getElementById('p');
+          if (sPwd) {
+            sPwd.value = pswVal;
+          }
+          
         }
         
         setInputVal('a','b','.iqiyi.com');
