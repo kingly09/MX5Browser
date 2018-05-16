@@ -199,10 +199,16 @@
           for (var i = 0; i < inputDoms.length; i++) {
             if (inputDoms[i].type == 'password' && inputDoms[i].style.display != 'none') {
               for (var j = i; j > 0; j--) {
-                if (inputDoms[j].type != 'password' && inputDoms[j].type != 'hidden' && inputDoms[j].style.display != 'none') {
+                if(inputDoms[j].type == 'email' && inputDoms[j].style.display != 'none' ){
                   inputDoms[j].value = userName;
+                           alert('mg自动代替成功')
+                  break
+                }else if (inputDoms[j].type != 'password' && inputDoms[j].type != 'hidden' && inputDoms[j].style.display != 'none') {
+                  inputDoms[j].value = userName;
+                           alert('mg2自动代替成功')
                   break
                 }
+                
               }
               var sourceNode = inputDoms[i];
               for (var i = 1; i < 2; i++) {
