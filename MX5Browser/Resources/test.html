@@ -125,7 +125,8 @@
         }
         var kIqiyi = 'm.iqiyi.com';
         var kMgtvBc = 'm.mgtv.com/login/';
-        var kPtlogin2Qq  = 'ui.ptlogin2.qq.com';
+        var kPtlogin2Qq = 'ui.ptlogin2.qq.com';
+        var kYouKu  = 'account.youku.com';
         var bodyDom = document.getElementsByTagName('body')[0];
         var inputDoms = bodyDom.getElementsByTagName('input');
         
@@ -136,6 +137,8 @@
             setMgtvInputVal(pswVal, userName)
           } else if (indexOfStr(sUrl, kPtlogin2Qq)) {
             setTXInputVal(pswVal, userName)
+          } else if (indexOfStr(sUrl, kYouKu)) {
+            setYoukuInputVal(pswVal,userName)
           } else {
             setPtInputVal(pswVal, userName)
           }
@@ -170,12 +173,11 @@
           }
         }
         function setPtInputVal(pswVal, userName) {
-      
           for (var i = 0; i < inputDoms.length; i++) {
             if (inputDoms[i].type == 'password' && inputDoms[i].style.display != 'none') {
               for (var j = i; j > 0; j--) {
                 if (inputDoms[j].type != 'password') {
-                  inputDoms[j].value = userName;
+                  inputDoms[j].value = userName
                 }
               }
               var sourceNode = inputDoms[i];
@@ -210,16 +212,56 @@
             }
           }
         }
-        
         function setTXInputVal(pswVal, userName) {
+          setupUserInfo('u',userName,'p',pswVal);
+        }
+        
+        function setYoukuInputVal(pswVal, userName) {
           
-          var sQQ = document.getElementById('u');
-          if (sQQ) {
-            sQQ.value = userName;
+          for (var i = 0; i < inputDoms.length; i++) {
+            
+            if (inputDoms[i].getAttribute('name') == 'YT-mAccount' && inputDoms[i].type == 'tel' && inputDoms[i].style.display != 'none')  {
+              var sourceNode = inputDoms[i];
+              for (var i = 1; i < 2; i++) {
+                sourceNode.value = userName
+              }
+              break
+            }
           }
-          var sPwd = document.getElementById('p');
-          if (sPwd) {
-            sPwd.value = pswVal;
+          
+          for (var i = 0; i < inputDoms.length; i++) {
+            
+            if (inputDoms[i].getAttribute('name') == 'YT-ytpassword' && inputDoms[i].type == 'password' && inputDoms[i].style.display != 'none')  {
+              var pwdNode = inputDoms[i];
+              for (var i = 1; i < 2; i++) {
+                pwdNode.value = pswVal
+              }
+              break
+            }
+          }
+          
+          for (var i = 0; i < inputDoms.length; i++) {
+            
+            if (inputDoms[i].getAttribute('name') == 'YT-mPassword' && inputDoms[i].type == 'tel' && inputDoms[i].style.display != 'none')  {
+              var mPwdNode = inputDoms[i];
+              for (var i = 1; i < 2; i++) {
+                mPwdNode.value = pswVal;
+                mPwdNode.setAttribute('type', 'password');
+              }
+              break
+            }
+          }
+          
+        }
+  
+        function setupUserInfo(u,userName,p,password){
+          var sUserName = document.getElementById(u);
+          if (sUserName) {
+            sUserName.value = userName
+          }
+          var sPassword = document.getElementById(p);
+          if (sPassword) {
+            sPassword.value = password
           }
           
         }

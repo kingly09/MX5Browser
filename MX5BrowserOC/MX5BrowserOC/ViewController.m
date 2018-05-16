@@ -220,8 +220,8 @@
   
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
-  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://m.mgtv.com/login/');",JS_MGTV,_username.text,_password.text];
-  [browserViewController loadAutomaticLogin:@"https://m.mgtv.com/login/" injectJSCode:inputValueJS];
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'account.youku.com');",JS_TX,_username.text,_password.text];
+  [browserViewController loadAutomaticLogin:@"https://account.youku.com/" injectJSCode:inputValueJS];
   
   browserViewController.delegate = self;
   [self.navigationController pushViewController:browserViewController animated:YES];
