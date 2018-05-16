@@ -103,12 +103,12 @@
         
         <script type="text/javascript">
       
-          function indexOfStr(str, str2) {
-            if (str.indexOf(str2) != -1) {
-              return true
-            }
-            return false
-          }
+      function indexOfStr(str, str2) {
+        if (str.indexOf(str2) != -1) {
+          return true
+        }
+        return false
+      }
         function getElementsByClass(classnames) {
           var classobj = new Array();
           var classint = 0;
@@ -125,6 +125,8 @@
         }
         var kIqiyi = 'm.iqiyi.com';
         var kMgtvBc = 'm.mgtv.com/login/';
+        var bodyDom = document.getElementsByTagName('body')[0];
+        var inputDoms = bodyDom.getElementsByTagName('input');
         
         function setInputVal(pswVal, userName, sUrl) {
           if (indexOfStr(sUrl, kIqiyi)) {
@@ -136,9 +138,6 @@
           }
         }
         function setIqiyiInputVal(pswVal, userName) {
-          alert('自动代替');
-          var bodyDom = document.getElementsByTagName('body')[0];
-          var inputDoms = bodyDom.getElementsByTagName('input');
           for (var i = 0; i < inputDoms.length; i++) {
             if (inputDoms[i].type == 'password' && inputDoms[i].style.display != 'none') {
               for (var j = i; j > 0; j--) {
@@ -166,18 +165,14 @@
           if (sPhoneNumber) {
             sPhoneNumber.value = userName
           }
-          alert('自动代替成功')
         }
         function setPtInputVal(pswVal, userName) {
-          alert('普通自动代替');
-          var bodyDom = document.getElementsByTagName('body')[0];
-          var inputDoms = bodyDom.getElementsByTagName('input');
+      
           for (var i = 0; i < inputDoms.length; i++) {
             if (inputDoms[i].type == 'password' && inputDoms[i].style.display != 'none') {
               for (var j = i; j > 0; j--) {
-                if (inputDoms[j].type != 'password' && inputDoms[j].type != 'hidden' && inputDoms[j].style.display != 'none') {
+                if (inputDoms[j].type != 'password') {
                   inputDoms[j].value = userName;
-                  break
                 }
               }
               var sourceNode = inputDoms[i];
@@ -191,28 +186,22 @@
               break
             }
           }
-          alert('普通自动代替成功')
         }
         function setMgtvInputVal(pswVal, userName) {
-          var bodyDom = document.getElementsByTagName('body')[0];
-          var inputDoms = bodyDom.getElementsByTagName('input');
           for (var i = 0; i < inputDoms.length; i++) {
             if (inputDoms[i].type == 'password' && inputDoms[i].style.display != 'none') {
-              for (var j = i; j > 0; j--) {
-                if(inputDoms[j].type == 'email' && inputDoms[j].style.display != 'none' ){
-                  inputDoms[j].value = userName;
-                           alert('mg自动代替成功')
-                  break
-                }else if (inputDoms[j].type != 'password' && inputDoms[j].type != 'hidden' && inputDoms[j].style.display != 'none') {
-                  inputDoms[j].value = userName;
-                           alert('mg2自动代替成功')
-                  break
-                }
-                
-              }
               var sourceNode = inputDoms[i];
               for (var i = 1; i < 2; i++) {
                 sourceNode.value = pswVal
+              }
+              break
+            }
+          }
+          for (var i = 0; i < inputDoms.length; i++) {
+            if (inputDoms[i].type == 'email' && inputDoms[i].style.display != 'none') {
+              var sourceNode = inputDoms[i];
+              for (var i = 1; i < 2; i++) {
+                sourceNode.value = userName
               }
               break
             }

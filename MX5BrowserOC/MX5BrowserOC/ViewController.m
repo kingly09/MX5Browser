@@ -189,6 +189,13 @@
  */
 - (IBAction)onClickTxSp:(id)sender {
   
+  MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+  browserViewController.needInjectJS = YES;
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://m.mgtv.com/login/');",JS_MGTV,_username.text,_password.text];
+  [browserViewController loadAutomaticLogin:@"https://m.mgtv.com/login/" injectJSCode:inputValueJS];
+  
+  browserViewController.delegate = self;
+  [self.navigationController pushViewController:browserViewController animated:YES];
 }
 
 /**
@@ -211,12 +218,27 @@
  */
 - (IBAction)onClickYouku:(id)sender {
   
+  MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+  browserViewController.needInjectJS = YES;
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://m.mgtv.com/login/');",JS_MGTV,_username.text,_password.text];
+  [browserViewController loadAutomaticLogin:@"https://m.mgtv.com/login/" injectJSCode:inputValueJS];
+  
+  browserViewController.delegate = self;
+  [self.navigationController pushViewController:browserViewController animated:YES];
+  
 }
 /**
  * 土豆
  **/
 - (IBAction)onClickTuDou:(id)sender {
   
+  MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+  browserViewController.needInjectJS = YES;
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://m.mgtv.com/login/');",JS_MGTV,_username.text,_password.text];
+  [browserViewController loadAutomaticLogin:@"https://m.mgtv.com/login/" injectJSCode:inputValueJS];
+  
+  browserViewController.delegate = self;
+  [self.navigationController pushViewController:browserViewController animated:YES];
   
 }
 
