@@ -174,13 +174,10 @@
  */
 - (IBAction)onClickAqiy:(id)sender {
   
-  
-  
-  
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
   
-  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel); var sPhoneNumber = document.getElementById('phoneNumber');sPhoneNumber.value = '%@';",JS_CR_CODE,@"13421836628",@"Ccer#mail1",@"13421836628"];
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'m.iqiyi.com');",JS_IQY,@"13421836628",@"Ccer#mail1"];
   
   [browserViewController loadAutomaticLogin:@"http://m.iqiyi.com/user.html#baseLogin" injectJSCode:inputValueJS];
   [self.navigationController pushViewController:browserViewController animated:YES];
@@ -198,7 +195,14 @@
  芒果TV
  */
 - (IBAction)onClickMgTV:(id)sender {
+
+  MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
+  browserViewController.needInjectJS = YES;
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://m.mgtv.com/login/');",JS_MGTV,_username.text,_password.text];
+  [browserViewController loadAutomaticLogin:@"https://m.mgtv.com/login/" injectJSCode:inputValueJS];
   
+  browserViewController.delegate = self;
+  [self.navigationController pushViewController:browserViewController animated:YES];
   
 }
 
