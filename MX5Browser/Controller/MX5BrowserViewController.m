@@ -521,7 +521,30 @@
 - (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode {
   
   _webURLSring = urlString;
+  if (JSCode.length == 0) {
+    JSCode = JS_ZR_CODE;
+  }
   _injectJSCode = JSCode;
+  self.webViewType  = MX5WebViewTypeAutomaticLogin;
+}
+
+/**
+ 自动带填登录（目前支持 爱奇艺，腾讯视频，芒果TV，优酷的代填功能）
+
+ @param urlString urlString 需要带填的URL地址
+ @param JSCode  注入js
+ @param username 用户名
+ @param pwd 密码
+ */
+- (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode withUserName:(NSString *)username withPwd:(NSString *)pwd {
+  
+  _webURLSring = urlString;
+  
+  if (JSCode.length == 0) {
+    JSCode = JS_ZR_CODE;
+  }
+  NSString *inputJS = [NSString stringWithFormat:@"%@ var BC_psel = '%@';var BC_pswd = '%@'; var BC_pUrl = '%@';  setInputVal (BC_pswd,BC_psel,BC_pUrl);",JSCode,username,pwd,urlString];
+  _injectJSCode = inputJS;
   self.webViewType  = MX5WebViewTypeAutomaticLogin;
 }
 /**

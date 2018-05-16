@@ -99,6 +99,15 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
  */
 - (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode;
 /**
+ 自动带填登录（目前支持 爱奇艺，腾讯视频，芒果TV，优酷的代填功能）
+ 
+ @param urlString urlString 需要带填的URL地址
+ @param JSCode  注入js
+ @param username 用户名
+ @param pwd 密码
+ */
+- (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode withUserName:(NSString *)username withPwd:(NSString *)pwd;
+/**
  加载带有HTML字符串
  @param htmlString 带有HTML字符串
  */
