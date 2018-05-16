@@ -177,7 +177,7 @@
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
   
-  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'m.iqiyi.com');",JS_IQY,@"13421836628",@"Ccer#mail1"];
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'m.iqiyi.com');",JS_ZR_CODE,@"13421836628",@"Ccer#mail1"];
   
   [browserViewController loadAutomaticLogin:@"http://m.iqiyi.com/user.html#baseLogin" injectJSCode:inputValueJS];
   [self.navigationController pushViewController:browserViewController animated:YES];
@@ -191,7 +191,7 @@
   
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
-  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://ui.ptlogin2.qq.com/login/');",JS_TX,_username.text,_password.text];
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://ui.ptlogin2.qq.com/login/');",JS_ZR_CODE,_username.text,_password.text];
   [browserViewController loadAutomaticLogin:@"https://ui.ptlogin2.qq.com/cgi-bin/login?style=9&appid=532001604&low_login=1&pt_no_onekey=0&s_url=https%3A%2F%2Ffilm.qq.com%2Fweixin%2Fuser_center.html&hln_css=https%3A%2F%2Fi.gtimg.cn%2Fqqlive%2Fimages%2F20160606%2Fi1465201597_1.jpg" injectJSCode:inputValueJS];
   
   browserViewController.delegate = self;
@@ -205,7 +205,7 @@
 
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
-  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://m.mgtv.com/login/');",JS_MGTV,_username.text,_password.text];
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://m.mgtv.com/login/');",JS_ZR_CODE,_username.text,_password.text];
   [browserViewController loadAutomaticLogin:@"https://m.mgtv.com/login/" injectJSCode:inputValueJS];
   
   browserViewController.delegate = self;
@@ -220,7 +220,7 @@
   
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
-  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'account.youku.com');",JS_TX,_username.text,_password.text];
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'account.youku.com');",JS_ZR_CODE,_username.text,_password.text];
   [browserViewController loadAutomaticLogin:@"https://account.youku.com/" injectJSCode:inputValueJS];
   
   browserViewController.delegate = self;
@@ -234,8 +234,8 @@
   
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
-  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'https://m.mgtv.com/login/');",JS_MGTV,_username.text,_password.text];
-  [browserViewController loadAutomaticLogin:@"https://m.mgtv.com/login/" injectJSCode:inputValueJS];
+  NSString *inputValueJS = [NSString stringWithFormat:@"%@ var psel = '%@';var pswd = '%@';  setInputVal (pswd,psel,'account.youku.com');",JS_ZR_CODE,_username.text,_password.text];
+  [browserViewController loadAutomaticLogin:@"https://account.youku.com/" injectJSCode:inputValueJS];
   
   browserViewController.delegate = self;
   [self.navigationController pushViewController:browserViewController animated:YES];
