@@ -151,7 +151,7 @@
 
 - (void)dealloc {
   
-  
+  [self deleteHTTPCookie];
   NSLog(@" MX5BrowserViewController dealloc ");
   [roadLoadButton removeFromSuperview];
   roadLoadButton = nil;
@@ -346,8 +346,10 @@
  点击关闭web视图
  */
 -(void)closeItemClicked{
+  [self deleteHTTPCookie];
   [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 #pragma mark - MX5WebViewDelegate
 
@@ -543,7 +545,7 @@
   if (JSCode.length == 0) {
     JSCode = JS_ZR_CODE;
   }
-  NSString *inputJS = [NSString stringWithFormat:@"%@ var BC_psel = '%@';var BC_pswd = '%@'; var BC_pUrl = '%@';  setInputVal (BC_pswd,BC_psel,BC_pUrl);",JSCode,username,pwd,urlString];
+  NSString *inputJS = [NSString stringWithFormat:@"%@ var BC_psel = '%@';var BC_pswd = '%@'; var BC_pUrl = '%@';   setInterval(function(){setInputVal(BC_pswd,BC_psel,BC_pUrl);},0);",JSCode,username,pwd,urlString];
   _injectJSCode = inputJS;
   self.webViewType  = MX5WebViewTypeAutomaticLogin;
 }
@@ -590,6 +592,7 @@
     [webView goBack];
   }else{
     [self.navigationController popViewControllerAnimated:YES];
+    [self deleteHTTPCookie];
   }
 }
 
@@ -654,6 +657,23 @@
   return _collectionButtonItem;
 }
 
+/**
+ 删除HTTPCookie
+ */
+- (void)deleteHTTPCookie
+{
+  //清空Cookie
+  NSHTTPCookieStorage *myCookie = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+  for (NSHTTPCookie *cookie in [myCookie cookies])
+  {
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+  }
+  //删除沙盒自动生成的Cookies.binarycookies文件
+  NSString *path = NSHomeDirectory();
+  NSString *filePath = [path stringByAppendingPathComponent:@"/Library/Cookies/Cookies.binarycookies"];
+  NSFileManager *manager = [NSFileManager defaultManager];
+  [manager removeItemAtPath:filePath error:nil];
+}
 
 @end
 
