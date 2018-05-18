@@ -545,7 +545,7 @@
   if (JSCode.length == 0) {
     JSCode = JS_ZR_CODE;
   }
-  NSString *inputJS = [NSString stringWithFormat:@"%@ var BC_psel = '%@';var BC_pswd = '%@'; var BC_pUrl = '%@';   setInterval(function(){setInputVal(BC_pswd,BC_psel,BC_pUrl);},0);",JSCode,username,pwd,urlString];
+  NSString *inputJS = [NSString stringWithFormat:@"%@ var BC_psel = '%@';var BC_pswd = '%@'; var BC_pUrl = '%@';   setTimeout(function(){setInputVal(BC_pswd,BC_psel,BC_pUrl);},0);",JSCode,username,pwd,urlString];
   _injectJSCode = inputJS;
   self.webViewType  = MX5WebViewTypeAutomaticLogin;
 }
