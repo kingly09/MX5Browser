@@ -176,7 +176,7 @@
   
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
-  [browserViewController loadAutomaticLogin:@"http://m.iqiyi.com/user.html#baseLogin?usdsdshjjh1212asaasas" injectJSCode:JS_ZR_CODE withUserName:@"13421836628" withPwd:@"Ccer#mail1"];
+  [browserViewController loadAutomaticLogin:@"http://m.iqiyi.com/user.html#baseLogin?us121dsdshjjh1212asaasas12121212" injectJSCode:JS_ZR_CODE withUserName:@"13421836628" withPwd:@"Ccer#mail1"];
   [self.navigationController pushViewController:browserViewController animated:YES];
   
 }

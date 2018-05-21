@@ -40,6 +40,7 @@
   UIButton *roadLoadButton; //右边按钮
   UILabel  *titleViewLabel; //标题视图
   MX5ToolView *toolView;    //工具类
+
 }
 @property (nonatomic, strong) MX5WebView *webView;
 @property (nonatomic, strong) MX5BottomToolBar *bottomToolBar;
@@ -151,7 +152,7 @@
 
 - (void)dealloc {
   
-  [self deleteHTTPCookie];
+  //[self deleteHTTPCookie];
   NSLog(@" MX5BrowserViewController dealloc ");
   [roadLoadButton removeFromSuperview];
   roadLoadButton = nil;
@@ -663,16 +664,83 @@
 - (void)deleteHTTPCookie
 {
   //清空Cookie
+  [self deleteHTTPCookie:_webURLSring];
+  
   NSHTTPCookieStorage *myCookie = [NSHTTPCookieStorage sharedHTTPCookieStorage];
   for (NSHTTPCookie *cookie in [myCookie cookies])
   {
+    
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
   }
+  
+
   //删除沙盒自动生成的Cookies.binarycookies文件
   NSString *path = NSHomeDirectory();
   NSString *filePath = [path stringByAppendingPathComponent:@"/Library/Cookies/Cookies.binarycookies"];
   NSFileManager *manager = [NSFileManager defaultManager];
-  [manager removeItemAtPath:filePath error:nil];
+  BOOL delSucc =  [manager removeItemAtPath:filePath error:nil];
+  
+  if (delSucc) {
+    
+    NSLog(@"成功");
+    
+  }else{
+    
+    NSLog(@"失败");
+  }
+  
+}
+
+-(void)deleteHTTPCookie:(NSString *)httpWebURLSring {
+
+
+  NSURL *httpURL = [NSURL URLWithString:httpWebURLSring];
+  if (httpURL) {//清除所有cookie
+    
+    [self.webView loadWebURLSring:httpWebURLSring];
+    
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:httpURL];
+    for (int i = 0; i < [cookies count]; i++) {
+      NSHTTPCookie *cookie = (NSHTTPCookie *)[cookies objectAtIndex:i];
+      [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+      
+    }
+    //清除某一特定的cookie方法
+    NSArray * cookArray = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:httpURL];
+    for (NSHTTPCookie *cookie in cookArray) {
+      if ([cookie.name isEqualToString:@"cookiename"]) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+      }
+    }
+  }
+ 
+  NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+  for (NSHTTPCookie *cookie in [storage cookies])
+  {
+    [storage deleteCookie:cookie];
+  }
+  //缓存web清除
+  [[NSURLCache sharedURLCache] removeAllCachedResponses];
+  
+  MX5BrowserURLCache *urlCache = (MX5BrowserURLCache *)[NSURLCache sharedURLCache];
+  [urlCache removeAllCachedResponses];
+  [urlCache  clearHtmlCache];
+  
+  
+  NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+  NSArray<NSHTTPCookie *> *cookies = [cookieStorage cookiesForURL:[NSURL URLWithString:httpWebURLSring]];
+  
+  [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull cookie, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableDictionary *properties = [[cookie properties] mutableCopy];
+    //将cookie过期时间设置为一年后
+    NSDate *expiresDate = [NSDate dateWithTimeIntervalSinceNow:3600*24*30*12];
+    properties[NSHTTPCookieExpires] = expiresDate;
+    //下面一行是关键,删除Cookies的discard字段，应用退出，会话结束的时候继续保留Cookies
+    [properties removeObjectForKey:NSHTTPCookieDiscard];
+    //重新设置改动后的Cookies
+    [cookieStorage setCookie:[NSHTTPCookie cookieWithProperties:properties]];
+  }];
+  
 }
 
 @end
