@@ -176,6 +176,8 @@
   
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
+  browserViewController.hiddenRightButtonItem = NO;
+  browserViewController.isHideBottomToolBar = YES;
   [browserViewController loadAutomaticLogin:@"http://m.iqiyi.com/user.html#baseLogin?us121dsdshjjh1212asaasas12121212" injectJSCode:JS_ZR_CODE withUserName:@"13421836628" withPwd:@"Ccer#mail1"];
   [self.navigationController pushViewController:browserViewController animated:YES];
   
@@ -212,6 +214,7 @@
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
   browserViewController.needInjectJS = YES;
   [browserViewController loadAutomaticLogin:@"https://account.youku.com/" injectJSCode:JS_ZR_CODE withUserName:_username.text withPwd:_password.text];
+  
   [self.navigationController pushViewController:browserViewController animated:YES];
   
 }

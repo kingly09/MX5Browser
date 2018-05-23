@@ -53,6 +53,8 @@
 #define isiPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define iPhoneX  [[UIScreen mainScreen] bounds].size.width >= 375.0f && [[UIScreen  mainScreen] bounds].size.height >= 812.0f && isiPhone
 
+#define MX5_IOS9 [[[UIDevice currentDevice]systemVersion]floatValue]  >= 9.0 //系统版本大于等于9.0
+
 #pragma mark - WEAK、STRONG
 
 //weak、strong创建

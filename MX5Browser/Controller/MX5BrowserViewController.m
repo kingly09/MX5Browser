@@ -127,7 +127,11 @@
     self.tabBarController.tabBar.hidden = YES;
   }
   
-  [self setupNavigationRightBarButtonItem];
+  if (self.webView.canGoBack) {
+  
+    [self setupNavigationRightBarButtonItem];
+    
+  }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -228,8 +232,7 @@
 - (void)hiddenBottomToolBar {
   
   self.bottomToolBar.hidden = YES;
-  [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_apply"] forState:UIControlStateNormal];
-  
+
   if (iPhoneX) {
     self.webView.frame       = CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - 20);
   }else{
@@ -271,30 +274,20 @@
   titleViewLabel.textAlignment = NSTextAlignmentCenter;
   self.navigationItem.titleView = titleViewLabel;
   
-  //自定义导航条的右边
-  [self setupNavigationRightBarButtonItem];
+
 }
 
 -(void)setupNavigationRightBarButtonItem {
   
   if (self.hiddenRightButtonItem  == NO) {
     //添加右边刷新按钮
-    if (_hiddenCollectionButtonItem == YES) {
-      
-      roadLoadButton = [[UIButton alloc] init];
-      roadLoadButton.size = CGSizeMake(22,22);
-      [roadLoadButton adjustsImageWhenHighlighted];
-      [roadLoadButton adjustsImageWhenDisabled];
-      [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
-      [roadLoadButton addTarget:self action:@selector(roadLoadClicked) forControlEvents:UIControlEventTouchUpInside];
-      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:roadLoadButton];
-      
-    }else{
-      
-      [self.navigationItem setRightBarButtonItems:@[self.collectionButtonItem]];
-      
-      self.isHideBottomToolBar = YES;
-    }
+    roadLoadButton = [[UIButton alloc] init];
+    roadLoadButton.size = CGSizeMake(22,22);
+    [roadLoadButton adjustsImageWhenHighlighted];
+    [roadLoadButton adjustsImageWhenDisabled];
+    [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
+    [roadLoadButton addTarget:self action:@selector(roadLoadClicked) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:roadLoadButton];
     
   }
 }
@@ -405,13 +398,11 @@
   if (webView.canGoBack) {
     [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem,self.closeButtonItem] animated:NO];
     [self hiddenBottomToolBar];
+    //自定义导航条的右边
+    [self setupNavigationRightBarButtonItem];
     
   }else{
-    if (_isHideBottomToolBar) {
-      [self hiddenBottomToolBar];
-    }else{
-      [self showBottomToolBar];
-    }
+   
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
   }
@@ -665,34 +656,29 @@
 {
   //清空Cookie
   [self deleteHTTPCookie:_webURLSring];
+//
+//  NSHTTPCookieStorage *myCookie = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//  for (NSHTTPCookie *cookie in [myCookie cookies])
+//  {
+//
+//    [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+//  }
+//
+//
   
-  NSHTTPCookieStorage *myCookie = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-  for (NSHTTPCookie *cookie in [myCookie cookies])
-  {
-    
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-  }
-  
-
-  //删除沙盒自动生成的Cookies.binarycookies文件
-  NSString *path = NSHomeDirectory();
-  NSString *filePath = [path stringByAppendingPathComponent:@"/Library/Cookies/Cookies.binarycookies"];
-  NSFileManager *manager = [NSFileManager defaultManager];
-  BOOL delSucc =  [manager removeItemAtPath:filePath error:nil];
-  
-  if (delSucc) {
-    
-    NSLog(@"成功");
-    
-  }else{
-    
-    NSLog(@"失败");
-  }
   
 }
 
 -(void)deleteHTTPCookie:(NSString *)httpWebURLSring {
 
+  if (MX5_IOS9) {
+    NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
+    NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
+      
+    }];
+    return;
+  }
 
   NSURL *httpURL = [NSURL URLWithString:httpWebURLSring];
   if (httpURL) {//清除所有cookie
@@ -702,6 +688,9 @@
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:httpURL];
     for (int i = 0; i < [cookies count]; i++) {
       NSHTTPCookie *cookie = (NSHTTPCookie *)[cookies objectAtIndex:i];
+      
+      NSLog(@"cookieURl:%@",cookie.domain);
+      
       [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
       
     }
@@ -726,21 +715,16 @@
   [urlCache removeAllCachedResponses];
   [urlCache  clearHtmlCache];
   
-  
-  NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-  NSArray<NSHTTPCookie *> *cookies = [cookieStorage cookiesForURL:[NSURL URLWithString:httpWebURLSring]];
-  
-  [cookies enumerateObjectsUsingBlock:^(NSHTTPCookie * _Nonnull cookie, NSUInteger idx, BOOL * _Nonnull stop) {
-    NSMutableDictionary *properties = [[cookie properties] mutableCopy];
-    //将cookie过期时间设置为一年后
-    NSDate *expiresDate = [NSDate dateWithTimeIntervalSinceNow:3600*24*30*12];
-    properties[NSHTTPCookieExpires] = expiresDate;
-    //下面一行是关键,删除Cookies的discard字段，应用退出，会话结束的时候继续保留Cookies
-    [properties removeObjectForKey:NSHTTPCookieDiscard];
-    //重新设置改动后的Cookies
-    [cookieStorage setCookie:[NSHTTPCookie cookieWithProperties:properties]];
-  }];
-  
+  //删除沙盒自动生成的Cookies.binarycookies文件
+  NSString *path = NSHomeDirectory();
+  NSString *filePath = [path stringByAppendingPathComponent:@"/Library/Cookies/Cookies.binarycookies"];
+  NSFileManager *manager = [NSFileManager defaultManager];
+  BOOL delSucc =  [manager removeItemAtPath:filePath error:nil];
+  if (delSucc) {
+    NSLog(@"成功");
+  }else{
+    NSLog(@"失败");
+  }
 }
 
 @end
