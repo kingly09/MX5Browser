@@ -156,7 +156,7 @@
 
 - (void)dealloc {
   
-  //[self deleteHTTPCookie];
+  [self deleteHTTPCookie];
   NSLog(@" MX5BrowserViewController dealloc ");
   [roadLoadButton removeFromSuperview];
   roadLoadButton = nil;
@@ -656,17 +656,6 @@
 {
   //清空Cookie
   [self deleteHTTPCookie:_webURLSring];
-//
-//  NSHTTPCookieStorage *myCookie = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//  for (NSHTTPCookie *cookie in [myCookie cookies])
-//  {
-//
-//    [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-//  }
-//
-//
-  
-  
 }
 
 -(void)deleteHTTPCookie:(NSString *)httpWebURLSring {
@@ -676,8 +665,9 @@
     NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
     [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
       
+      NSLog(@"WKWebsiteDataStore DEL");
+      
     }];
-    return;
   }
 
   NSURL *httpURL = [NSURL URLWithString:httpWebURLSring];
