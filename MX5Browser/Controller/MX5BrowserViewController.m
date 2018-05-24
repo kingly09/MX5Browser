@@ -311,19 +311,7 @@
  */
 - (void)roadLoadClicked {
   
-  //当前是内页的时候，不显示底部自定义菜单
-  if (self.bottomToolBar.hidden == YES) {
-    
-    //工具栏
-    toolView = [[MX5ToolView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight)];
-    toolView.delegate = self;
-    [self.view addSubview:toolView];
-    
-    
-  }else {
-    
-    [self.webView reload];
-  }
+  [self.webView reload];
   
 }
 
