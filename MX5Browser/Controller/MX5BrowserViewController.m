@@ -40,7 +40,7 @@
   
   float  bottomToolBarY;
   float webViewY;
-  UIButton *roadLoadButton; //右边按钮
+  UIButton *switchButton;
   UILabel  *titleViewLabel; //标题视图
   MX5ToolView *toolView;    //工具类
 
@@ -168,8 +168,7 @@
   
   [self deleteHTTPCookie];
   NSLog(@" MX5BrowserViewController dealloc ");
-  [roadLoadButton removeFromSuperview];
-  roadLoadButton = nil;
+
   
   [self.bottomToolBar removeFromSuperview];
   self.bottomToolBar = nil;
@@ -225,7 +224,6 @@
 - (void)showBottomToolBar {
   
   self.bottomToolBar.hidden = NO;
-  [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
   self.bottomToolBar.frame = CGRectMake(0, bottomToolBarY, KScreenWidth, KBOTTOM_TOOL_BAR_HEIGHT);
   
   if (iPhoneX) {
@@ -282,9 +280,13 @@
   titleViewLabel.backgroundColor = [UIColor clearColor];
   titleViewLabel.text = self.title;
   titleViewLabel.textAlignment = NSTextAlignmentCenter;
+  
+  if (self.webViewType  == MX5WebViewTypeAutomaticLogin) {
+    titleViewLabel.hidden  = YES;
+  }
   self.navigationItem.titleView = titleViewLabel;
   
-
+  
 }
 
 -(void)setupNavigationRightBarButtonItem {
@@ -313,14 +315,6 @@
 #pragma mark - 点击事件
 
 /**
- 重新加载网页
- */
-- (void)roadLoadClicked {
-  
-  [self.webView reload];
-}
-
-/**
  返回上一个网页
  */
 - (void)customBackItemClicked{
@@ -340,7 +334,7 @@
 /**
  只有爱奇艺的网址才会切换
  */
--(void)switchButtonItemClicked {
+-(void)switchButtonItemClicked:(UIBarButtonItem *)sender {
   
   NSRange range = [self.webView.currUrl rangeOfString:kIqiyiWapUrl];
   NSRange wwwRange = [self.webView.currUrl rangeOfString:kIqiyiWwwUrl];
@@ -351,6 +345,9 @@
     self.webView.pcURLSring = self.pcURLSring;
     [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1"];
     NSLog(@"是手机版本切换到电脑版");
+    
+    [self switchButtonItem];
+    
   }else if (wwwRange.location != NSNotFound ||  self.pcURLSring.length > 0) { //是电脑版切换到手机版
     
     NSString *webViewCurrUrl = [self.pcURLSring stringByReplacingOccurrencesOfString:kIqiyiWwwUrl  withString:kIqiyiWapUrl];
@@ -358,6 +355,7 @@
     self.webView.pcURLSring = @"";
     [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217"];
     NSLog(@"是电脑版切换到手机版");
+    [self switchButtonItem];
   }
 }
 
@@ -612,7 +610,7 @@
 #pragma mark - 懒加载
 
 -(UIBarButtonItem *)switchButtonItem{
-  if (!_switchButtonItem) {
+ // if (!_switchButtonItem) {
     UIButton *switchButton = [[UIButton alloc] init];
     switchButton.size = CGSizeMake(30, 44);
     [switchButton adjustsImageWhenHighlighted];
@@ -624,9 +622,9 @@
     }
     [switchButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
     [switchButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [switchButton addTarget:self action:@selector(switchButtonItemClicked) forControlEvents:UIControlEventTouchUpInside];
+    [switchButton addTarget:self action:@selector(switchButtonItemClicked:) forControlEvents:UIControlEventTouchUpInside];
     _switchButtonItem = [[UIBarButtonItem alloc] initWithCustomView:switchButton];
-  }
+  //}
   return _switchButtonItem;
 }
 
@@ -638,7 +636,10 @@
     reLoadButton.size = CGSizeMake(30, 44);
     [reLoadButton adjustsImageWhenHighlighted];
     [reLoadButton adjustsImageWhenDisabled];
-    [reLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
+    [reLoadButton adjustsImageWhenHighlighted];
+    [reLoadButton adjustsImageWhenDisabled];
+    [reLoadButton setTitle:@"刷新" forState:UIControlStateNormal];
+    [reLoadButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
     [reLoadButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [reLoadButton addTarget:self action:@selector(reLoadButtonItemClicked) forControlEvents:UIControlEventTouchUpInside];
     _reLoadButtonItem = [[UIBarButtonItem alloc] initWithCustomView:reLoadButton];
