@@ -33,6 +33,9 @@
 #import "MX5BrowserUtils.h"
 #import "MX5ToolView.h"
 
+#define kIqiyiWapUrl @"m.iqiyi.com"
+#define kIqiyiWwwUrl @"www.iqiyi.com"
+
 @interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate,MX5ToolViewDelegate> {
   
   float  bottomToolBarY;
@@ -63,6 +66,9 @@
 @property (nonatomic, copy) NSString *injectJSCode;
 //网页加载的类型
 @property(nonatomic,assign) MX5WebViewType webViewType;
+//切换成pc链接
+@property (nonatomic,copy) NSString  *pcURLSring;
+
 
 @end
 
@@ -311,7 +317,28 @@
  */
 - (void)roadLoadClicked {
   
-  [self.webView reload];
+  NSRange range = [self.webView.currUrl rangeOfString:kIqiyiWapUrl];
+  NSRange wwwRange = [self.webView.currUrl rangeOfString:kIqiyiWwwUrl];
+  if (range.location != NSNotFound) {  //是手机版本切换到电脑版
+
+    NSString *webViewCurrUrl = [self.webView.currUrl stringByReplacingOccurrencesOfString:kIqiyiWapUrl  withString:kIqiyiWwwUrl];
+    self.pcURLSring = webViewCurrUrl;
+    self.webView.pcURLSring = self.pcURLSring;
+    [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1"];
+    NSLog(@"是手机版本切换到电脑版");
+  }else if (wwwRange.location != NSNotFound ||  self.pcURLSring.length > 0) { //是电脑版切换到手机版
+    
+    NSString *webViewCurrUrl = [self.pcURLSring stringByReplacingOccurrencesOfString:kIqiyiWwwUrl  withString:kIqiyiWapUrl];
+    self.pcURLSring  = nil;
+    self.webView.pcURLSring = @"";
+    [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217"];
+    NSLog(@"是电脑版切换到手机版");
+  }else{
+    
+     [self.webView reload];
+  }
+  
+ 
   
 }
 

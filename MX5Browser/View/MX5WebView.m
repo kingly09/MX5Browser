@@ -72,6 +72,9 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 @property (nonatomic) NSMutableArray* snapShotsArray;
 //保存的网址链接
 @property (nonatomic,  readwrite, copy) NSString *URLString;
+//UA标识
+@property (nonatomic,  readwrite, copy) NSString *userAgent;
+
 //设置缓存时间（过期时间默认为一周）
 @property(nonatomic,assign) NSTimeInterval timeoutInterval;
 // oc 与 js的交互对象
@@ -292,6 +295,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     if ([lastRequest.URL.absoluteString isEqualToString:request.URL.absoluteString]) {
         return;
     }
+  
+    NSLog(@"可不可以 push with request %@",request);
     UIView* currentSnapShotView = [self.wkWebView snapshotViewAfterScreenUpdates:YES];
     [self.snapShotsArray addObject:
      @{@"request":request,@"snapShotView":currentSnapShotView}];
@@ -345,18 +350,23 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 //开始加载
 -(void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
-    //开始加载的时候，让加载进度条显示
-    self.progressView.hidden = NO;
-    NSLog(@"页面开始加载");
-    NSString *metaJScript = @"document.getElementsByTagName('html')[0].setAttribute('manifest','demo_html.appcache');";
-    [self.wkWebView evaluateJavaScript:metaJScript completionHandler:^(id _Nullable response, NSError * _Nullable error) {
-        NSLog(@"value: %@ error: %@", response, error);
+  //开始加载的时候，让加载进度条显示
+  self.progressView.hidden = NO;
+  NSLog(@"页面开始加载");
+  NSString *metaJScript = @"document.getElementsByTagName('html')[0].setAttribute('manifest','demo_html.appcache');";
+  [self.wkWebView evaluateJavaScript:metaJScript completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+    NSLog(@"value: %@ error: %@", response, error);
+  }];
+  //如果是切换到pc端的时候，修改UA
+  if (_pcURLSring.length > 0) {
+    [self.wkWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+      NSLog(@"userAgent :%@", result);
+      self.wkWebView.customUserAgent = @"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1";
     }];
-    
-    if(_delegate && [_delegate respondsToSelector:@selector(webViewDidStartLoad:)]){
-        [self.delegate webViewDidStartLoad:self];
-    }
-    
+  }
+  if(_delegate && [_delegate respondsToSelector:@selector(webViewDidStartLoad:)]){
+    [self.delegate webViewDidStartLoad:self];
+  }
 }
 // 加载内容
 -(void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation
@@ -375,6 +385,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
  
     NSString *urlString = [[navigationAction.request URL] absoluteString];
     if([MX5BrowserUtils isURL:urlString]){
+      
       _currUrl = urlString;
       NSLog(@"_currUrl:%@",urlString);
     }
@@ -387,9 +398,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         NSLog(@"API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转");
         NSLog(@"protocolHead=%@",protocolHead);
     }
-    
-    
-    switch (navigationAction.navigationType) {
+  
+  NSLog(@"所有请求头：%@",navigationAction.request.allHTTPHeaderFields);
+  
+  switch (navigationAction.navigationType) {
         case WKNavigationTypeLinkActivated: {
             [self pushCurrentSnapshotViewWithRequest:navigationAction.request];
             break;
@@ -656,9 +668,28 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
     
     self.URLString  = urlString;
     //创建一个NSURLRequest 的对象,加入缓存机制，缓存时间为默认为一周
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
-    //加载网页
-    [self.wkWebView loadRequest:urlRequest];
+   // NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
+  NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
+  //添加自定义请求头
+  //加载网页
+  [self.wkWebView loadRequest:urlRequest];
+}
+
+
+- (void)loadWebURLSring:(NSString *)urlString withUserAgent:(NSString *)userAgent {
+  
+  self.URLString  = urlString;
+  
+  //创建一个NSURLRequest 的对象,加入缓存机制，缓存时间为默认为一周
+  // NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
+  NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
+  //添加自定义请求头
+  [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent":userAgent}];
+  [urlRequest addValue:userAgent forHTTPHeaderField:@"User-Agent"];
+  
+  self.userAgent = userAgent;
+  //加载网页
+  [self.wkWebView loadRequest:urlRequest];
 }
 
 /**
@@ -679,6 +710,22 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
 - (void)evaluateJavaScript:(NSString *)javaScriptString {
     
     [self.wkWebView evaluateJavaScript:javaScriptString completionHandler:nil];
+}
+
+- (void)evaluateJavaScript:(NSString *)javaScriptString  completionHandler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))completionHandler{
+  
+  [self.wkWebView evaluateJavaScript:javaScriptString completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+    completionHandler(response,error);
+  }];
+
+}
+
+-(void)setupCustomUserAgent:(NSString *)customUserAgent {
+  
+  
+  
+  self.wkWebView.customUserAgent = customUserAgent;
+  
 }
 
 -(BOOL)isLoading{

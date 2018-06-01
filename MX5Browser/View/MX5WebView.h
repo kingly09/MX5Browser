@@ -105,6 +105,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) BOOL canGoBack;
 @property (nonatomic, readonly) BOOL canGoForward;
 
+//切换成pc链接
+@property (nonatomic,copy) NSString  *pcURLSring;
 
 /**
  加载纯外部链接网页
@@ -112,6 +114,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param urlString URL地址
  */
 - (void)loadWebURLSring:(NSString *)urlString;
+/**
+ 加载修改UA的链接网页
+
+ @param urlString URL地址
+ @param userAgent 请求头的UA
+ */
+- (void)loadWebURLSring:(NSString *)urlString withUserAgent:(NSString *)userAgent;
 /**
  加载本地HTML
 
@@ -126,7 +135,20 @@ NS_ASSUME_NONNULL_BEGIN
  @param javaScriptString js代码
  */
 - (void)evaluateJavaScript:(NSString *)javaScriptString;
+/**
+ 注入javaScript代码
+ 
+ @param javaScriptString  js代码
+ @param completionHandler 注入回调
+ */
+- (void)evaluateJavaScript:(NSString *)javaScriptString  completionHandler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))completionHandler;
 
+/**
+ 自定义UA
+
+ @param customUserAgent UA内容
+ */
+-(void)setupCustomUserAgent:(NSString *)customUserAgent;
 /**
  添加一个添加js消息处理
 

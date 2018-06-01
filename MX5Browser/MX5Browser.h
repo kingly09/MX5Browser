@@ -55,6 +55,10 @@
 
 #define MX5_IOS9 [[[UIDevice currentDevice]systemVersion]floatValue]  >= 9.0 //系统版本大于等于9.0
 
+
+#define kIqiyiWapUrl @"m.iqiyi.com"
+#define kIqiyiWwwUrl @"www.iqiyi.com"
+
 #pragma mark - WEAK、STRONG
 
 //weak、strong创建
