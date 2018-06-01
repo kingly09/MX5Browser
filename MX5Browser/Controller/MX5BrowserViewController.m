@@ -166,10 +166,8 @@
 
 - (void)dealloc {
   
-  [self deleteHTTPCookie];
-  NSLog(@" MX5BrowserViewController dealloc ");
 
-  
+  NSLog(@" MX5BrowserViewController dealloc ");
   [self.bottomToolBar removeFromSuperview];
   self.bottomToolBar = nil;
   
@@ -214,7 +212,9 @@
     }
   }
   
-  
+  if (self.isDeleteHTTPCookie == YES) {
+     [self deleteHTTPCookie];
+  }
   
 }
 
@@ -327,7 +327,7 @@
  点击关闭web视图
  */
 -(void)closeItemClicked{
-  [self deleteHTTPCookie];
+ 
   [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -602,7 +602,7 @@
     [webView goBack];
   }else{
     [self.navigationController popViewControllerAnimated:YES];
-    [self deleteHTTPCookie];
+  
   }
 }
 
@@ -612,13 +612,13 @@
 -(UIBarButtonItem *)switchButtonItem{
  // if (!_switchButtonItem) {
     UIButton *switchButton = [[UIButton alloc] init];
-    switchButton.size = CGSizeMake(30, 44);
+    switchButton.size = CGSizeMake(60, 44);
     [switchButton adjustsImageWhenHighlighted];
     [switchButton adjustsImageWhenDisabled];
     if (_pcURLSring.length > 0) {
-       [switchButton setTitle:@"手机版" forState:UIControlStateNormal];
+       [switchButton setTitle:@"切换到手机版" forState:UIControlStateNormal];
     }else{
-       [switchButton setTitle:@"电脑版" forState:UIControlStateNormal];
+       [switchButton setTitle:@"切换到电脑版" forState:UIControlStateNormal];
     }
     [switchButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
     [switchButton.titleLabel setFont:[UIFont systemFontOfSize:14]];

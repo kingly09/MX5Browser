@@ -74,6 +74,7 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 @property(nonatomic,weak)id<MX5BrowserViewControllerDelegate> delegate;
 @property(nonatomic,assign) BOOL hiddenCollectionButtonItem;      //隐藏导航条上的收藏按钮
 @property(nonatomic,assign) BOOL hiddenRightButtonItem;           //隐藏导航条上的右边按钮
+@property(nonatomic,assign) BOOL isDeleteHTTPCookie;              //是否删除HTTPCookie
 /**
  加载底部菜单
  @param menuList 菜单列表
