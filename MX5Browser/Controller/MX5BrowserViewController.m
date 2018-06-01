@@ -297,7 +297,7 @@
     if (range.location != NSNotFound) {
       [self.navigationItem setRightBarButtonItems:@[self.reLoadButtonItem,self.switchButtonItem] animated:NO];
     }else{
-      [self.navigationItem setLeftBarButtonItems:@[self.reLoadButtonItem] animated:NO];
+      [self.navigationItem setRightBarButtonItems:@[self.reLoadButtonItem] animated:NO];
     }
   }
 }
@@ -338,6 +338,9 @@
   
   NSRange range = [self.webView.currUrl rangeOfString:kIqiyiWapUrl];
   NSRange wwwRange = [self.webView.currUrl rangeOfString:kIqiyiWwwUrl];
+  if (self.pcURLSring.length > 0) {
+     wwwRange = [self.pcURLSring rangeOfString:kIqiyiWwwUrl];
+  }
   if (range.location != NSNotFound) {  //是手机版本切换到电脑版
     
     NSString *webViewCurrUrl = [self.webView.currUrl stringByReplacingOccurrencesOfString:kIqiyiWapUrl  withString:kIqiyiWwwUrl];
@@ -345,11 +348,14 @@
     self.webView.pcURLSring = self.pcURLSring;
     [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1"];
     NSLog(@"是手机版本切换到电脑版");
-    
     [self switchButtonItem];
     
-  }else if (wwwRange.location != NSNotFound ||  self.pcURLSring.length > 0) { //是电脑版切换到手机版
+  }else if (wwwRange.location != NSNotFound ) { //是电脑版切换到手机版
     
+    if (self.pcURLSring.length <= 0) {
+        self.pcURLSring = self.webView.currUrl;
+    }
+
     NSString *webViewCurrUrl = [self.pcURLSring stringByReplacingOccurrencesOfString:kIqiyiWwwUrl  withString:kIqiyiWapUrl];
     self.pcURLSring  = nil;
     self.webView.pcURLSring = @"";
@@ -610,20 +616,28 @@
 #pragma mark - 懒加载
 
 -(UIBarButtonItem *)switchButtonItem{
- // if (!_switchButtonItem) {
-    UIButton *switchButton = [[UIButton alloc] init];
-    switchButton.size = CGSizeMake(60, 44);
-    [switchButton adjustsImageWhenHighlighted];
-    [switchButton adjustsImageWhenDisabled];
+  // if (!_switchButtonItem) {
+  UIButton *switchButton = [[UIButton alloc] init];
+  switchButton.size = CGSizeMake(60, 44);
+  [switchButton adjustsImageWhenHighlighted];
+  [switchButton adjustsImageWhenDisabled];
+
+  NSRange wwwRange = [self.webView.currUrl rangeOfString:kIqiyiWwwUrl];
+  if (wwwRange.location != NSNotFound ) {
+    [switchButton setTitle:@"切换到手机版" forState:UIControlStateNormal];
+  }else{
     if (_pcURLSring.length > 0) {
-       [switchButton setTitle:@"切换到手机版" forState:UIControlStateNormal];
+      [switchButton setTitle:@"切换到手机版" forState:UIControlStateNormal];
     }else{
-       [switchButton setTitle:@"切换到电脑版" forState:UIControlStateNormal];
+      [switchButton setTitle:@"切换到电脑版" forState:UIControlStateNormal];
     }
-    [switchButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
-    [switchButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [switchButton addTarget:self action:@selector(switchButtonItemClicked:) forControlEvents:UIControlEventTouchUpInside];
-    _switchButtonItem = [[UIBarButtonItem alloc] initWithCustomView:switchButton];
+    
+  }
+  
+  [switchButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
+  [switchButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+  [switchButton addTarget:self action:@selector(switchButtonItemClicked:) forControlEvents:UIControlEventTouchUpInside];
+  _switchButtonItem = [[UIBarButtonItem alloc] initWithCustomView:switchButton];
   //}
   return _switchButtonItem;
 }
