@@ -33,8 +33,8 @@
 #import "MX5BrowserUtils.h"
 #import "MX5ToolView.h"
 
-#define kIqiyiWapUrl @"m.iqiyi.com"
-#define kIqiyiWwwUrl @"www.iqiyi.com"
+#define kIqiyiUrl @"iqiyi.com"
+
 
 @interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate,MX5ToolViewDelegate> {
   
@@ -55,6 +55,10 @@
 @property (nonatomic) UIBarButtonItem *closeButtonItem;
 //收藏按钮
 @property (nonatomic) UIBarButtonItem *collectionButtonItem;
+//切换按钮
+@property (nonatomic) UIBarButtonItem *switchButtonItem;
+//刷新按钮
+@property (nonatomic) UIBarButtonItem *reLoadButtonItem;
 
 //打开链接
 @property (nonatomic,copy) NSString  *webURLSring;
@@ -287,17 +291,14 @@
   
   if (self.hiddenRightButtonItem  == NO) {
     //添加右边刷新按钮
-    roadLoadButton = [[UIButton alloc] init];
-    roadLoadButton.size = CGSizeMake(22,22);
-    [roadLoadButton adjustsImageWhenHighlighted];
-    [roadLoadButton adjustsImageWhenDisabled];
-    [roadLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
-    [roadLoadButton addTarget:self action:@selector(roadLoadClicked) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:roadLoadButton];
-    
+    NSRange range = [self.webView.currUrl rangeOfString:kIqiyiUrl];
+    if (range.location != NSNotFound) {
+      [self.navigationItem setRightBarButtonItems:@[self.reLoadButtonItem,self.switchButtonItem] animated:NO];
+    }else{
+      [self.navigationItem setLeftBarButtonItems:@[self.reLoadButtonItem] animated:NO];
+    }
   }
 }
-
 
 // 网页缓存设置
 -(void) webViewCache {
@@ -307,7 +308,6 @@
                                                                            diskPath:nil
                                                                           cacheTime:0];
   [MX5BrowserURLCache setSharedURLCache:urlCache];
-  
 }
 
 #pragma mark - 点击事件
@@ -317,29 +317,7 @@
  */
 - (void)roadLoadClicked {
   
-  NSRange range = [self.webView.currUrl rangeOfString:kIqiyiWapUrl];
-  NSRange wwwRange = [self.webView.currUrl rangeOfString:kIqiyiWwwUrl];
-  if (range.location != NSNotFound) {  //是手机版本切换到电脑版
-
-    NSString *webViewCurrUrl = [self.webView.currUrl stringByReplacingOccurrencesOfString:kIqiyiWapUrl  withString:kIqiyiWwwUrl];
-    self.pcURLSring = webViewCurrUrl;
-    self.webView.pcURLSring = self.pcURLSring;
-    [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1"];
-    NSLog(@"是手机版本切换到电脑版");
-  }else if (wwwRange.location != NSNotFound ||  self.pcURLSring.length > 0) { //是电脑版切换到手机版
-    
-    NSString *webViewCurrUrl = [self.pcURLSring stringByReplacingOccurrencesOfString:kIqiyiWwwUrl  withString:kIqiyiWapUrl];
-    self.pcURLSring  = nil;
-    self.webView.pcURLSring = @"";
-    [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217"];
-    NSLog(@"是电脑版切换到手机版");
-  }else{
-    
-     [self.webView reload];
-  }
-  
- 
-  
+  [self.webView reload];
 }
 
 /**
@@ -359,6 +337,33 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
+/**
+ 只有爱奇艺的网址才会切换
+ */
+-(void)switchButtonItemClicked {
+  
+  NSRange range = [self.webView.currUrl rangeOfString:kIqiyiWapUrl];
+  NSRange wwwRange = [self.webView.currUrl rangeOfString:kIqiyiWwwUrl];
+  if (range.location != NSNotFound) {  //是手机版本切换到电脑版
+    
+    NSString *webViewCurrUrl = [self.webView.currUrl stringByReplacingOccurrencesOfString:kIqiyiWapUrl  withString:kIqiyiWwwUrl];
+    self.pcURLSring = webViewCurrUrl;
+    self.webView.pcURLSring = self.pcURLSring;
+    [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1"];
+    NSLog(@"是手机版本切换到电脑版");
+  }else if (wwwRange.location != NSNotFound ||  self.pcURLSring.length > 0) { //是电脑版切换到手机版
+    
+    NSString *webViewCurrUrl = [self.pcURLSring stringByReplacingOccurrencesOfString:kIqiyiWwwUrl  withString:kIqiyiWapUrl];
+    self.pcURLSring  = nil;
+    self.webView.pcURLSring = @"";
+    [self.webView loadWebURLSring:webViewCurrUrl withUserAgent:@"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217"];
+    NSLog(@"是电脑版切换到手机版");
+  }
+}
+
+-(void)reLoadButtonItemClicked {
+  [self.webView reload];
+}
 
 #pragma mark - MX5WebViewDelegate
 
@@ -606,6 +611,41 @@
 #pragma mark - setter and getter 方法
 #pragma mark - 懒加载
 
+-(UIBarButtonItem *)switchButtonItem{
+  if (!_switchButtonItem) {
+    UIButton *switchButton = [[UIButton alloc] init];
+    switchButton.size = CGSizeMake(30, 44);
+    [switchButton adjustsImageWhenHighlighted];
+    [switchButton adjustsImageWhenDisabled];
+    if (_pcURLSring.length > 0) {
+       [switchButton setTitle:@"手机版" forState:UIControlStateNormal];
+    }else{
+       [switchButton setTitle:@"电脑版" forState:UIControlStateNormal];
+    }
+    [switchButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
+    [switchButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [switchButton addTarget:self action:@selector(switchButtonItemClicked) forControlEvents:UIControlEventTouchUpInside];
+    _switchButtonItem = [[UIBarButtonItem alloc] initWithCustomView:switchButton];
+  }
+  return _switchButtonItem;
+}
+
+
+-(UIBarButtonItem *)reLoadButtonItem {
+  
+  if (!_reLoadButtonItem) {
+    UIButton *reLoadButton = [[UIButton alloc] init];
+    reLoadButton.size = CGSizeMake(30, 44);
+    [reLoadButton adjustsImageWhenHighlighted];
+    [reLoadButton adjustsImageWhenDisabled];
+    [reLoadButton setImage:[UIImage imageNamed:@"m_ic_sx"] forState:UIControlStateNormal];
+    [reLoadButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [reLoadButton addTarget:self action:@selector(reLoadButtonItemClicked) forControlEvents:UIControlEventTouchUpInside];
+    _reLoadButtonItem = [[UIBarButtonItem alloc] initWithCustomView:reLoadButton];
+  }
+  return _reLoadButtonItem;
+  
+}
 
 -(UIBarButtonItem *)customBackBarItem{
   if (!_customBackBarItem) {
