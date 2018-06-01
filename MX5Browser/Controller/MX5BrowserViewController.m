@@ -297,7 +297,12 @@
     if (range.location != NSNotFound) {
       [self.navigationItem setRightBarButtonItems:@[self.reLoadButtonItem,self.switchButtonItem] animated:NO];
     }else{
-      [self.navigationItem setRightBarButtonItems:@[self.reLoadButtonItem] animated:NO];
+      
+      if (_pcURLSring.length > 0) {
+         [self.navigationItem setRightBarButtonItems:@[self.reLoadButtonItem,self.switchButtonItem] animated:NO];
+      }else{
+        [self.navigationItem setRightBarButtonItems:@[self.reLoadButtonItem] animated:NO];
+      }
     }
   }
 }
@@ -391,6 +396,12 @@
   }
   
   [self updateNavigationItems:webView];
+  
+  
+  self.webView = webView;
+  
+  [self switchButtonItem];
+  
 }
 /**
  加载webView失败
@@ -618,20 +629,20 @@
 -(UIBarButtonItem *)switchButtonItem{
   // if (!_switchButtonItem) {
   UIButton *switchButton = [[UIButton alloc] init];
-  switchButton.size = CGSizeMake(60, 44);
+  switchButton.size = CGSizeMake(120, 44);
   [switchButton adjustsImageWhenHighlighted];
   [switchButton adjustsImageWhenDisabled];
-
+  
   NSRange wwwRange = [self.webView.currUrl rangeOfString:kIqiyiWwwUrl];
   if (wwwRange.location != NSNotFound ) {
     [switchButton setTitle:@"切换到手机版" forState:UIControlStateNormal];
   }else{
+    
     if (_pcURLSring.length > 0) {
       [switchButton setTitle:@"切换到手机版" forState:UIControlStateNormal];
     }else{
       [switchButton setTitle:@"切换到电脑版" forState:UIControlStateNormal];
     }
-    
   }
   
   [switchButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
