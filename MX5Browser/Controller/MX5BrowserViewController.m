@@ -43,6 +43,8 @@
   UIButton *switchButton;
   UILabel  *titleViewLabel; //标题视图
   MX5ToolView *toolView;    //工具类
+  
+  BOOL isPc;               //是否切换至pc端
 
 }
 @property (nonatomic, strong) MX5WebView *webView;
@@ -72,6 +74,7 @@
 @property(nonatomic,assign) MX5WebViewType webViewType;
 //切换成pc链接
 @property (nonatomic,copy) NSString  *pcURLSring;
+
 
 
 @end
@@ -395,12 +398,10 @@
     self.needInjectJS = NO;
   }
   
+ 
   [self updateNavigationItems:webView];
   
-  
-  self.webView = webView;
-  
-  [self switchButtonItem];
+
   
 }
 /**
@@ -433,14 +434,15 @@
   if (webView.canGoBack) {
     [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem,self.closeButtonItem] animated:NO];
     [self hiddenBottomToolBar];
-    //自定义导航条的右边
-    [self setupNavigationRightBarButtonItem];
+   
     
   }else{
    
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     [self.navigationItem setLeftBarButtonItems:@[self.customBackBarItem]];
   }
+  //自定义导航条的右边
+  [self setupNavigationRightBarButtonItem];
 }
 /**
  更新web视图的title
@@ -643,8 +645,9 @@
     }else{
       [switchButton setTitle:@"切换到电脑版" forState:UIControlStateNormal];
     }
+    
   }
-  
+  switchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
   [switchButton setTitleColor:[UIColor colorWithHexStr:@"#101010"] forState:UIControlStateNormal];
   [switchButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
   [switchButton addTarget:self action:@selector(switchButtonItemClicked:) forControlEvents:UIControlEventTouchUpInside];

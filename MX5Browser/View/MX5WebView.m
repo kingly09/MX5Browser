@@ -363,6 +363,12 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
       NSLog(@"userAgent :%@", result);
       self.wkWebView.customUserAgent = @"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1";
     }];
+  }else{
+    
+    [self.wkWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+      NSLog(@"userAgent :%@", result);
+      self.wkWebView.customUserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217";
+    }];
   }
   if(_delegate && [_delegate respondsToSelector:@selector(webViewDidStartLoad:)]){
     [self.delegate webViewDidStartLoad:self];
