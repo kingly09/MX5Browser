@@ -359,15 +359,21 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
   }];
   //如果是切换到pc端的时候，修改UA
   if (_pcURLSring.length > 0) {
+    
     [self.wkWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
-      NSLog(@"userAgent :%@", result);
+       NSLog(@"切换到pc端的注入之前userAgent :%@", result);
       self.wkWebView.customUserAgent = @"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1";
+      
+       NSLog(@"切换到pc端的注入之后userAgent :%@", result);
+      
     }];
+   
   }else{
     
     [self.wkWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
-      NSLog(@"userAgent :%@", result);
+      NSLog(@"注入之前userAgent :%@", result);
       self.wkWebView.customUserAgent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217";
+       NSLog(@"注入之后userAgent :%@", result);
     }];
   }
   if(_delegate && [_delegate respondsToSelector:@selector(webViewDidStartLoad:)]){
@@ -404,6 +410,17 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         NSLog(@"API是根据WebView对于即将跳转的HTTP请求头信息和相关信息来决定是否跳转");
         NSLog(@"protocolHead=%@",protocolHead);
     }
+  
+  if (_pcURLSring.length > 0) {
+    
+    [self.wkWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+      NSLog(@"切换到pc端的之前 userAgent :%@", result);
+      self.wkWebView.customUserAgent = @"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1";
+      
+      NSLog(@"切换到pc端的之后 userAgent :%@", result);
+    }];
+    
+  }
   
   NSLog(@"所有请求头：%@",navigationAction.request.allHTTPHeaderFields);
   
@@ -694,6 +711,16 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
   [urlRequest addValue:userAgent forHTTPHeaderField:@"User-Agent"];
   
   self.userAgent = userAgent;
+  
+  if (_pcURLSring.length > 0) {
+    
+    [self.wkWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+      NSLog(@"切换到pc端的之前 userAgent :%@", result);
+      self.wkWebView.customUserAgent = @"Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3 MttCustomUA/2 QBWebViewType/1 WKType/1";
+      
+      NSLog(@"切换到pc端的之后 userAgent :%@", result);
+    }];
+  }
   //加载网页
   [self.wkWebView loadRequest:urlRequest];
 }
