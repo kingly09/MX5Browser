@@ -688,10 +688,28 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
 }
 
 - (void)loadWebURLSring:(NSString *)urlString{
-    
-    self.URLString  = urlString;
+  
     //创建一个NSURLRequest 的对象,加入缓存机制，缓存时间为默认为一周
    // NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
+  
+ //加载URL需要处理特殊字符
+  if (MX5_IOS9) {
+    NSString *charactersToEscape = @"?!@#$^&%*+,:;='\"`<>()[]{}/\\| ";
+    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+  self.URLString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+    
+  }else{
+    
+    CFStringRef encodedCFString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                          (__bridge CFStringRef) urlString,
+                                                                          nil,
+                                                                          CFSTR("?!@#$^&%*+,:;='\"`<>()[]{}/\\| "),
+                                                                          kCFStringEncodingUTF8);
+    self.URLString = [[NSString alloc] initWithString:(__bridge_transfer NSString*) encodedCFString];
+    
+  }
+
+
   NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
   //添加自定义请求头
   //加载网页
