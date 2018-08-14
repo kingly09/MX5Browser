@@ -33,7 +33,6 @@
 		BC1D8A451FB5698400179FAE /* MX5BottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1D8A441FB5698400179FAE /* MX5BottomToolBar.m */; };
 		BC43C93D1FD4FDA500DF9DAB /* MX5WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BC43C93C1FD4FDA500DF9DAB /* MX5WebViewJavascriptBridge.m */; };
 		BC75FDCD20B3C94100AF4D06 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BC75FDCC20B3C94100AF4D06 /* libz.tbd */; };
-		BC75FDCF20B3CA5D00AF4D06 /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC75FDCE20B3CA5D00AF4D06 /* RevealServer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BC9D67451FBEBD58002FAE66 /* MX5ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9D67441FBEBD58002FAE66 /* MX5ToolView.m */; };
 /* End PBXBuildFile section */
 
@@ -107,7 +106,6 @@
 		BC43C93B1FD4FDA500DF9DAB /* MX5WebViewJavascriptBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5WebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		BC43C93C1FD4FDA500DF9DAB /* MX5WebViewJavascriptBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5WebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		BC75FDCC20B3C94100AF4D06 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		BC75FDCE20B3CA5D00AF4D06 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "../../../../../../../../../Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/RevealServer.framework"; sourceTree = "<group>"; };
 		BC9D67431FBEBD58002FAE66 /* MX5ToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MX5ToolView.h; sourceTree = "<group>"; };
 		BC9D67441FBEBD58002FAE66 /* MX5ToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MX5ToolView.m; sourceTree = "<group>"; };
 		D1103513EC1D434B66BCA0CB /* Pods-MX5BrowserOCUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MX5BrowserOCUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC75FDCD20B3C94100AF4D06 /* libz.tbd in Frameworks */,
-				BC75FDCF20B3CA5D00AF4D06 /* RevealServer.framework in Frameworks */,
 				5D72B0EBA82B926EDCB91CC7 /* Pods_MX5BrowserOC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,7 +228,6 @@
 				BC1D8A021FB546CC00179FAE /* AppDelegate.m */,
 				BC1D8A041FB546CC00179FAE /* ViewController.h */,
 				BC1D8A051FB546CC00179FAE /* ViewController.m */,
-				BC75FDCE20B3CA5D00AF4D06 /* RevealServer.framework */,
 				BC1D8A071FB546CC00179FAE /* Main.storyboard */,
 				BC1D8A0A1FB546CC00179FAE /* Assets.xcassets */,
 				BC1D8A0C1FB546CC00179FAE /* LaunchScreen.storyboard */,

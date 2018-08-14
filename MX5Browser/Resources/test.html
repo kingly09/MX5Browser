@@ -83,6 +83,11 @@
             window.webkit.messageHandlers.epass.postMessage({code: '0004', functionName: 'getAppInfo'});
         }
         
+        function removeUserCookie(){
+          window.webkit.messageHandlers.epass.postMessage({code: '0007', functionName: 'removeUserCookie'});
+          
+        }
+        
         //向app获取登录相关（传递 js 对象到 Native）
         function getAppUserInfo(){
             

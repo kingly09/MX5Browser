@@ -37,13 +37,15 @@ NS_ASSUME_NONNULL_BEGIN
  - MX5WebViewTypeWebURLString: 请求网路链接
  - MX5WebViewTypeLocalHTMLString: 请求本地html文件
  - MX5WebViewTypeAutomaticLogin: 请求带填登录
+ - MX5WebViewTypeAutomaticLoginCookie: 请求带填登录(注入Cookie)
  - MX5WebViewTypeHTMLString: 请求html字符串或本地html字符串
  */
 typedef NS_ENUM(NSUInteger, MX5WebViewType){
   MX5WebViewTypeWebURLString = 0,
   MX5WebViewTypeLocalHTMLString = 1,
   MX5WebViewTypeAutomaticLogin = 2,
-  MX5WebViewTypeHTMLString= 3
+  MX5WebViewTypeAutomaticLoginCookie = 3,
+  MX5WebViewTypeHTMLString= 4
 };
 
 
@@ -108,6 +110,16 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
  @param pwd 密码
  */
 - (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode withUserName:(NSString *)username withPwd:(NSString *)pwd;
+/**
+ 自动带填登录（目前支持 爱奇艺) 注入cookie
+ 
+ @param urlString 需要注入的网址
+ @param JSCode  注入js带填登录
+ @param cookie 注入cookie
+ @param username 用户名
+ @param pwd 密码
+ */
+- (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode withCookie:(NSString *)cookie withUserName:(NSString *)username withPwd:(NSString *)pwd;
 /**
  加载带有HTML字符串
  @param htmlString 带有HTML字符串

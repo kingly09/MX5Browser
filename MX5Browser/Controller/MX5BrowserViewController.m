@@ -70,6 +70,9 @@
 @property (nonatomic,copy) NSString  *htmlString;
 //注入js代码
 @property (nonatomic, copy) NSString *injectJSCode;
+//需要注入的Cookie
+@property (nonatomic, copy) NSString *injectCookie;
+
 //网页加载的类型
 @property(nonatomic,assign) MX5WebViewType webViewType;
 //切换成pc链接
@@ -119,6 +122,11 @@
    
     [self.webView evaluateJavaScript:_injectJSCode];
      [self.webView loadWebURLSring:_webURLSring];
+    
+  }else  if (self.webViewType == MX5WebViewTypeAutomaticLoginCookie) {
+    
+    [self.webView evaluateJavaScript:_injectJSCode];
+    [self.webView loadWebURLSring:_webURLSring];
     
   }else  if (self.webViewType == MX5WebViewTypeHTMLString) {
     //加载js
@@ -466,6 +474,13 @@
     NSString *deviceId = [NSString stringWithFormat:@"该设备的deviceId:%@",[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
     NSString *js = [NSString stringWithFormat:@"globalCallback(\'%@\')", deviceId];
     [webView evaluateJavaScript:js];
+  }else if ([code isEqualToString:@"0006"] && [functionName isEqualToString:@"saveUserCookie"] ) {
+    //保存在该网站下的cookie
+    
+
+  }else if ([code isEqualToString:@"0007"] && [functionName isEqualToString:@"removeUserCookie"] ) {
+    //删除在该网站下的cookie
+    
   }
   
   
@@ -571,12 +586,38 @@
   
   _webURLSring = urlString;
   
+  NSLog(@"_webURLSring::%@",_webURLSring);
+  
   if (JSCode.length == 0) {
     JSCode = JS_ZR_CODE;
   }
   NSString *inputJS = [NSString stringWithFormat:@"%@ var BC_psel = '%@';var BC_pswd = '%@'; var BC_pUrl = '%@';   setTimeout(function(){setInputVal(BC_pswd,BC_psel,BC_pUrl);},0);",JSCode,username,pwd,urlString];
   _injectJSCode = inputJS;
   self.webViewType  = MX5WebViewTypeAutomaticLogin;
+}
+
+/**
+ 自动带填登录（目前支持 爱奇艺) 注入cookie
+
+ @param urlString 需要注入的网址
+ @param JSCode  注入js带填登录
+ @param cookie 注入cookie
+ @param username 用户名
+ @param pwd 密码
+ */
+- (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode withCookie:(NSString *)cookie withUserName:(NSString *)username withPwd:(NSString *)pwd {
+  
+  _webURLSring = urlString;
+  
+  if (JSCode.length == 0) {
+      JSCode = JS_ZR_CODE;
+  }
+  NSString *inputJS = [NSString stringWithFormat:@"%@ var BC_psel = '%@';var BC_pswd = '%@'; var BC_pUrl = '%@';   setTimeout(function(){setInputVal(BC_pswd,BC_psel,BC_pUrl);},0);",JSCode,username,pwd,urlString];
+  _injectJSCode  = inputJS;
+  _injectCookie  = cookie;
+  
+  self.webViewType  = MX5WebViewTypeAutomaticLoginCookie;
+  
 }
 /**
  加载带有HTML字符串

@@ -178,7 +178,7 @@
   browserViewController.needInjectJS = YES;
   browserViewController.hiddenRightButtonItem = NO;
   browserViewController.isHideBottomToolBar = YES;
-  [browserViewController loadAutomaticLogin:@"http://m.iqiyi.com/user.html#baseLogin?us121dsdshjjh1212asaasas12121212" injectJSCode:JS_ZR_CODE withUserName:@"13136597401" withPwd:@"A4E0gBnjxe"];
+  [browserViewController loadAutomaticLogin:kIqiyiUserCenter injectJSCode:JS_ZR_CODE withUserName:@"13014897045" withPwd:@"QWE123ZXCR666"];
   [self.navigationController pushViewController:browserViewController animated:YES];
   
 }
