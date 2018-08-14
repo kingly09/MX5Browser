@@ -353,10 +353,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
   //开始加载的时候，让加载进度条显示
   self.progressView.hidden = NO;
   NSLog(@"页面开始加载");
-  NSString *metaJScript = @"document.getElementsByTagName('html')[0].setAttribute('manifest','demo_html.appcache');";
-  [self.wkWebView evaluateJavaScript:metaJScript completionHandler:^(id _Nullable response, NSError * _Nullable error) {
-    NSLog(@"value: %@ error: %@", response, error);
-  }];
   //如果是切换到pc端的时候，修改UA
   if (_pcURLSring.length > 0) {
     

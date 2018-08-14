@@ -175,10 +175,10 @@
 - (IBAction)onClickAqiy:(id)sender {
   
   MX5BrowserViewController *browserViewController = [[MX5BrowserViewController alloc] init];
-  browserViewController.needInjectJS = YES;
+  browserViewController.needInjectJS = NO;
   browserViewController.hiddenRightButtonItem = NO;
   browserViewController.isHideBottomToolBar = YES;
-  [browserViewController loadAutomaticLogin:kIqiyiUserCenter injectJSCode:JS_ZR_CODE withUserName:@"13014897045" withPwd:@"QWE123ZXCR666"];
+  [browserViewController loadAutomaticLogin:kIqiyiUserCenter injectJSCode:JS_ZR_CODE withCookie:@"eddc770e-8fe6-11e8-99b1-0298d72c6190"  withUserName:@"13014897045" withPwd:@"QWE123ZXCR666"];
   [self.navigationController pushViewController:browserViewController animated:YES];
   
 }

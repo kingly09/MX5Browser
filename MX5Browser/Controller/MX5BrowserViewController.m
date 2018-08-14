@@ -125,7 +125,7 @@
     
   }else  if (self.webViewType == MX5WebViewTypeAutomaticLoginCookie) {
     
-    [self.webView evaluateJavaScript:_injectJSCode];
+   
     [self.webView loadWebURLSring:_webURLSring];
     
   }else  if (self.webViewType == MX5WebViewTypeHTMLString) {
@@ -406,11 +406,13 @@
     self.needInjectJS = NO;
   }
   
- 
-  [self updateNavigationItems:webView];
-  
+  //如果是爱奇艺就注入js判断是否登录了
+  if ([self.webView.currUrl containsString:kIqiyiUserCenter]){
+     [self.webView evaluateJavaScript:JS_LOGIN_CODE];
+  }
 
-  
+  [self updateNavigationItems:webView];
+
 }
 /**
  加载webView失败
@@ -475,11 +477,22 @@
     NSString *js = [NSString stringWithFormat:@"globalCallback(\'%@\')", deviceId];
     [webView evaluateJavaScript:js];
   }else if ([code isEqualToString:@"0006"] && [functionName isEqualToString:@"saveUserCookie"] ) {
-    //保存在该网站下的cookie
+    //已经登录，保存在该网站下的cookie
     
+     NSLog(@"已经登录");
 
   }else if ([code isEqualToString:@"0007"] && [functionName isEqualToString:@"removeUserCookie"] ) {
-    //删除在该网站下的cookie
+    //未登录或者cookie过期，删除在该网站下的cookie
+    
+    
+    NSLog(@"未登录");
+    
+
+    self.needInjectJS = YES;
+    self.hiddenRightButtonItem = NO;
+    self.isHideBottomToolBar = YES;
+    [self loadAutomaticLogin:kIqiyiLogin injectJSCode:_injectJSCode.length>0?_injectJSCode:JS_ZR_CODE  withUserName:@"13014897045" withPwd:@"QWE123ZXCR666"];
+     [self webViewloadURLType];
     
   }
   
