@@ -486,13 +486,12 @@
     
     
     NSLog(@"未登录");
-    
-
+  
     self.needInjectJS = YES;
     self.hiddenRightButtonItem = NO;
     self.isHideBottomToolBar = YES;
-    [self loadAutomaticLogin:kIqiyiLogin injectJSCode:_injectJSCode.length>0?_injectJSCode:JS_ZR_CODE  withUserName:@"13014897045" withPwd:@"QWE123ZXCR666"];
-     [self webViewloadURLType];
+    [self loadAutomaticLogin:kIqiyiLogin injectJSCode:_injectJSCode.length>0?_injectJSCode:JS_ZR_CODE];
+    [self webViewloadURLType];
     
   }
   
