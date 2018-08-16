@@ -296,11 +296,11 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     if ([lastRequest.URL.absoluteString isEqualToString:request.URL.absoluteString]) {
         return;
     }
-  
     //退出登录屏蔽
-    if ([lastRequest.URL.absoluteString containsString:kIqiyiLogoutLogin]) {
-       return;
-    }
+  if ([lastRequest.URL.absoluteString containsString:kIqiyiLogoutLogin] || [lastRequest.URL.absoluteString containsString:kPpsLogoutLogin]) {
+    return;
+  }
+
   
     NSLog(@"可不可以 push with request %@",request);
     UIView* currentSnapShotView = [self.wkWebView snapshotViewAfterScreenUpdates:YES];
@@ -408,6 +408,14 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
       _currUrl = urlString;
       NSLog(@"_currUrl:%@",urlString);
     }
+  
+  
+  //退出登录屏蔽
+  if ([urlString containsString:kIqiyiLogoutLogin] || [urlString containsString:kPpsLogoutLogin]) {
+    decisionHandler(WKNavigationActionPolicyCancel);
+    return;
+  }
+
     urlString = [urlString stringByRemovingPercentEncoding];
     // 用://截取字符串
     NSArray *urlComps = [urlString componentsSeparatedByString:@"://"];
@@ -462,7 +470,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     //允许跳转
     decisionHandler(WKNavigationActionPolicyAllow);
     //不允许跳转
-    //decisionHandler(WKNavigationActionPolicyCancel);
+    //
 }
 
 // 在收到响应后，决定是否跳转
