@@ -59,8 +59,9 @@
 #define kIqiyiWapUrl @"m.iqiyi.com"
 #define kIqiyiWwwUrl @"www.iqiyi.com"
 
-#define kIqiyiUserCenter  @"http://m.iqiyi.com/u/"
-#define kIqiyiLogin  @"http://m.iqiyi.com/user.html#baseLogin"
+#define kIqiyiUserCenter   @"http://m.iqiyi.com/u/"
+#define kIqiyiLogin        @"http://m.iqiyi.com/user.html#baseLogin"
+#define kIqiyiLogoutLogin  @"https://passport.iqiyi.com/user/logout"
 
 #pragma mark - WEAK、STRONG
 

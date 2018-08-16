@@ -297,6 +297,11 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         return;
     }
   
+    //退出登录屏蔽
+    if ([lastRequest.URL.absoluteString containsString:kIqiyiLogoutLogin]) {
+       return;
+    }
+  
     NSLog(@"可不可以 push with request %@",request);
     UIView* currentSnapShotView = [self.wkWebView snapshotViewAfterScreenUpdates:YES];
     [self.snapShotsArray addObject:
