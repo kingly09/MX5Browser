@@ -35,6 +35,9 @@
 
 #define kIqiyiUrl @"iqiyi.com"
 
+@implementation MX5InjectionModel
+
+@end
 
 @interface MX5BrowserViewController ()<MX5WebViewDelegate,MX5BottomToolBarDelegate,MX5ToolViewDelegate> {
   
@@ -77,8 +80,8 @@
 @property(nonatomic,assign) MX5WebViewType webViewType;
 //切换成pc链接
 @property (nonatomic,copy) NSString  *pcURLSring;
-
-
+//注入Cookie时的带填写对象
+@property(nonatomic,strong) MX5InjectionModel *injectionModel;
 
 @end
 
@@ -124,9 +127,8 @@
      [self.webView loadWebURLSring:_webURLSring];
     
   }else  if (self.webViewType == MX5WebViewTypeAutomaticLoginCookie) {
-    
-   
-    [self.webView loadWebURLSring:_webURLSring];
+
+    [self.webView loadWebURLSring:_webURLSring withCookie:self.injectionModel.cookies];
     
   }else  if (self.webViewType == MX5WebViewTypeHTMLString) {
     //加载js
@@ -480,11 +482,29 @@
     //已经登录，保存在该网站下的cookie
     
      NSLog(@"已经登录");
+    
+    //添加自定义请求头
+    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
+    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
+      [cookieDic setObject:cookie.value forKey:cookie.name];
+    }
+    // cookie重复，先放到字典进行去重，再进行拼接
+    for (NSString *key in cookieDic) {
+      NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+      [cookieValue appendString:appendString];
+    }
+   NSLog(@"cookieValue::%@",cookieValue);
+   // NSLog(@"cookieValue::%@",[self getCurrHTTPCookie:self.webURLSring]);
+    
+    self.injectionModel.cookies = [self getCurrHTTPCookie:self.webURLSring];
+
+    [self saveUserCookie:self.webView withInjectionModel:self.injectionModel];
 
   }else if ([code isEqualToString:@"0007"] && [functionName isEqualToString:@"removeUserCookie"] ) {
     //未登录或者cookie过期，删除在该网站下的cookie
-    
-    
+    [self delUserCookie:self.webView withInjectionModel:self.injectionModel];
     NSLog(@"未登录");
   
     self.needInjectJS = YES;
@@ -496,6 +516,30 @@
   }
   
   
+}
+
+/**
+ 获取当前URL的cookie信息
+
+ @param urlstring 当前URL
+ @return 返回当前URL的cookie信息
+ */
+- (NSString *)getCurrHTTPCookie:(NSString *)urlstring {
+  
+  NSURL *httpURL = [NSURL URLWithString:urlstring];
+  NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:httpURL];
+  
+  NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
+  NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
+  for (NSHTTPCookie *cookie in cookies) {
+    [cookieDic setObject:cookie.value forKey:cookie.name];
+  }
+  // cookie重复，先放到字典进行去重，再进行拼接
+  for (NSString *key in cookieDic) {
+    NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+    [cookieValue appendString:appendString];
+  }
+  return cookieValue;
 }
 
 
@@ -631,6 +675,19 @@
   self.webViewType  = MX5WebViewTypeAutomaticLoginCookie;
   
 }
+
+/**
+ 自动带填登录（目前支持 爱奇艺) 注入cookie
+ 
+ @param injectionModel 注入cookie对象
+ */
+- (void)loadAutomaticLogin:(MX5InjectionModel *)injectionModel {
+  
+  self.injectionModel = injectionModel;
+  
+  [self loadAutomaticLogin:injectionModel.shareUrl injectJSCode:injectionModel.fillinJsCode withCookie:injectionModel.cookies withUserName:injectionModel.username withPwd:injectionModel.password];
+  
+}
 /**
  加载带有HTML字符串
  @param htmlString 带有HTML字符串
@@ -664,6 +721,29 @@
   
   
 }
+
+/**
+ 保存当前登录状态的cookie信息
+
+ @param webView 当前浏览器
+ @param injectionModel 当前cookie信息对象
+ */
+-(void)saveUserCookie:(MX5WebView *)webView withInjectionModel:(MX5InjectionModel *)injectionModel {
+  
+  
+}
+
+/**
+ 删除登录状态的cookie信息
+ 
+ @param webView 当前浏览器
+ @param injectionModel 当前cookie信息对象
+ */
+-(void)delUserCookie:(MX5WebView *)webView withInjectionModel:(MX5InjectionModel *)injectionModel {
+  
+  
+}
+
 /**
  点击返回按钮对外
  @param webView MX5WebView

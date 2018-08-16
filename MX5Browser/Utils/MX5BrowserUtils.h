@@ -30,6 +30,13 @@
 @interface MX5BrowserUtils : NSObject
 
 /**
+ 获取当前URL的cookie信息
+ 
+ @param urlstring 当前URL
+ @return 返回当前URL的cookie信息
+ */
++ (NSString *)getCurrHTTPCookie:(NSString *)urlstring;
+/**
  可以app内打开的链接
 
  @param url URL链接
@@ -42,5 +49,7 @@
  @param urlString 需要检查的URL字符串
  */
 + (BOOL)isURL:(NSString *)urlString;
+
+
 
 @end

@@ -32,6 +32,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ 注入带填写对象
+ */
+
+@protocol MX5InjectionModel <NSObject>
+
+@end
+
+@interface MX5InjectionModel : NSObject
+
+@property (nonatomic,copy) NSString *shareId;       //分享ID
+@property (nonatomic,copy) NSString *shareUrl;      //分享地址
+
+@property (nonatomic,copy) NSString *cookieId;      //cookieId
+@property (nonatomic,copy) NSString *cookies;       //cookie内容
+
+@property (nonatomic,copy) NSString *fillinJsCode;  //带填写脚本
+@property (nonatomic,copy) NSString *username;      //登录名
+@property (nonatomic,copy) NSString *password;      //密码
+
+@end
+
+/**
  请求方式
  
  - MX5WebViewTypeWebURLString: 请求网路链接
@@ -77,6 +99,7 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
 @property(nonatomic,assign) BOOL hiddenCollectionButtonItem;      //隐藏导航条上的收藏按钮
 @property(nonatomic,assign) BOOL hiddenRightButtonItem;           //隐藏导航条上的右边按钮
 @property(nonatomic,assign) BOOL isDeleteHTTPCookie;              //是否删除HTTPCookie
+
 /**
  加载底部菜单
  @param menuList 菜单列表
@@ -119,7 +142,18 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
  @param username 用户名
  @param pwd 密码
  */
-- (void)loadAutomaticLogin:(NSString *)urlString injectJSCode:(NSString *)JSCode withCookie:(NSString *)cookie withUserName:(NSString *)username withPwd:(NSString *)pwd;
+- (void)loadAutomaticLogin:(NSString *)urlString
+              injectJSCode:(NSString *)JSCode
+                withCookie:(NSString *)cookie
+              withUserName:(NSString *)username
+                   withPwd:(NSString *)pwd;
+
+/**
+  自动带填登录（目前支持 爱奇艺) 注入cookie
+
+ @param injectionModel 注入cookie对象
+ */
+- (void)loadAutomaticLogin:(MX5InjectionModel *)injectionModel;
 /**
  加载带有HTML字符串
  @param htmlString 带有HTML字符串

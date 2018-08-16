@@ -216,6 +216,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
   
 }
 
+
 - (void)deallocWebView {
 
    [self.progressView removeFromSuperview];
@@ -346,6 +347,11 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
      if(_delegate && [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]){
         [self.delegate webViewDidFinishLoad:self];
     }
+  
+  NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+  
+  NSLog(@"cookies::%@",cookies);
+  
 }
 
 //开始加载
@@ -610,8 +616,19 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 //        //WKUserScriptInjectionTimeAtDocumentEnd为网页加载完成时注入
 //        WKUserScript *script = [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
 //        [_configuration.userContentController addUserScript:script];
-        
-        
+      
+      
+      
+      // 加cookie给h5识别，表明在ios端打开该地址
+      NSString *cookieValue = @" libin=_________________;";
+      //初始化WKUserScript对象
+       //WKUserScriptInjectionTimeAtDocumentEnd为网页加载完成时注入
+      WKUserScript *cookieScript = [[WKUserScript alloc]
+                                     initWithSource: cookieValue
+                                     injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+      [_configuration.userContentController addUserScript:cookieScript];
+      
+    
         _wkWebView = [[WKWebView alloc] initWithFrame:self.bounds configuration:_configuration];
         _wkWebView.backgroundColor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1.0];
         // 设置代理
@@ -673,7 +690,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 /**
  添加一个添加js消息处理
- 
  */
 - (void)addScriptMessageHandlerName:(NSString *)scriptMessageHandlerName {
 
@@ -712,7 +728,24 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
   NSLog(@"self.URLString::%@",self.URLString);
 
   NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
+  
+  
+
   //添加自定义请求头
+  NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
+  NSMutableString *cookieValue = [NSMutableString stringWithFormat:@"pwd=11sdsd;"];
+  NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+  for (NSHTTPCookie *cookie in [cookieJar cookies]) {
+    [cookieDic setObject:cookie.value forKey:cookie.name];
+  }
+  // cookie重复，先放到字典进行去重，再进行拼接
+  for (NSString *key in cookieDic) {
+    NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+    [cookieValue appendString:appendString];
+  }
+
+  [urlRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+  
   //加载网页
   [self.wkWebView loadRequest:urlRequest];
 }
@@ -753,6 +786,46 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
 - (void)loadHTMLString:(NSString *)string baseURL:(nullable NSURL *)baseURL {
     
      [self.wkWebView loadHTMLString:string baseURL:baseURL];
+}
+
+/**
+ 请求的时候注入cookie
+ 
+ @param urlString URL地址
+ @param cookie cookie字符串
+ */
+- (void)loadWebURLSring:(NSString *)urlString withCookie:(NSString *)cookie {
+  
+  //创建一个NSURLRequest 的对象,加入缓存机制，缓存时间为默认为一周
+
+  self.URLString  = urlString;
+  NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
+ 
+  if (cookie.length > 0) {
+    //添加自定义请求头
+    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
+    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
+    [cookieValue appendString:@"libin=IOS;"];
+    [cookieValue appendString:cookie];
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
+      [cookieDic setObject:cookie.value forKey:cookie.name];
+    }
+    // cookie重复，先放到字典进行去重，再进行拼接
+    for (NSString *key in cookieDic) {
+      NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+      [cookieValue appendString:appendString];
+    }
+    
+    [urlRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+    
+    NSLog(@"当前cookieValue:%@",cookieValue);
+    
+  }
+  
+  //加载网页
+  [self.wkWebView loadRequest:urlRequest];
+  
 }
 /**
  注入javaScript代码

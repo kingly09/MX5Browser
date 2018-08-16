@@ -30,6 +30,26 @@
 
 @implementation MX5BrowserUtils
 
+
++ (NSString *)getCurrHTTPCookie:(NSString *)urlstring {
+  
+  NSURL *httpURL = [NSURL URLWithString:urlstring];
+  NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:httpURL];
+  
+  NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
+  NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
+  for (NSHTTPCookie *cookie in cookies) {
+    [cookieDic setObject:cookie.value forKey:cookie.name];
+  }
+  // cookie重复，先放到字典进行去重，再进行拼接
+  for (NSString *key in cookieDic) {
+    NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+    [cookieValue appendString:appendString];
+  }
+  return cookieValue;
+}
+
+
 + (BOOL)canAppHandleURL:(NSURL *)url{
     if (([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"]) && [url.host isEqualToString:@"itunes.apple.com"]) {
         return YES;

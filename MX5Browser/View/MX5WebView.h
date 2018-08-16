@@ -130,6 +130,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadHTMLString:(NSString *)string baseURL:(nullable NSURL *)baseURL;
 
 /**
+ 请求的时候注入cookie
+
+ @param urlString URL地址
+ @param cookie cookie字符串
+ */
+- (void)loadWebURLSring:(NSString *)urlString withCookie:(NSString *)cookie;
+/**
  注入javaScript代码
 
  @param javaScriptString js代码
@@ -154,6 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  */
 - (void)addScriptMessageHandlerName:(NSString *)scriptMessageHandlerName;
+
 
 
 - (id)goBack;
