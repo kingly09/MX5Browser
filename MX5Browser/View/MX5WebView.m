@@ -88,6 +88,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 //当前Url
 @property (nonatomic, readwrite, copy) NSString *currUrl;
 
+
+//是否删除过
+@property (nonatomic) BOOL isDeled;
+
 @end
 
 @implementation MX5WebView
@@ -139,8 +143,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
  */
 - (void)deleteHTTPCookie
 {
+  
+  self.isDeled  = YES;
   //清空Cookie
-//  [self deleteHTTPCookie:_webURLSring];
+  //[self deleteHTTPCookie:_webURLSring];
   
   NSHTTPCookieStorage *myCookie = [NSHTTPCookieStorage sharedHTTPCookieStorage];
   for (NSHTTPCookie *cookie in [myCookie cookies])
@@ -351,12 +357,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
      if(_delegate && [_delegate respondsToSelector:@selector(webViewDidFinishLoad:)]){
         [self.delegate webViewDidFinishLoad:self];
-    }
-  
-  NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
-  
-  NSLog(@"cookies::%@",cookies);
-  
+    }  
 }
 
 //开始加载
@@ -742,23 +743,6 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
 
   NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
   
-  
-
-  //添加自定义请求头
-  NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
-  NSMutableString *cookieValue = [NSMutableString stringWithFormat:@"pwd=11sdsd;"];
-  NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-  for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-    [cookieDic setObject:cookie.value forKey:cookie.name];
-  }
-  // cookie重复，先放到字典进行去重，再进行拼接
-  for (NSString *key in cookieDic) {
-    NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
-    [cookieValue appendString:appendString];
-  }
-
-  [urlRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
-  
   //加载网页
   [self.wkWebView loadRequest:urlRequest];
 }
@@ -786,6 +770,9 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
       NSLog(@"切换到pc端的之后 userAgent :%@", result);
     }];
   }
+  
+  NSLog(@"设置userAgent");
+  
   //加载网页
   [self.wkWebView loadRequest:urlRequest];
 }
@@ -814,7 +801,11 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
   self.URLString  = urlString;
   NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.URLString] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:self.timeoutInterval];
  
+  [self deleteHTTPCookie];
+  
   if (cookie.length > 0) {
+    
+   
     //添加自定义请求头
     NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
     NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
@@ -829,11 +820,10 @@ _ocjsHelper.scriptMessageHandlerName = _scriptMessageHandlerName;
       NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
       [cookieValue appendString:appendString];
     }
-    
     [urlRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
     
     NSLog(@"当前cookieValue:%@",cookieValue);
-    
+      
   }
   
   //加载网页

@@ -83,6 +83,17 @@
 //注入Cookie时的带填写对象
 @property(nonatomic,strong) MX5InjectionModel *injectionModel;
 
+
+//是否第一次出现未登录的情况
+@property(nonatomic) BOOL isFristNoLogin;
+
+//是否第一次登录成功的情况
+@property(nonatomic) BOOL isFristLoginSucc;
+
+
+//是否第一次注入
+@property(nonatomic) BOOL isOnceReLoad;
+
 @end
 
 @implementation MX5BrowserViewController
@@ -92,6 +103,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view.
+  
   
   [self webViewCache];
   
@@ -273,6 +285,9 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
   }
   
+  //重置第一次刷新
+  _isOnceReLoad = NO;
+  
   self.view.backgroundColor = [UIColor whiteColor];
   float bottomToolBarHight = (_isHideBottomToolBar == YES)?0:KBOTTOM_TOOL_BAR_HEIGHT;
   self.webView = [[MX5WebView alloc]initWithFrame:CGRectMake(0, kStatusBarHeight+kNavBarHeight, KScreenWidth, KScreenHeight-(kStatusBarHeight+kNavBarHeight) - bottomToolBarHight)];
@@ -414,7 +429,49 @@
   }
 
   [self updateNavigationItems:webView];
+  
+  
+  if (self.injectionModel.cookies.length > 0) {
+    
+    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
+    NSArray *array = [self.injectionModel.cookies componentsSeparatedByString:@";"];
+    for (NSString *key in array) {
+  
+      if (key.length > 0) {
+        NSString *appendString = [NSString stringWithFormat:@"document.cookie='%@;domain=.iqiyi.com;path=/';",key];
+        [cookieValue appendString:appendString];
+      }
+    }
+    
+    NSLog(@"js注入 cookieValue::%@",cookieValue);
+    NSString *jsCookie  = [NSString stringWithFormat:@"%@", cookieValue];
+    [self.webView evaluateJavaScript:jsCookie];
 
+    
+    if (_isOnceReLoad == NO) {
+      
+      [self loadWebURLSring:kIqiyiUserCenterVip];
+      [self webViewloadURLType];
+      
+      _isOnceReLoad = YES;
+      
+    }
+    
+  }
+  
+//
+//  if (_isFristLoginSucc == YES) {
+//
+//     NSString *cookieValue = [self getCurrHTTPCookie:@"http://m.iqiyi.com/u/"];
+//
+//    self.injectionModel.cookies = cookieValue;
+//
+//     [self saveUserCookie:self.webView withInjectionModel:self.injectionModel];
+//
+//    _isFristLoginSucc = NO;
+//
+//  }
+  
 }
 /**
  加载webView失败
@@ -480,38 +537,49 @@
     [webView evaluateJavaScript:js];
   }else if ([code isEqualToString:@"0006"] && [functionName isEqualToString:@"saveUserCookie"] ) {
     //已经登录，保存在该网站下的cookie
-    
      NSLog(@"已经登录");
-    
     //添加自定义请求头
-    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
-    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-      [cookieDic setObject:cookie.value forKey:cookie.name];
-    }
-    // cookie重复，先放到字典进行去重，再进行拼接
-    for (NSString *key in cookieDic) {
-      NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
-      [cookieValue appendString:appendString];
-    }
-   NSLog(@"cookieValue::%@",cookieValue);
-   // NSLog(@"cookieValue::%@",[self getCurrHTTPCookie:self.webURLSring]);
-    
-    self.injectionModel.cookies = [self getCurrHTTPCookie:self.webURLSring];
+      int64_t delayInSeconds = 10; // 延迟的时间
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-    [self saveUserCookie:self.webView withInjectionModel:self.injectionModel];
+        NSString *cookieValue = [self getCurrHTTPCookie:@"http://m.iqiyi.com/u/"];
+        if (cookieValue.length > 0) {
+          self.injectionModel.cookies = cookieValue;
+        }
+
+        if (_isFristNoLogin == YES) {
+          [self saveUserCookie:self.webView withInjectionModel:self.injectionModel];
+          _isFristNoLogin = NO;
+        }
+
+        NSLog(@"延迟 cookieValue::%@",cookieValue);
+      });
+
+
+
 
   }else if ([code isEqualToString:@"0007"] && [functionName isEqualToString:@"removeUserCookie"] ) {
     //未登录或者cookie过期，删除在该网站下的cookie
-    [self delUserCookie:self.webView withInjectionModel:self.injectionModel];
-    NSLog(@"未登录");
-  
+
     self.needInjectJS = YES;
     self.hiddenRightButtonItem = NO;
     self.isHideBottomToolBar = YES;
-    [self loadAutomaticLogin:kIqiyiLogin injectJSCode:_injectJSCode.length>0?_injectJSCode:JS_ZR_CODE];
+    
+    if (self.injectionModel.cookies.length == 0) {
+      
+     
+       [self loadAutomaticLogin:kIqiyiLogin injectJSCode:_injectJSCode.length>0?_injectJSCode:JS_ZR_CODE];
+      
+    }else{
+      
+      [self loadAutomaticLogin:kIqiyiLogin injectJSCode:_injectJSCode.length>0?_injectJSCode:JS_ZR_CODE];
+      [self delUserCookie:self.webView withInjectionModel:self.injectionModel];
+    }
+   
     [self webViewloadURLType];
+  
+    _isFristNoLogin = YES;
+    NSLog(@"未登录");
     
   }
   
@@ -920,7 +988,8 @@
   
   MX5BrowserURLCache *urlCache = (MX5BrowserURLCache *)[NSURLCache sharedURLCache];
   [urlCache removeAllCachedResponses];
-  [urlCache  clearHtmlCache];
+  
+  //[urlCache  clearHtmlCache];
   
   //删除沙盒自动生成的Cookies.binarycookies文件
   NSString *path = NSHomeDirectory();

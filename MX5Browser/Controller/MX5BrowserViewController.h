@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *username;      //登录名
 @property (nonatomic,copy) NSString *password;      //密码
 
+
+
 @end
 
 /**
@@ -173,6 +175,10 @@ typedef NS_ENUM(NSUInteger, MX5WebViewType){
  点击关闭web视图
  */
 -(void)closeItemClicked;
+/**
+ 删除HTTPCookie
+ */
+- (void)deleteHTTPCookie;
 
 NS_ASSUME_NONNULL_END
 
