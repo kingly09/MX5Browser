@@ -583,8 +583,10 @@
     
   }
   
+  [self currWebView:webView didReceiveScriptMessage:receiveScriptMessage];
   
 }
+
 
 /**
  获取当前URL的cookie信息
@@ -800,6 +802,19 @@
   
   
 }
+
+
+/**
+ 对外接受js反射对象
+
+ @param webView 当前浏览器
+ @param receiveScriptMessage js接受对象
+ */
+- (void)currWebView:(MX5WebView *)webView didReceiveScriptMessage:(NSDictionary *)receiveScriptMessage {
+  
+  
+}
+
 
 /**
  删除登录状态的cookie信息
