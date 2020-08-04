@@ -318,7 +318,6 @@
 				BC1D89FB1FB546CC00179FAE /* Frameworks */,
 				BC1D89FC1FB546CC00179FAE /* Resources */,
 				B3ABA547950EBF7C3E4ECB21 /* [CP] Embed Pods Frameworks */,
-				E413598A47C17C56572B2BED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -337,8 +336,6 @@
 				BC1D8A121FB546CC00179FAE /* Sources */,
 				BC1D8A131FB546CC00179FAE /* Frameworks */,
 				BC1D8A141FB546CC00179FAE /* Resources */,
-				32B76D131E80492BFF724312 /* [CP] Embed Pods Frameworks */,
-				557316EC086DDAEA8F486902 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -358,8 +355,6 @@
 				BC1D8A1D1FB546CC00179FAE /* Sources */,
 				BC1D8A1E1FB546CC00179FAE /* Frameworks */,
 				BC1D8A1F1FB546CC00179FAE /* Resources */,
-				39E2274033620182BB496353 /* [CP] Embed Pods Frameworks */,
-				EEFD38BF5C0479FBCD4A1678 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -448,51 +443,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		32B76D131E80492BFF724312 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOCTests/Pods-MX5BrowserOCTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		39E2274033620182BB496353 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		557316EC086DDAEA8F486902 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOCTests/Pods-MX5BrowserOCTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A36064599D05CF3F562F31B7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -517,7 +467,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/KYMenu/KYMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
@@ -532,7 +482,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C2FA3549046E92761DE5327B /* [CP] Check Pods Manifest.lock */ = {
@@ -569,36 +519,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E413598A47C17C56572B2BED /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOC/Pods-MX5BrowserOC-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEFD38BF5C0479FBCD4A1678 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MX5BrowserOCUITests/Pods-MX5BrowserOCUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
